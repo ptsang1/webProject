@@ -4,11 +4,35 @@
     <head>
         <title>Auction Website</title>
         <meta charset="utf-8">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="css/default.css">
     </head>
 
     <body>
-        <div id='container'>
+        <nav>
+            <div id="headerBar">
+                <div id="logoContainer">
+                    <a class="navbar-brand" href="#">
+                        <img id="logo" src="images/logo.png">
+                        <span id="line"></span>
+                        <span id="phasamique">Phasamique</span>
+                    </a>
+                </div>
+                <div id="searchContainer">
+                    <form action="/action_page.php">
+                        <input type="text" placeholder="Search" name="search">
+                        <button type="submit"><i class="fa fa-search"></i></button>
+                    </form>
+                </div>
+                <div id="rightContainer">
+                    <a id="signIn" href="#">
+                        Sign in
+                    </a>
+                </div>
+            </div>
+        </nav>
+        {{!-- <div id='container'>
 
             <div>
                 <div id='headerBar'>
@@ -18,10 +42,12 @@
                 </div>
             </div>
 
-        </div>
+        </div> --}}
 
         {{{body}}}
 
     </body>
-
+    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></>
 </html>
