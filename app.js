@@ -11,11 +11,13 @@ app.engine('hbs', exphbs({
 
 app.set('view engine', 'hbs');
 
-app.get('/', function(req, res){
+app.get('/', function(req, res) {
     res.render('home');
 });
-
+app.get('/login', function(req, res) {
+    res.render('login');
+});
 const PORT = 3000;
-app.listen(PORT, function(){
+app.listen(PORT, function() {
     console.log(`Server is running at http://localhost:${PORT}`);
 });
