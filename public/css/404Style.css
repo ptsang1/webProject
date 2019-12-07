@@ -1,0 +1,39 @@
+        body,
+        html {
+            height: 100%;
+            margin: 0;
+        }
+        
+        .bg {
+            background-image: url("images/4041.png");
+            /* Full height */
+            height: 100%;
+            /* Center and scale the image nicely */
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+        
+        .button {
+            background: #3498db;
+            width: 180px;
+            padding: 4px 0;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translateX(-50%) translateY(-50%);
+            border-radius: 3px;
+        }
+        
+        a,
+        p {
+            font-family: 'Open Sans', sans-serif;
+            text-align: center;
+            text-transform: uppercase;
+            color: #FFF;
+            user-select: none;
+        }
+        
+        a {
+            text-decoration: none;
+        }
