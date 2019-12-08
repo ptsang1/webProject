@@ -22,7 +22,18 @@ app.get('/login', function(req, res) {
 app.get('/register', function(req, res) {
     res.render('register');
 });
-
+app.get('/laptop-list', function(req, res) {
+    res.render('laptop-list');
+});
+app.get('/phone-list', function(req, res) {
+    res.render('phone-list');
+});
+app.get('/tablet-list', function(req, res) {
+    res.render('tablet-list');
+});
+app.get('/detail', function(req, res) {
+    res.render('detail');
+});
 app.use(function(req, res) {
     res.render('404', {
         layout: false
