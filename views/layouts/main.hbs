@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+
+    <head>
+        <title>Auction Website</title>
+        <meta charset="utf-8">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+        <link rel="stylesheet" href="css/mainStyle.css">
+    </head>
+
+    <body>
+        <nav>
+            <div id="headerBar">
+                <div id="logoContainer">
+                    <a class="navbar-brand" href="/">
+                        <img id="logo" src="images/logo.png">
+                        <span id="line"></span>
+                        <span id="phasamique">Phasamique</span>
+                    </a>
+                </div>
+                <div id="searchContainer">
+                    <form action="/action_page.php">
+                        <input type="text" placeholder="Tìm kiếm" name="search">
+                        <button type="submit"><i class="fa fa-search"></i></button>
+                    </form>
+                </div>
+                <div id="rightContainer">
+                    <a id="signIn" href="/login">
+                        Đăng nhập
+                    </a>
+                </div>
+            </div>
+        </nav>
+        {{{body}}}
+        <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <footer class="container py-5 justify-content-center">
+        <div class="footer-copyright py-3 text-center">
+            <div class="container-fluid">
+                &copy; 2019 Copyright: <a href="#"> WebTeam </a>
+            </div>
+        </div>
+    </footer>
+    </body>
+</html>
