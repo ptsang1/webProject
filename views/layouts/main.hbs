@@ -1,36 +1,55 @@
 <!DOCTYPE html>
 <html>
-
     <head>
         <title>Auction Website</title>
         <meta charset="utf-8">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
         <link rel="stylesheet" href="css/mainStyle.css">
+        <link rel="stylesheet" href="https://kybarg.github.io/bootstrap-dropdown-hover/assets/bootstrap-dropdownhover/css/animate.min.css">
         <link href="https://fonts.googleapis.com/css?family=Dancing+Script&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="https://kybarg.github.io/bootstrap-dropdown-hover/assets/bootstrap-dropdownhover/css/bootstrap-dropdownhover.min.css">
     </head>
 
     <body>
-        <div class="headerBarContainer">
-            <nav class="sticky-top">
+        <div class="headerBarContainer fixed-top">
+            <nav>
                 <div id="headerBar">
-                    <div id="logoContainer">
-                        <a class="navbar-brand" href="/">
-                            <img id="logo" src="images/logo.png">
-                            <span id="line"></span>
-                            <span id="phasamique">Phasamique</span>
-                        </a>
+                    <div class="btnHoverContainer">
+                        <button class="btn btn-default dropdown-toggle btnHover" type="button">
+                        </button>
+                        <div class="dropdown-content">
+                            <div class="blank"></div>
+                            <div class="menuDropdown">
+                                <a class="DDT" href="#">Đồ điện tử</a>
+                                <a href="#">About</a>
+                            </div>
+
+                            <div class="menuDDT">
+                                <a href="#">Điện thoại</a>
+                                <a href="#">Labtop</a>
+                            </div>
+                        </div>
                     </div>
-                    <div id="searchContainer">
-                        <form action="/action_page.php">
-                            <input type="text" placeholder="Tìm kiếm" name="search">
-                            <button type="submit"><i class="fa fa-search"></i></button>
-                        </form>
-                    </div>
-                    <div id="rightContainer">
-                        <a id="signIn" href="/login">
-                            Đăng nhập
-                        </a>
+                    <div id="centerContainer">
+                        <div id="logoContainer">
+                            <a class="navbar-brand" href="/">
+                                <img id="logo" src="images/logo.png">
+                                <span id="line"></span>
+                                <span id="phasamique">Phasamique</span>
+                            </a>
+                        </div>
+                        <div id="searchContainer">
+                            <form action="/action_page.php">
+                                <input type="text" placeholder="Tìm kiếm" name="search">
+                                <button type="submit"><i class="fa fa-search"></i></button>
+                            </form>
+                        </div>
+                        <div id="rightContainer">
+                            <a id="signIn" href="/login">
+                                Đăng nhập
+                            </a>
+                        </div>
                     </div>
                 </div>
             </nav>
@@ -64,13 +83,16 @@
                         </div>
                     </div>
                 </div>
-                <div class="container-fluid">
+                <div class="container-fluid copyright">
                     &copy; 2019 Copyright: <a href="#"> WebTeam </a>
                 </div>
-            </div>
-        </footer>
+            </footer>
+        </div>
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="https://kybarg.github.io/bootstrap-dropdown-hover/assets/bootstrap-dropdownhover/js/bootstrap-dropdownhover.js"></script>
+    <script src="https://kybarg.github.io/bootstrap-dropdown-hover/assets/bootstrap/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></br>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     </body>
 </html>

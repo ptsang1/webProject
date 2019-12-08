@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Auction Website</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/default.css">
+    <link rel="stylesheet" href="../css/login.css">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+
+    <meta name="description" content="" />
+    <meta name="Author" content="Dorin Grigoras [www.stepofweb.com]" />
+
+    <!-- mobile settings -->
+    <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1, user-scalable=0" />
+    <!--[if IE]><meta http-equiv='X-UA-Compatible' content='IE=edge,chrome=1'><![endif]-->
+
+    <!-- WEB FONTS : use %7C instead of | (pipe) -->
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600%7CRaleway:300,400,500,600,700%7CLato:300,400,400italic,600,700" rel="stylesheet" type="text/css" />
+
+    <!-- CORE CSS -->
+    <link href="assets/plugins/bootstrap/css/bootstrap.min.css" rel="stylesheet" type="text/css" />
+    
+    <!-- THEME CSS -->
+    <link href="assets/css/essentials.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/layout.css" rel="stylesheet" type="text/css" />
+
+    <!-- PAGE LEVEL SCRIPTS -->
+    <link href="assets/css/header-1.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/layout-shop.css" rel="stylesheet" type="text/css" />
+    <link href="assets/css/view-product.css" rel="stylesheet" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="assets/css/clock.css">
+    <!-- <link href="assets/css/color_scheme/green.css" rel="stylesheet" type="text/css" id="color_scheme" /> -->
+
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-md navbar-info bg-light ">
+            <!-- <a href="#" class="navbar-brand">Auction</a> -->
+            <a href="/" style="margin: 0 30px 0 15px; "><img src="./images/logo.jpg" height="50px" width="50px" alt="HOME"></a>
+            <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                <div class="navbar-nav">
+                    <a href="#" class="nav-item nav-link active">Home</a>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Categories</a>
+                        <div class="dropdown-menu">
+                            <a href="#" class="dropdown-item">Item 1</a>
+                            <a href="#" class="dropdown-item">Item 2</a>
+                            <a href="#" class="dropdown-item">Item 3</a>
+                        </div>
+                    </div>
+                </div>
+
+                <form class="form-inline mr-5">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search" style="width: 400px;">
+                        <div class="input-group-append">
+                            <button type="button" class="btn btn-secondary"><i class="fa fa-search"></i></button>
+                        </div>
+                    </div>
+                </form>
+                <div class="navbar-nav mr-5">
+                    <a href="127.0.0.1/login" class="nav-item nav-link">Login</a>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+
+    <!-- -->
+    <section>
+        <div class="container">
+            
+            <div class="row">
+            
+                <!-- IMAGE -->
+                <div class="col-lg-4 col-sm-4 product-image">
+                    
+                    <div>
+
+                        <!-- 
+                            IMAGE ZOOM 
+                            
+                            data-mode="mouseover|grab|click|toggle"
+                        -->
+                        <!-- <figure class="zoom">
+                        	<img class="img-fluid" src="/Users/nauqmac/Desktop/images/macbook16.jpeg" alt="...">
+                        </figure> -->
+                         <div class="card">
+                        	<img class="card-img" src="/Users/nauqmac/Desktop/images/mac1.png" height="350rem" alt="...">
+                   		 <div>
+                    </div>
+                 </div>
+
+                    </div>
+
+                    <!-- Thumbnails (required height:100px) -->
+                    <div style="display: flex;">
+                        <a class="thumbnail active" href="images/download.jpg">
+                        	<img src="/Users/nauqmac/Desktop/images/mac1.png" width="110rem" height="110rem" alt="...">
+                        </a>
+                        <a class="thumbnail" href="images/download.jpg">
+                        	<img src="/Users/nauqmac/Desktop/images/mac2.png" width="110rem" height="110rem" alt="...">
+                        </a>
+                        <a class="thumbnail" href="images/download.jpg">
+                        	<img src="/Users/nauqmac/Desktop/images/mac3.png" width="110rem" height="110rem" alt="...">
+                        </a>
+                    </div>
+                    <!-- /Thumbnails -->
+
+                </div>
+                <!-- /IMAGE -->
+
+                <!-- ITEM DESC -->
+                <div class="col-lg-5 col-sm-8">
+                    <section class="productTitle" >
+                        <h1 style="margin-bottom: 30px; display: inline-flex;">
+                            <span product-name>Macbook Pro 2019 MVVJ2</span>
+                            <span class="float-right text-success check-product"><i class="fa fa-check"></i> In Stock</span>
+                        </h1>
+                        <div class="row clock">
+                            <div class="col-md-1 clock-hour">
+                                <p><b>00</b></p>
+                            </div>
+                            <span><p><b>:</b></p></span>
+                            <div class="col-md-1 clock-minute">
+                                <p><b>00</b></p>
+                            </div>
+                            <span><p><b>:</b></p></span>
+                            <div class="col-md-1 clock-second">
+                                <p><b>00</b></p>
+                            </div>
+
+                        </div>
+
+                        <div class="row" id="bidInfo" style="margin-top: 60px; margin-bottom: 20px;">
+                            <div class="col-auto">
+                                <header class="smallUpperHeader titleSetForMobile">Current Bid:</header>
+                                      <main id="currentBidText" class="marginT10 customShadowBorder currentBidMobile bidAmount">
+                                        <span class="cBid">
+                                               
+                                
+                                15K ₫
+                                        </span></main>
+                            </div>
+                            <div>
+                                <header class="smallUpperHeader"> 
+                                Current Winner:
+                                </header>
+                                    <main >
+                                        <div >
+                                            <span>TNM</span>
+                                        </div></main>
+                            </div>
+                            <div class="clearfix"></div>
+                        </div>
+
+                    </section>
+
+                    <div class="bidDetailArea">
+                        <div class="right marginT15 noMarginMobile " style="margin-top: 20px;">
+                            <header class="smallUpperHeader placeBidTxt" id="bid">Place Your Bid:</header>
+                            <div class="info_data place_bid">
+
+                                <span class="bidding_box_fancy" style="display: inline-flex;">  
+                                    <span class="BidValue">
+                                        <div id="NewBidTxt" class="CustomSelect" basevalue="21.00">28K</div>
+                                    </span>
+
+                                    <button class="btn btn-primary product-bidding">ĐẤU GIÁ</button>
+                                </span>
+
+                                <div id="ContentPlaceHolder1_UpdatePanel1">
+                                    <p class="service_charge">Plus a 10% Service Charge</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <!-- /ITEM DESC -->
+
+                <!-- INFO -->
+                <div class="col-sm-4 col-md-3">
+
+                    <h4 class="fs-18">
+                        <i class="fa fa-paper-plane-o"></i> 
+                        MIỄN PHÍ GIAO HÀNG
+                    </h4>
+                    <p>Miễn phí giao hàng khu vực nội thành TP. HCM.</br>Những khu vực khác phí vận chuyển từ 49.000đ.</p>
+
+                    <h4 class="fs-18">
+                        <i class="fa fa-clock-o"></i>
+                        CHÍNH SÁCH HOÀN TRẢ 30 NGÀY
+                    </h4>
+                    <p>Được hoàn trả sản phẩm cho nhà cung cấp khi sản phẩm không đúng tiêu chuẩn.</p>
+
+                    <h4 class="fs-18">
+                        <i class="fa fa-users"></i> 
+                        NHÀ CUNG CẤP
+                    </h4>
+                    <p>PORNHUB.</p>
+                    <h4 class="fs-18">
+                        <i class="fa fa-star"></i> 
+                        ĐIỂM ĐÁNH GIÁ
+                    </h4>
+                    <div class="rating rating-5 fs-13 "></div>
+
+                    <hr>
+
+                    <p class="fs-15 ">
+                        Mọi chi tiết xin liên hệ qua đường dây nóng hỗ trợ
+                        <br>
+                        (84)-86-82-80-***
+                    </p>
+                </div>
+                <!-- /INFO -->
+
+            </div>
+
+            <ul id="myTab" class="nav nav-tabs nav-top-border mt-80" role="tablist">
+                <li class="nav-item"><a class="nav-link active" href="#description" data-toggle="tab">Description</a></li>
+                <li class="nav-item"><a class="nav-link" href="#specs" data-toggle="tab">Specifications</a></li>
+                <li class="nav-item"><a class="nav-link" href="#reviews" data-toggle="tab">Reviews (2)</a></li>
+            </ul>
+
+
+            <div class="tab-content pt-20" style="padding-bottom: 200px;">
+
+                <!-- DESCRIPTION -->
+                <div role="tabpanel" class="tab-pane active" id="description">
+Được thiết kế dành cho những người thách thức các giới hạn và thay đổi thế giới, MacBook Pro mới đến nay là máy tính xách tay mạnh mẽ nhất mà chúng tôi từng thực hiện. Với màn hình Retina 16 inch, bộ xử lý siêu tốc, đồ họa thế hệ tiếp theo, dung lượng pin lớn nhất từng có trong MacBook Pro, Bàn phím ma thuật mới và bộ lưu trữ lớn, nó là máy tính xách tay chuyên nghiệp tuyệt đỉnh cho người dùng cuối cùng.
+                </div>
+                
+                <!-- SPECIFICATIONS -->
+                <div role="tabpanel" class="tab-pane fade" id="specs">
+                    <div class="table-responsive">
+                        <table class="table table-hover">
+                            <thead>
+                                <tr>
+                                    <th>Thông số kỹ thuật</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Màu</td>
+                                    <td>Space Gray</td>
+                                </tr>
+                                <tr>
+                                    <td>CPU</td>
+                                    <td>2.6GHz 6‑core Intel Core i7, Turbo Boost up to 4.5GHz, with 12MB shared L3 cache</td>
+                                </tr>
+                                <tr>
+                                    <td>RAM</td>
+                                    <td>16GB of 2666MHz DDR4 onboard memory</td>
+                                </tr>
+                                <tr>
+                                    <td>Ổ cứng</td>
+                                    <td>512GB SSD PCIe</td>
+                                </tr>
+                                <tr>
+                                    <td>Màn hình</td>
+                                    <td>16‑inch (diagonal) LED‑backlit display with IPS technology</td>
+                                </tr>
+                                <tr>
+                                    <td>GPU</td>
+                                    <td>AMD Radeon Pro 5300M with 4GB of GDDR6 memory</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+                
+                <!-- REVIEWS -->
+                <div role="tabpanel" class="tab-pane fade" id="reviews">
+                    <!-- REVIEW ITEM -->
+                    <div class="block mb-60">
+
+                        <span class="user-avatar"><!-- user-avatar -->
+                            <img class="float-left media-object" src="assets/images/_smarty/avatar2.jpg" width="64" height="64" alt="">
+                        </span>
+
+                        <div class="media-body">
+                            <h4 class="media-heading fs-14">
+                                Hồ Tuấn Thanh &ndash; 
+                                <span class="text-muted">December 8, 2019 - 17:23</span> &ndash;
+                                <span class="fs-14 text-muted"><!-- stars -->
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                    <i class="fa fa-star"></i>
+                                </span>
+                            </h4>
+                            
+                            <p>
+                               Không có gì để chê. 
+                            </p>
+
+                        </div>
+
+                    </div>
+                    <!-- /REVIEW ITEM -->
+
+                    <!-- REVIEW ITEM -->
+                    <div class="block mb-60">
+
+                        <span class="user-avatar"><!-- user-avatar -->
+                            <img class="float-left media-object" src="assets/images/_smarty/avatar2.jpg" width="64" height="64" alt="">
+                        </span>
+
+                        <div class="media-body">
+                            <h4 class="media-heading fs-14">
+                                Ngô Ngọc Đăng Khoa &ndash; 
+                                <span class="text-muted">December 8, 2019 - 23:55</span> &ndash;
+                                <span class="fs-14 text-muted"><!-- stars -->
+                                    <i class="fa fa-star-o"></i>
+                                    <i class="fa fa-star-o"></i>
+                                    <i class="fa fa-star-o"></i>
+                                    <i class="fa fa-star-o"></i>
+                                    <i class="fa fa-star-o"></i>
+                                </span>
+                            </h4>
+                            
+                            <p>
+                                Deadline tới đít còn mua với bán !
+                            </p>
+
+                        </div>
+
+                    </div>
+                    <!-- /REVIEW ITEM -->
+
+
+                    <!-- REVIEW FORM -->
+                    <h4 class="page-header mb-40">ADD A REVIEW</h4>
+                    <form method="post" action="#" id="form">
+                        
+                        <div class="row mb-10">
+                            
+                            <div class="col-md-6 mb-10">
+                                <!-- Name -->
+                                <input type="text" name="name" id="name" class="form-control" placeholder="Name *" maxlength="100" required="">
+                            </div>
+                            
+                            <div class="col-md-6">
+                                <!-- Email -->
+                                <input type="email" name="email" id="email" class="form-control" placeholder="Email *" maxlength="100" required="">
+                            </div>
+                            
+                        </div>
+                        
+                        <!-- Comment -->
+                        <div class="mb-30">
+                            <textarea name="text" id="text" class="form-control" rows="6" placeholder="Comment" maxlength="1000"></textarea>
+                        </div>
+
+                        <!-- Stars -->
+                        <div class="product-star-vote clearfix">
+
+                            <label class="radio float-left">
+                                <input type="radio" name="product-review-vote" value="1" />
+                                <i></i> 1 Star
+                            </label>
+
+                            <label class="radio float-left">
+                                <input type="radio" name="product-review-vote" value="2" />
+                                <i></i> 2 Stars
+                            </label>
+
+                            <label class="radio float-left">
+                                <input type="radio" name="product-review-vote" value="3" />
+                                <i></i> 3 Stars
+                            </label>
+
+                            <label class="radio float-left">
+                                <input type="radio" name="product-review-vote" value="4" />
+                                <i></i> 4 Stars
+                            </label>
+
+                            <label class="radio float-left">
+                                <input type="radio" name="product-review-vote" value="5" />
+                                <i></i> 5 Stars
+                            </label>
+
+                        </div>
+
+                        <!-- Send Button -->
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Send Review</button>
+                        
+                    </form>
+                    <!-- /REVIEW FORM -->
+
+                </div>
+            </div>
+
+
+
+        </div>
+    </section>
+            <!-- / -->
+
+    <footer class="container py-5 justify-content-center">
+        <div class="footer-copyright py-3 text-center">
+            <div class="container-fluid">
+                &copy; 2019 Copyright: <a href="#"> WebTeam </a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+
+</html>

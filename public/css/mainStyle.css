@@ -1,5 +1,5 @@
 .bodyContainer{
-    background-color: #FAFAFA;
+    margin-top: 100px;
 }
 
 body{
@@ -7,7 +7,6 @@ body{
 }
 
 .headerBarContainer{
-    background-color: #FAFAFA !important;
     height: 77px;
     width: 100%;
 }
@@ -15,21 +14,32 @@ body{
 #headerBar{
     background-color: #FFFFFF;
     border-color: #000000;
+    border-bottom: 1px solid rgba(var(--b6a,219,219,219),1);
+    display: flex;
+    white-space: nowrap;
+    align-items: center;
+}
+#centerContainer{
     display: flex;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
-    padding: 0px 120px 0px 120px;
-    border-bottom: 1px solid rgba(var(--b6a,219,219,219),1);
-    margin-bottom: 30px;
+    padding: 0px 90px 0px 90px;
+    margin-right: 50px;
+    width: 100%;
 }
 
-#headerBar input[type=text] {
+#centerContainer input[type=text] {
     font-size: 17px;
     border: none;
-  }
-  
-#headerBar #searchContainer button {
+}
+
+.btn:focus{
+    outline: none;
+    box-shadow: none;
+}
+ 
+#centerContainer #searchContainer button {
     float: right;
     background: #FAFAFA;
     font-size: 17px;
@@ -37,39 +47,52 @@ body{
     cursor: pointer;
 }
  
-#headerBar #searchContainer button:hover {
+#centerContainer #searchContainer button:hover {
     background: #ccc;
 }
 
-#headerBar div{
+#centerContainer div{
     display: flex;
     align-items: center;
+    white-space: nowrap
 }
 
-#headerBar #logoContainer{
+#centerContainer #logoContainer{
     justify-content: flex-start;
+    align-self: center;
     width: auto;
 }
 
-#headerBar #logoContainer a{
+#centerContainer #logoContainer a{
     vertical-align: middle;
 }
 
-#headerBar #searchContainer {
-    flex-direction: column;
+#centerContainer #searchContainer {
+    justify-content: center;
     align-self: center;
+    width: auto;
 }
 
-#headerBar #rightContainer{
+#centerContainer #rightContainer{
     justify-content: flex-end;
+    width: auto;
 }
 
-#headerBar form{
-    display: table; 
+#centerContainer form{
+    display: flex; 
     border: 1px solid rgba(var(--b6a,219,219,219),1);
+    width: auto;
+    white-space: nowrap;
 }
 
-#headerBar #signIn{
+#centerContainer form input{
+    width: auto;
+    height: 30;
+    margin-left: 3px;
+}
+
+
+#centerContainer #signIn{
     color: #000000;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 20px;
@@ -84,7 +107,6 @@ body{
 }
 
 #phasamique {
-    z-index: 2;
     font-family: "Dancing Script";
     font-size: 32px;
     font-weight: 700;
@@ -114,12 +136,6 @@ body{
     text-align: center;
 }
 
-.footer{
-    display: flex;
-    flex-direction: row;
-    justify-content: space-around;
-}
-
 .footer .introduction #phasamique{
     font-weight: normal;
     font-size: 20px;
@@ -140,6 +156,7 @@ body{
     text-align: justify;
     vertical-align: center;
     display: flex;
+    flex-direction: row;
 }
 
 .footer .co2{
@@ -151,7 +168,6 @@ body{
 .footer .co2 .c2r2{
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
 }
 
 .footer .co2 .c2r2 .row1{
@@ -161,5 +177,89 @@ body{
 .footer .co2 .c2r2 .row2{
     display: flex;
     flex-direction: column;
-    margin-left: 30px;
+    margin-left: 50px;
+}
+
+.footer{
+    display: flex;
+    white-space: nowrap;
+}
+
+.btnHoverContainer .btn{
+    background-color: #FAFAFA;
+    text-align: center;
+    border: 1px solid rgba(var(--b6a,219,219,219),1);
+    width: 34px;
+    height: 34px;
+    padding: 0px;
+}
+
+.dropdown-toggle::after{
+    margin-left: 0px;
+}
+
+.btnHoverContainer{
+    margin-left: 15px;
+    vertical-align: middle;
+}
+
+.dropdown {
+    position: relative;
+    display: inline-block;
+  }
+.blank{
+    height: 13px;
+    background-color: #FFFFFF;
+    border-bottom: 1px solid rgba(var(--b6a,219,219,219),1);
+}
+.dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 100px;
+    z-index: 1;
+  }
+
+  .menuDDT {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 100px;
+    z-index: 1;
+    order: 1;
+  }
+
+  .menuDropdown{
+      order:1
+  }
+  
+  /* Links inside the dropdown */
+  .dropdown-content a {
+    color: black;
+    padding: 5px 25px;
+    text-decoration: none;
+    display: block;
+  }
+
+  .copyright{
+      margin-top: 20px;
+  }
+
+.dropdown-content a:hover {background-color: #ddd;}
+
+.btnHoverContainer:hover .dropdown-content {
+    display: block;
+}
+
+.dropdown-content a.DTT:hover>.menuDDT{
+    display: inline-flex;
+}
+
+.btnHoverContainer:hover .btn {
+    background-color: #FFFFFF;
+    border-bottom: 1px solid rgba(var(--b6a,255,255,255),1);
+}
+
+.btnHoverContainer:hover .dropdown-toggle::after{
+    vertical-align: bottom;
 }
