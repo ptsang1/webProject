@@ -1,47 +1,61 @@
 <!DOCTYPE html>
 <html>
 
-    <head>
-        <title>Auction Website</title>
-        <meta charset="utf-8">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-        <link rel="stylesheet" href="css/mainStyle.css">
-    </head>
+<head>
+    <title>Auction Website</title>
+    <meta charset="utf-8">
+    <link rel="stylesheet" href="css/default.css">
+    <link rel="stylesheet" href="../css/login.css">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+</head>
 
-    <body>
-        <nav>
-            <div id="headerBar">
-                <div id="logoContainer">
-                    <a class="navbar-brand" href="/">
-                        <img id="logo" src="images/logo.png">
-                        <span id="line"></span>
-                        <span id="phasamique">Phasamique</span>
-                    </a>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-md navbar-info bg-light ">
+            <a href="#" class="navbar-brand">Auction</a>
+            <div class="collapse navbar-collapse justify-content-between" id="navbarCollapse">
+                <div class="navbar-nav">
+                    <a href="#" class="nav-item nav-link active">Home</a>
+                    <div class="nav-item dropdown">
+                        <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown">Categories</a>
+                        <div class="dropdown-menu">
+                            <a href="#" class="dropdown-item">Item 1</a>
+                            <a href="#" class="dropdown-item">Item 2</a>
+                            <a href="#" class="dropdown-item">Item 3</a>
+                        </div>
+                    </div>
                 </div>
-                <div id="searchContainer">
-                    <form action="/action_page.php">
-                        <input type="text" placeholder="Tìm kiếm" name="search">
-                        <button type="submit"><i class="fa fa-search"></i></button>
-                    </form>
-                </div>
-                <div id="rightContainer">
-                    <a id="signIn" href="/login">
-                        Đăng nhập
-                    </a>
+
+                <form class="form-inline mr-5">
+                    <div class="input-group">
+                        <input type="text" class="form-control" placeholder="Search" style="width: 400px;">
+                        <div class="input-group-append">
+                            <button type="button" class="btn btn-secondary"><i class="fa fa-search"></i></button>
+                        </div>
+                    </div>
+                </form>
+                <div class="navbar-nav mr-5">
+                    <a href="127.0.0.1/login" class="nav-item nav-link">Login</a>
                 </div>
             </div>
         </nav>
-        {{{body}}}
-        <footer class="container py-5 justify-content-center">
+    </header>
+    {{{body}}}
+
+    <footer class="container py-5 justify-content-center">
         <div class="footer-copyright py-3 text-center">
             <div class="container-fluid">
                 &copy; 2019 Copyright: <a href="#"> WebTeam </a>
             </div>
         </div>
     </footer>
-    </body>
-    <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></>
+
+</body>
+
 </html>
