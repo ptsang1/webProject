@@ -63,9 +63,41 @@
 .service_charge {
 	font-size: 11px;
 	padding-top: 10px;
+	padding-left: 8px;
 
 }
 
 .thumbnail {
 	width: 360px;
+}
+
+
+.product-name {
+	font-size: x-large;
+	padding-bottom: 15px;
+}
+
+.check-product {
+	font-size: large;
+	padding-top: 15px;
+
+}
+
+.productTitle{
+	padding-bottom: 10px; 
+	padding-top: 30px;
+}
+
+.product-image {
+	padding-top: 10px;
+	padding-bottom: 20px;
+}
+
+.relative {
+	padding: 20px 0 20px 25px;
+}
+ 
+div.image-thumbnails {
+	display: inline-flex;
+	padding-top: 20px;
 }
