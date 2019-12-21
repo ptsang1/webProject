@@ -16,11 +16,11 @@ app.get('/', function(req, res) {
 });
 
 app.get('/login', function(req, res) {
-    res.render('login');
+    res.render('login', {layout: false});
 });
 
-app.get('/register', function(req, res) {
-    res.render('register');
+app.get('/signup', function(req, res) {
+    res.render('register', {layout: false});
 });
 app.get('/laptop-list', function(req, res) {
     res.render('laptop-list');

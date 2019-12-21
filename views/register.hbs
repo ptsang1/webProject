@@ -1,48 +1,64 @@
-<link rel="stylesheet" href="css/login.css">
-<div class="container-fluid h-100">
-        <div id="login bg-dark rounded text-dark ">
-            <div class="container ">
-                <div id="login-row " class="row justify-content-center align-items-center ">
-                    <div id="login-column " class="col-md-6 ">
-                        <div id="login-box " class="col-md-12 ">
-                            <form id="login-form " class="form " action=" " method="post ">
-                                <h3 class="text-center text-dark ">Register</h3>
-                                <div class="form-group ">
-                                    <label for="fullname " class="text-dark ">Fullname:</label>
-                                    <input type="text " name="fullname " id="fullname " class="form-control ">
-                                </div>
-                                <div class="form-group ">
-                                    <label for="username " class="text-dark ">Username:</label>
-                                    <input type="text " name="username " id="username " class="form-control ">
-                                </div>
-                                <div class="form-group ">
-                                    <label for="password " class="text-dark ">Password:</label>
-                                    <input type="text " name="password " id="password " class="form-control ">
-                                </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Sign in</title>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+	<link rel="stylesheet" href="css/signIn.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+</head>
+<body>
 
-                                <div class="form-group ">
-                                    <label for="email " class="text-dark ">Email:</label>
-                                    <div class="input-group-prepend">
-                                        <input type="email " class="form-control " name="email " id="email " aria-describedby="emailHelpId " placeholder=" ">
-                                        <div class="input-group-prepend">
-                                            <span class="input-group-text">@</span>
-                                        </div>
-                                        <input type="email-last" class="form-control w-25" name="email-last" id="email-last" aria-describedby="emailHelpId" placeholder=" ">
-                                    </div>
-                                </div>
-                                <div class="form-group ">
-                                    <label for="address " class="text-dark ">Address:</label>
-                                    <input type="text " name="address " id="address " class="form-control ">
-                                </div>
-                                <div class="g-recaptcha " data-sitekey="6LdilMYUAAAAADuF5jx7z3k9DQjEB7-n16oLUjR- " style="display: flex;justify-content:center; "></div>
-                                <div class="form-group mt-2 ">
-                                    <input type="submit " name="Login " class="btn btn-info btn-md w-100 " value="Login ">
-                                </div>
-                            </form>
-                        </div>
+	<div class="main">
+		        <section class="signup">
+            <div class="container">
+                <div class="signup-content">
+                    <div class="signup-image">
+                        <a href="/"><img src="images/signIn.jpg" alt="sing up image"></a>
+                        <a href="/login" class="signup-image-link">Bạn đã có tài khoản?</a>
                     </div>
+                    <div class="signup-form">
+                        <h2 class="form-title">Đăng ký</h2>
+                        <form method="POST" class="register-form" id="register-form">
+                            <div class="form-group">
+                                <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                                <input type="text" name="name" id="name" placeholder="Họ và tên"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="email"><i class="zmdi zmdi-email"></i></label>
+                                <input type="email" name="email" id="email" placeholder="Email"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="pass"><i class="zmdi zmdi-lock"></i></label>
+                                <input type="password" name="pass" id="pass" placeholder="Mật khẩu"/>
+                            </div>
+                            <div class="form-group">
+                                <label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label>
+                                <input type="password" name="re_pass" id="re_pass" placeholder="Xác nhận lại mật khẩu"/>
+                            </div>
+                            <div class="form-group">
+                                <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
+                                <label for="agree-term" class="label-agree-term"><span><span></span></span>
+                                    Bạn chấp nhận với tất cả <a href="#" class="term-service">điều khoản dịch vụ</a></label>
+                            </div>
+                            <div class="form-group form-btn">
+                                <input type="submit" name="signup" id="signup" class="form-submit btn" value="Đăng ký"/>
+                            </div>
+                        </form>
+                    </div>
+
                 </div>
             </div>
-        </div>
-    </div>
-     <script src='https://www.google.com/recaptcha/api.js'></script>
+        </section>
+	</div>
+
+	<div id="dropDownSelect1"></div>
+	<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<!--===============================================================================================-->
+	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+<!--===============================================================================================-->
+	<script src="js/signIn.js"></script>
+
+</body>
+</html>
