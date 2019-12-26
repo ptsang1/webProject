@@ -314,7 +314,7 @@ figure {
   .form-group:last-child {
     margin-bottom: 0px; }
 
-input {
+input, select {
   width: 100%;
   display: block;
   border: none;
