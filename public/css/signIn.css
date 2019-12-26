@@ -261,13 +261,14 @@ body {
   overflow: hidden; }
 
 .signup-image {
-  margin: 0 55px; }
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  margin-left: 75px;
+}
 
 .form-title {
   margin-bottom: 33px; }
-
-.signup-image {
-  margin-top: 45px; }
 
 figure {
   margin-bottom: 50px;
