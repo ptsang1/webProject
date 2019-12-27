@@ -34,6 +34,9 @@ app.get('/tablet-list', function(req, res) {
 app.get('/detail', function(req, res) {
     res.render('detail');
 });
+app.get('/about', function(req, res) {
+    res.render('about');
+});
 app.use(function(req, res) {
     res.render('404', {
         layout: false
