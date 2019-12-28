@@ -51,6 +51,9 @@ app.get('/err', function (req, res) {
     throw new Error('beng beng');
 })
 
+app.get('/about', function(req, res) {
+    res.render('about');
+});
 app.use(function(req, res) {
     res.render('404', {
         layout: false
