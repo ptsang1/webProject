@@ -4,7 +4,6 @@ const util = require('util');
 const pool = mysql.createPool({
     connectionLimit: 100,
     host: 'webprojectdb.cemjothahgv9.ap-southeast-1.rds.amazonaws.com',
-
     port: 3306,
     user: 'ptsang',
     password: '123123123',
@@ -16,6 +15,21 @@ const pool_query = util.promisify(pool.query).bind(pool);
 module.exports = {
     load: query => pool_query(query),
     add: (entity, table) => pool_query(`insert into ${table} set ?`, entity),
+    updateValue: (table, list, cond) => {
+        query = `UPDATE ${table} SET `;
+        let values = [];
+        for (let attribute in list){
+            query += att + " = ?";
+            values.push(list[attribute]);
+        }
+        if (cond){
+            for (let attribute in cond){
+                query += att + " = ?";
+                values.push(list[attribute]);
+            }
+        }
+        pool_query(query, values);
+    }
     // load: (queryString, fn_done) => {
     //     connection.connect();
     //     connection.query(queryString, function(error, results, fields) {
