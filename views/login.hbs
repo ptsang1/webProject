@@ -1,69 +1,53 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<title>Sign in</title>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+{{#section 'title'}}
+	<title>Login</title>
+{{/section}}
+
+{{#section 'css'}}
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
 	<link rel="stylesheet" href="css/signIn.css">
-        <link rel="stylesheet" href="signInUtil.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
+{{/section}}
 
-</head>
-<body>
-	
-	<div class="main">
-		<section class="sign-in">
-            <div class="container">
-                <div class="signin-content">
-                    <div class="signin-image">
-                        <a href="/"><img src="images/signIn.jpg" alt="sing up image"></a>
-                        <a href="/" class="signup-image-link">Bạn quên mật khẩu?</a>
-                        <a href="/signup" class="signup-image-link">Bạn chưa có tài khoản?</a>
-                    </div>
-
-                    <div class="signin-form">
-                        <h2 class="form-title">Đăng nhập</h2>
-                        <form method="POST" class="register-form" id="login-form">
-                            <div class="form-group">
-                                <label for="your_name"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                                <input type="text" name="your_name" id="your_name" placeholder="Tài khoản"/>
-                            </div>
-                            <div class="form-group">
-                                <label for="your_pass"><i class="zmdi zmdi-lock"></i></label>
-                                <span class="btn-show-pass">
-							        <i class="zmdi zmdi-eye"></i>
-						        </span>
-                                <input type="password" name="your_pass" id="your_pass" placeholder="Mật khẩu"/>
-                            </div>
-                            <div class="form-group">
-                                <input type="checkbox" name="remember-me" id="remember-me" class="agree-term" />
-                                <label for="remember-me" class="label-agree-term"><span><span></span></span>Ghi nhớ đăng nhập</label>
-                            </div>
-                            <div class="form-btn form-group">
-                                <input type="submit" name="signin" id="signin" class="form-submit" value="Đăng nhập"/>
-                            </div>
-                        </form>
-                        <div class="social-login">
-                            <span class="social-label">Đăng nhập với</span>
-                            <ul class="socials">
-                                <li><a href="#"><i class="display-flex-center zmdi zmdi-facebook"></i></a></li>
-                                <li><a href="#"><i class="display-flex-center zmdi zmdi-twitter"></i></a></li>
-                                <li><a href="#"><i class="display-flex-center zmdi zmdi-google"></i></a></li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
-	</div>
-	
-	<div id="dropDownSelect1"></div>
+{{#section 'js'}}
 	<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<!--===============================================================================================-->
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-<!--===============================================================================================-->
 	<script src="js/signIn.js"></script>
+{{/section}}
 
-</body>
-</html>
+<div class="signin-content">
+    <div class="signin-image">
+        <a href="/"><img src="images/signIn.jpg" alt="sing up image"></a>
+        <a href="/" class="signup-image-link">Bạn quên mật khẩu?</a>
+        <a href="/signup" class="signup-image-link">Bạn chưa có tài khoản?</a>
+    </div>
+    <div class="signin-form">
+        <h2 class="form-title">Đăng nhập</h2>
+        <form method="POST" class="login-form" id="login-form">
+            <div class="form-group">
+                <label for="email"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                <input type="text" name="email" id="email" placeholder="Tài khoản (Email)" required/>
+            </div>
+            <div class="form-group">
+                <label for="password"><i class="zmdi zmdi-lock"></i></label>
+                <span class="btn-show-pass">
+                    <i class="zmdi zmdi-eye"></i>
+                </span>
+                <input type="password" name="password" id="password" placeholder="Mật khẩu" required/>
+            </div>
+            <div class="form-group">
+                <input type="checkbox" name="remember-me" id="remember-me" class="agree-term" />
+                <label for="remember-me" class="label-agree-term"><span><span></span></span>Ghi nhớ đăng nhập</label>
+            </div>
+            <div class="form-btn form-group">
+                <input type="submit" name="signin" id="signin" class="form-submit" value="Đăng nhập"/>
+            </div>
+        </form>
+        <div class="social-login">
+            <span class="social-label">Đăng nhập với</span>
+            <ul class="socials">
+                <li><a href="#"><i class="display-flex-center zmdi zmdi-facebook"></i></a></li>
+                <li><a href="#"><i class="display-flex-center zmdi zmdi-twitter"></i></a></li>
+                <li><a href="#"><i class="display-flex-center zmdi zmdi-google"></i></a></li>
+            </ul>
+        </div>
+    </div>
+</div>

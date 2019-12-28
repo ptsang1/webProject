@@ -1,0 +1,9 @@
+{
+    "authentication": {
+        "salt": 10
+    },
+    "mail": {
+        "username": "phasamique",
+        "password": "695930599"
+    }
+}

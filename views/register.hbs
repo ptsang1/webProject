@@ -1,80 +1,96 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-	<title>Sign in</title>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1">
+{{#section 'title'}}
+	<title>Sign up</title>
+{{/section}}
+
+{{#section 'css'}}
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
 	<link rel="stylesheet" href="css/signIn.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
-</head>
-<body>
+{{/section}}
 
-	<div class="main">
-		        <section class="signup">
-            <div class="container">
-                <div class="signup-content">
-                    <div class="signup-image">
-                        <a href="/"><img src="images/signIn.jpg" alt="sing up image"></a>
-                        <a href="/login" class="signup-image-link">Bạn đã có tài khoản?</a>
-                    </div>
-                    <div class="signup-form">
-                        <h2 class="form-title">Đăng ký</h2>
-                        <form method="POST" class="register-form" id="register-form">
-                            <div class="form-group">
-                                <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
-                                <input type="text" name="name" id="name" placeholder="Họ và tên"/>
-                            </div>
-                            <div class="form-group">
-                                <label for="gender"><i class="zmdi zmdi-male-female"></i></label>
-                                
-                                <select class="form-control form-control-lg" id="gender" name="gender" required="">
-                                    <option value="" disabled selected>Giới tính</option>
-                                    <option value="0">Nữ</option>
-                                    <option value="1">Nam</option></select>
-                            </div>
-                            <div class="form-group">
-                                <label for="birthday"><i class="zmdi zmdi-cake"></i></label>
-                                <input id="name" name="birthday" required="" type="date" value="">
-                            </div>
-                            <div class="form-group">
-                                <label for="address"><i class="zmdi zmdi-home"></i></label>
-                                <input type="text" name="address" id="address" placeholder="Địa chỉ"/>
-                            </div>
-                            <div class="form-group">
-                                <label for="email"><i class="zmdi zmdi-email"></i></label>
-                                <input type="email" name="email" id="email" placeholder="Email"/>
-                            </div>
-                            <div class="form-group">
-                                <label for="pass"><i class="zmdi zmdi-lock"></i></label>
-                                <input type="password" name="pass" id="pass" placeholder="Mật khẩu"/>
-                            </div>
-                            <div class="form-group">
-                                <label for="re-pass"><i class="zmdi zmdi-lock-outline"></i></label>
-                                <input type="password" name="re_pass" id="re_pass" placeholder="Xác nhận lại mật khẩu"/>
-                            </div>
-                            <div class="form-group">
-                                <input type="checkbox" name="agree-term" id="agree-term" class="agree-term" />
-                                <label for="agree-term" class="label-agree-term"><span><span></span></span>
-                                    Bạn chấp nhận với tất cả <a href="#" class="term-service">điều khoản dịch vụ</a></label>
-                            </div>
-                            <div class="form-group form-btn">
-                                <input type="submit" name="signup" id="signup" class="form-submit" value="Đăng ký"/>
-                            </div>
-                        </form>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-	</div>
-
-	<div id="dropDownSelect1"></div>
+{{#section 'js'}}
 	<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-<!--===============================================================================================-->
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-<!--===============================================================================================-->
 	<script src="js/signIn.js"></script>
+{{/section}}
 
-</body>
-</html>
+<div class="signup-content">
+    <div class="signup-image">
+        <a href="/"><img src="images/signIn.jpg" alt="sing up image"></a>
+        <a href="/login" class="signup-image-link">Bạn đã có tài khoản?</a>
+    </div>
+    <div class="signup-form">
+        <h2 class="form-title">Đăng ký</h2>
+        <form method="POST" name="register-form" onsubmit="return validate()" class="register-form" id="register-form">
+            <div class="form-group">
+                <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
+                <span class="warning">
+                    <i class="zmdi zmdi-alert-octagon"></i>
+                </span>
+                <input type="text" name="name" id="name" placeholder="Họ và tên" required/>
+            </div>
+            <div class="form-group">
+                <label for="gender"><i class="zmdi zmdi-male-female"></i></label>
+                <span class="warning">
+                    <i class="zmdi zmdi-alert-octagon"></i>
+                </span>
+                <select class="form-control form-control-lg" id="gender" name="gender" required/>
+                    <option value="" disabled selected>Giới tính</option>
+                    {{#if this.empty}}
+                        <option value="0">Nữ</option>
+                        <option value="1">Nam</option>
+                    {{else}}
+                        {{#each this.genders}}
+                        <option value="{{genderID}}">{{genderName}}</option>
+                        {{/each}}
+                    {{/if}}
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="birthday"><i class="zmdi zmdi-cake"></i></label>
+                <span class="warning">
+                    <i class="zmdi zmdi-alert-octagon"></i>
+                </span>
+                <input id="birthday" name="birthday" required="" type="date" value="" required/>
+            </div>
+            <div class="form-group">
+                <label for="address"><i class="zmdi zmdi-home"></i></label>
+                <span class="warning">
+                    <i class="zmdi zmdi-alert-octagon"></i>
+                </span>
+                <input type="text" name="address" id="address" placeholder="Địa chỉ" required/>
+            </div>
+            <div class="form-group">
+                <label for="email"><i class="zmdi zmdi-email"></i></label>
+                <span class="warning">
+                    <i class="zmdi zmdi-alert-octagon"></i>
+                </span>
+                <input type="text" name="email" id="email" placeholder="Email" required/>
+            </div>
+            <div class="form-group">
+                <label for="password"><i class="zmdi zmdi-lock"></i></label>
+                <span class="warning">
+                    <i class="zmdi zmdi-alert-octagon"></i>
+                </span>
+                <input type="password" name="password" id="password" placeholder="Mật khẩu" required/>
+            </div>
+            <div class="form-group">
+                <label for="confirm_password"><i class="zmdi zmdi-lock-outline"></i></label>
+                <span class="warning">
+                    <i class="zmdi zmdi-alert-octagon"></i>
+                </span>
+                <input type="password" name="confirm_password" id="confirm_password" placeholder="Xác nhận lại mật khẩu" required/>
+            </div>
+            <div class="form-group">
+                <input type="checkbox" name="agree-term" id="agree-term" class="agree-term"/>
+                <span class="warning">
+                    <i class="zmdi zmdi-alert-octagon"></i>
+                </span>
+                <label for="agree-term" class="label-agree-term"><span><span></span></span>
+                    Bạn chấp nhận với tất cả <a href="#" class="term-service">điều khoản dịch vụ</a></label>
+            </div>
+            <div class="form-group form-btn">
+                <input type="submit" name="signup" id="signup" class="form-submit" value="Đăng ký"/>
+            </div>
+        </form>
+    </div>
+</div>

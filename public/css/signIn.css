@@ -659,3 +659,19 @@ label.valid {
   color: -moz-linear-gradient(left, #21d4fd, #b721ff);
   color: linear-gradient(left, #21d4fd, #b721ff);
 }
+
+.warning{
+  display: none;
+  font-size: 15px;
+  position: absolute;
+  height: 100%;
+  top: 0;
+  right: 0;
+  padding-right: 5px;
+  cursor: pointer;
+  color: #ff0f3f;
+}
+
+.btn-show-pass:hover{
+  color: red;
+}
