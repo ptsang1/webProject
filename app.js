@@ -8,7 +8,7 @@ const app = express();
 app.use(express.static('public'));
 app.use(express.urlencoded({
     extended: true
-  }));
+}));
 // app.use(express.static('utils'));
 // app.use(express.static('routes'));
 
@@ -16,7 +16,7 @@ app.engine('hbs', exphbs({
     defaultLayout: 'main.hbs',
     helpers: {
         section: hbs_sections()
-        // format: val => numeral(val).format('0.0')
+            // format: val => numeral(val).format('0.0')
     }
 }));
 
@@ -28,8 +28,8 @@ app.get('/', function(req, res) {
     res.render('home');
 });
 
-app.get('/login', function(req, res) { 
-    res.render('login', {layout: 'signin_signup.hbs', template: 'signin.hbs' });
+app.get('/login', function(req, res) {
+    res.render('login', { layout: 'signin_signup.hbs', template: 'signin.hbs' });
 });
 
 app.get('/laptop-list', function(req, res) {
@@ -44,10 +44,13 @@ app.get('/tablet-list', function(req, res) {
 app.get('/detail', function(req, res) {
     res.render('detail');
 });
+app.get('/add', function(req, res) {
+    res.render('add');
+});
 
 app.use('/signup', require('./routes/signup.route'))
 
-app.get('/err', function (req, res) {
+app.get('/err', function(req, res) {
     throw new Error('beng beng');
 })
 
@@ -60,7 +63,7 @@ app.use(function(req, res) {
     });
 })
 
-app.use(function (err, req, res, next) {
+app.use(function(err, req, res, next) {
     console.log(err);
     res.send('error');
 })
