@@ -1,0 +1,73 @@
+<link rel="stylesheet" href="css/profile.css">
+<div class="container-fluid">
+    <div class="profile-pane">
+            <div class="sidebar">
+                <h1> My Account</h1>
+                <ul>
+                    <li id="viewInfoLink" style="font-weight: 700;"><a href="profile" onclick="viewInfo()">Thông tin tài khoản</a></li>
+                    <li id="viewSettingLink" ><a href="profile/settingProfile" onclick="viewSetting()">Đổi mật khẩu</a></li>
+                    <li><a href="#">Sản phẩm</a href="profile/productProfile"></li>
+                </ul>
+            </div>
+            <div class="info-pane" id="infoAccount">
+
+                <h1>Hello Phát</h1>
+                <form method="POST">
+                    <div class="form-group">
+                        <label for="name">Họ và Tên </label>
+                        <input type="text" name="name" id="name" value="Ngô Văn Phát" readonly/>
+                        <a href="#" id="editLink">Chỉnh sửa</a>
+                    </div>
+                    <div class="form-group">
+                        <label for="gender">Giới tính </label>
+                        <input type="text" name="gender" id="gender" value="Nam" readonly/>
+                        <a href="#" id="editLink">Chỉnh sửa</a>
+                    </div>
+                    <div class="form-group">
+                        <label for="birthday">Ngày sinh </label>
+                        <input id="birthday" name="birthday" required="" type="text" value="22/09/1999" readonly>
+                        <a href="#"  id="editLink">Chỉnh sửa</a>
+                    </div>
+                    <div class="form-group">
+                        <label for="address">Địa chỉ </label>
+                        <input type="text" name="address" id="address" value="Quận 8, Thành Phố Hồ Chí Minh" readonly />
+                        <a href="#" id="editLink">Chỉnh sửa</a>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email </label>
+                        <input type="email" name="email" id="email" value="1753082@student.hcmus.edu.vn" readonly />
+                        <a href="#" id="editLink">Chỉnh sửa</a>
+                    </div>
+                    <div class="form-group">
+                        <label for="pass">Mật khẩu </label>
+                        <input type="password" name="pass" id="pass" value="**************" readonly/>
+                        <a href="#" id="editLink">Chỉnh sửa</a>
+                    </div>
+                </form>
+                <button class="buttonEdit" id="editbtn" onclick="showEditable()" type="button">Chỉnh sửa</button>
+                <button class="buttonEdit" id="cancelbtn" onclick="cancel()" type="button">Hủy</button>
+            </div>
+    </div>
+</div>
+<script>
+    function showEditable() {
+        let links = document.querySelectorAll('#editLink');
+        for(let link of links){
+            if(link.style.display===""){
+            link.style.display="block";
+            }
+        }
+        let button = document.getElementById("cancelbtn");
+        button.style.display="inline";
+    }
+    function cancel(){
+        let links = document.querySelectorAll('#editLink');
+        for(let link of links){ 
+            if(link.style.display!==""){
+            link.style.display="";
+            }
+        }
+        let button = document.getElementById("cancelbtn");
+        button.style.display="";
+    }
+</script>

@@ -1,26 +1,27 @@
-.bodyContainer{
+.bodyContainer {
     margin-top: 100px;
 }
 
-body{
+body {
     background-color: #FAFAFA;
-    font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji" !important;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji" !important;
 }
 
-.headerBarContainer{
+.headerBarContainer {
     height: 77px;
     width: 100%;
 }
 
-#headerBar{
+#headerBar {
     background-color: #FFFFFF;
     border-color: #000000;
-    border-bottom: 1px solid rgba(var(--b6a,219,219,219),1);
+    border-bottom: 1px solid rgba(var(--b6a, 219, 219, 219), 1);
     display: flex;
     white-space: nowrap;
     align-items: center;
 }
-#centerContainer{
+
+#centerContainer {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -38,11 +39,11 @@ body{
     font-weight: 400 !important;
 }
 
-.btn:focus{
+.btn:focus {
     outline: none;
     box-shadow: none;
 }
- 
+
 #centerContainer #searchContainer button {
     float: right;
     background: #FAFAFA;
@@ -50,24 +51,24 @@ body{
     border: none;
     cursor: pointer;
 }
- 
+
 #centerContainer #searchContainer button:hover {
     background: #ccc;
 }
 
-#centerContainer div{
+#centerContainer div {
     display: flex;
     align-items: center;
     white-space: nowrap
 }
 
-#centerContainer #logoContainer{
+#centerContainer #logoContainer {
     justify-content: flex-start;
     align-self: center;
     width: auto;
 }
 
-#centerContainer #logoContainer a{
+#centerContainer #logoContainer a {
     vertical-align: middle;
     display: flex;
     align-items: center;
@@ -79,40 +80,39 @@ body{
     width: auto !important;
 }
 
-#centerContainer #rightContainer{
+#centerContainer #rightContainer {
     justify-content: flex-end !important;
     width: auto !important;
     margin-right: 50px;
     padding-left: 60px;
 }
 
-#centerContainer form{
-    display: flex !important; 
-    border: 1px solid rgba(var(--b6a,219,219,219),1);
+#centerContainer form {
+    display: flex !important;
+    border: 1px solid rgba(var(--b6a, 219, 219, 219), 1);
     width: auto !important;
     white-space: nowrap !important;
     margin: 0 !important;
 }
 
-#centerContainer form input{
-    width: auto !important; 
+#centerContainer form input {
+    width: auto !important;
     height: auto !important;
     margin: 0.5px 0px 0.5px 3px !important;
     vertical-align: middle;
 }
 
-#centerContainer form input:focus{
+#centerContainer form input:focus {
     outline: none !important;
 }
 
-#centerContainer #signIn{
+#centerContainer #signIn {
     color: #000000;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 20px;
 }
 
-
-#logo{
+#logo {
     width: 35px;
     height: 35px;
     background-color: #FFFFFF;
@@ -126,7 +126,7 @@ body{
     color: #000000;
 }
 
-#logoContainer a #phasamique{
+#logoContainer a #phasamique {
     width: 162px;
     height: 48px;
     /* margin-left: 2px;
@@ -141,29 +141,30 @@ body{
     margin: 0px 10px 0px 10px;
 }
 
-.footerContainer{
+.footerContainer {
     margin-top: 30px;
     background-color: #EEEEF0;
     padding: 30px 50px 30px 50px;
     text-align: center;
 }
 
-.footer .introduction #phasamique{
+.footer .introduction #phasamique {
     font-weight: normal;
     font-size: 20px;
 }
-.footer .introduction{
+
+.footer .introduction {
     font-weight: normal;
     font-size: 15px;
     display: flex;
     flex-direction: column;
 }
 
-.footer .introduction div{
+.footer .introduction div {
     display: inline-block;
 }
 
-.footer div{
+.footer div {
     background-color: #EEEEF0;
     text-align: justify;
     vertical-align: center;
@@ -171,49 +172,51 @@ body{
     flex-direction: row;
 }
 
-.footer .co2{
+.footer .co2 {
     display: flex;
     flex-direction: column;
     margin-left: 30px;
 }
 
-.footer .co2 .c2r2{
+.footer .co2 .c2r2 {
     display: flex;
     flex-direction: row;
 }
 
-.footer .co2 .c2r2 .row1{
+.footer .co2 .c2r2 .row1 {
     display: flex;
     flex-direction: column;
 }
-.footer .co2 .c2r2 .row2{
+
+.footer .co2 .c2r2 .row2 {
     display: flex;
     flex-direction: column;
     margin-left: 50px;
 }
 
-.footer{
+.footer {
     display: flex;
     white-space: nowrap;
 }
 
-.btnHoverContainer .btn{
+.btnHoverContainer .btn {
     background-color: #FAFAFA;
     text-align: center;
-    border: 1px solid rgba(var(--b6a,219,219,219),1);
+    border: 1px solid rgba(var(--b6a, 219, 219, 219), 1);
     width: 35px;
     height: 35px;
     padding: 0px;
 }
 
-.dropdown-toggle::after{
+.dropdown-toggle::after {
     margin-left: 0px;
 }
 
-.btnHoverContainer{
+.btnHoverContainer {
     margin-left: 15px;
     vertical-align: middle;
 }
+
 
 /* .dropdown {
     position: relative;
@@ -225,73 +228,77 @@ body{
     position: absolute;
     min-width: 100px;
     z-index: 1;
-  }
+}
 
 .about {
     background-color: #f1f1f1;
 }
 
-  .menuDDT {
+.menuDDT {
     display: none;
     position: relative;
     background-color: #f1f1f1;
     min-width: 100px;
     z-index: 1;
     order: 1;
-  }
-  
-  /* Links inside the dropdown */
-  .dropdown-content a {
+}
+
+
+/* Links inside the dropdown */
+
+.dropdown-content a {
     color: black;
     padding: 5px 25px;
     text-decoration: none;
     display: block;
-  }
+}
 
-  .copyright{
-      margin-top: 20px;
-  }
+.copyright {
+    margin-top: 20px;
+}
 
-.dropdown-content a:hover {background-color: #ddd;}
+.dropdown-content a:hover {
+    background-color: #ddd;
+}
 
-.btnHoverContainer:hover{
+.btnHoverContainer:hover {
     display: flex;
     align-self: flex-end;
 }
 
 .btnHoverContainer:hover .btn {
     background-color: #FFFFFF;
-    border-bottom: 1px solid rgba(var(--b6a,255,255,255),1);
+    border-bottom: 1px solid rgba(var(--b6a, 255, 255, 255), 1);
     display: block;
     margin-bottom: 1px;
 }
 
-.btnHoverContainer:hover .dropdown-content{
-    border-top: 1px solid rgba(var(--b6a,219,219,219),1);
+.btnHoverContainer:hover .dropdown-content {
+    border-top: 1px solid rgba(var(--b6a, 219, 219, 219), 1);
     display: block;
     margin-top: 35.5px;
 }
 
-.btnHoverContainer:hover .dropdown-toggle::after{
+.btnHoverContainer:hover .dropdown-toggle::after {
     vertical-align: bottom;
 }
 
-div .row{
+div .row {
     white-space: nowrap;
 }
 
-.dropdown-sp{
+.dropdown-sp {
     display: none;
     background-color: #f1f1f1;
 }
 
-.btnsp{
+.btnsp {
     border: none;
     display: flex;
     background-color: #f1f1f1;
 }
 
-.btnsp:hover .dropdown-sp{
+.btnsp:hover .dropdown-sp {
     display: flex;
-    border-left: 1px solid rgba(var(--b6a,0,0,0),1);
+    border-left: 1px solid rgba(var(--b6a, 0, 0, 0), 1);
 }

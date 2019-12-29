@@ -32,8 +32,8 @@ app.get('/login', function(req, res) {
     res.render('login', { layout: 'signin_signup.hbs', template: 'signin.hbs' });
 });
 
-app.get('/forgottenPassword', function(req, res) { 
-    res.render('forgottenPassword', {layout: 'signin_signup.hbs', template: 'signin.hbs' });
+app.get('/forgottenPassword', function(req, res) {
+    res.render('forgottenPassword', { layout: 'signin_signup.hbs', template: 'signin.hbs' });
 });
 
 app.get('/laptop-list', function(req, res) {
@@ -52,11 +52,12 @@ app.get('/add', function(req, res) {
     res.render('add');
 });
 
-app.use('/signup', require('./routes/signup.route'))
 
+app.use('/signup', require('./routes/signup.route'));
+app.use('/profile', require('./routes/profile.route'));
 app.get('/err', function(req, res) {
     throw new Error('beng beng');
-})
+});
 
 app.get('/about', function(req, res) {
     res.render('about');
