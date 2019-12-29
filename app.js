@@ -32,6 +32,10 @@ app.get('/login', function(req, res) {
     res.render('login', {layout: 'signin_signup.hbs', template: 'signin.hbs' });
 });
 
+app.get('/forgottenPassword', function(req, res) { 
+    res.render('forgottenPassword', {layout: 'signin_signup.hbs', template: 'signin.hbs' });
+});
+
 app.get('/laptop-list', function(req, res) {
     res.render('laptop-list');
 });
