@@ -14,7 +14,6 @@ const user = require("../models/user.model")
 //     }
 // });
 
-
 router.get('/', async function(req, res) {
     _gender = await db.load('select * from GENDERS');
     await res.render('register', {
