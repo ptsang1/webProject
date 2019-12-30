@@ -1,3 +1,7 @@
+.bodyContainer {
+    margin-top: 60px;
+}
+
 .profile-pane {
     margin: 0;
     padding: 0;
@@ -31,12 +35,11 @@
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 16px;
     margin-bottom: 30px;
-    font-weight: 300;
+    font-weight: 400;
 }
 
 .sidebar ul li a {
     text-decoration: none;
-    font-weight: 400;
     color: black;
 }
 
@@ -77,4 +80,21 @@
     width: 70%;
     text-align: left;
     border: none;
+}
+
+.buttonEdit {
+    padding: 10px 20px;
+    border: 1px solid palevioletred;
+    border-radius: 20px;
+    background-image: linear-gradient(to left, #e66465, #9198e5);
+    color: #FFF;
+    margin-left: 20px;
+}
+
+.buttonEdit:hover {
+    background-image: linear-gradient(to left, #9198e5, #e66465);
+}
+
+#cancelbtn {
+    display: none;
 }
