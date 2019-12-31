@@ -30,6 +30,7 @@ module.exports = {
         }
         pool_query(query, values);
     }
+
     // load: (queryString, fn_done) => {
     //     connection.connect();
     //     connection.query(queryString, function(error, results, fields) {

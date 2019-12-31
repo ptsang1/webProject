@@ -30,7 +30,7 @@ app.set('view engine', 'hbs');
 
 app.get('/', function(req, res) {
     // const fn_done = results => console.log(results);
-    // db.load('select * from ROLES', fn_done);
+    // db.load('select * from GENDERS', fn_done);
     // const password_hash = bcrypt.hashSync("123456", config.authentication.salt);
     // const newUser = {
     //     userID: uuidv1(),
@@ -59,19 +59,22 @@ app.get('/forgottenPassword', function(req, res) {
 app.get('/laptop-list', function(req, res) {
     res.render('laptop-list');
 });
+
 app.get('/phone-list', function(req, res) {
     res.render('phone-list');
 });
+
 app.get('/tablet-list', function(req, res) {
     res.render('tablet-list');
 });
+
 app.get('/detail', function(req, res) {
     res.render('detail');
 });
+
 app.get('/add', function(req, res) {
     res.render('add');
 });
-
 
 app.use('/signup', require('./routes/signup.route'));
 app.use('/profile', require('./routes/profile.route'));
@@ -94,7 +97,7 @@ app.use(function(err, req, res, next) {
     res.send('error');
 })
 
-const PORT = 8080;
+const PORT = 3000;
 app.listen(PORT, function() {
     console.log(`Server is running at http://localhost:${PORT}`);
 });
