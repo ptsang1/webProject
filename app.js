@@ -30,7 +30,12 @@ app.engine('hbs', exphbs({
 app.set('view engine', 'hbs');
 
 app.get('/',async function(req, res) {
-    console.log(await product.all())
+    result = await product.all();
+    res.render('home', {
+        products: result,
+        empty: result.length === 0,
+    });
+    //console.log(await product.all())
     // const fn_done = results => console.log(results);
     // db.load('select * from GENDERS', fn_done);
     // const password_hash = bcrypt.hashSync("123456", config.authentication.salt);
@@ -47,7 +52,7 @@ app.get('/',async function(req, res) {
     //     avatar: "",
     // }
     // user.add(newUser);
-    res.render('home');
+    //res.render('home');
 });
 
 app.get('/login', function(req, res) {
@@ -80,6 +85,8 @@ app.get('/add', function(req, res) {
 
 app.use('/signup', require('./routes/signup.route'));
 app.use('/profile', require('./routes/profile.route'));
+//app.use('/', require('./routes/product.route'));
+
 app.get('/err', function(req, res) {
     throw new Error('beng beng');
 });

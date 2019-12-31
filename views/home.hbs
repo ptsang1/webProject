@@ -1,4 +1,4 @@
- <div class="container-fluid mt-1 mr-0 ml-0" style="height: 400px;">
+    <div class="container-fluid mt-1 mr-0 ml-0" style="height: 400px;">
         <div id="carouselExampleControls" class="carousel slide d-flex justify-content-center" data-ride="carousel">
             <div class="carousel-inner">
                 <div class="carousel-item active">
@@ -29,6 +29,24 @@
             </div>
         </div>
         <div class="row mt-2">
+            {{!-- {{#each this.products}}
+                <div class="col w-100 ml-1">
+                    <div class="card" style="height: 28rem;" style="width: 15rem;">
+                        <a href="/detail">
+                        <img src="images/macbook.jpeg" height="250" class="card-img-top" alt="..."></a>                    					
+                        <div class="card-body">
+                            <p class="card-text"><b>{{productName}}</b>
+                                <br><small>Giá mua ngay: <b>{{price}}đ</b>
+                                <br>Giá hiện tại: <b>{{priceCurent}}đ</b>
+                                <br>Ra giá bởi: <b>{{bidderID}}</b>
+                                <br>Ngày đăng: <b>{{timePost}}</b>
+                                <br>Thời gian còn lại: <b>{{timeEnd}}</b>
+                                <br>Số lượt ra giá hiện tại: <b>10</b></small>
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            {{/each}} --}}
              <div class="col w-100 ml-1">
                 <div class="card" style="height: 28rem;" style="width: 15rem;">
                     <a href="/detail">
@@ -212,4 +230,4 @@
                  </div>
             </div>
         </div>
-    </div> 
+    </div>    
