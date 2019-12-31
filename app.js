@@ -1,11 +1,12 @@
 const express = require('express');
 const exphbs = require('express-handlebars');
 const hbs_sections = require('express-handlebars-sections');
-const uuidv1 = require('uuid/v1');
-const bcrypt = require('bcryptjs');
-const db = require("./utils/db");
-const config = require("./config/default.json");
-const user = require("./models/user.model")
+// const uuidv1 = require('uuid/v1');
+// const bcrypt = require('bcryptjs');
+// const db = require("./utils/db");
+// const config = require("./config/default.json");
+// const user = require("./models/user.model")
+const product = require("./models/product.model")
 
 require('express-async-errors');
 
@@ -28,7 +29,8 @@ app.engine('hbs', exphbs({
 
 app.set('view engine', 'hbs');
 
-app.get('/', function(req, res) {
+app.get('/',async function(req, res) {
+    console.log(await product.all())
     // const fn_done = results => console.log(results);
     // db.load('select * from GENDERS', fn_done);
     // const password_hash = bcrypt.hashSync("123456", config.authentication.salt);
