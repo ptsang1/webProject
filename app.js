@@ -22,8 +22,8 @@ app.use(express.urlencoded({
 app.engine('hbs', exphbs({
     defaultLayout: 'main.hbs',
     helpers: {
-        section: hbs_sections()
-            // format: val => numeral(val).format('0.0')
+        section: hbs_sections(),
+        // format: val => numeral(val).format('0.0')
     }
 }));
 
