@@ -1,7 +1,7 @@
 const db = require('../utils/db');
 
 module.exports = {
-    all: _ => db.load('select * from categories'),
+    all: _ => db.load('select * from CATEGORIES'),
     allWithDetails: _ => {
         const sql = `
       select c.CatID, c.CatName, count(p.ProID) as num_of_products
@@ -19,7 +19,13 @@ module.exports = {
 
         return rows[0];
     },
-
+    singleByName: async catName => {
+        const sql = `select * from CATEGORIES where catName = "${catName}"`;
+        const rows = await db.load(sql);
+        if (rows.length === 0)
+            return null;
+        return rows[0];
+    },
     add: entity => db.add(entity, 'categories'),
     del: id => db.del({ CatID: id }, 'categories'),
     patch: entity => {

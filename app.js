@@ -29,30 +29,13 @@ app.engine('hbs', exphbs({
 
 app.set('view engine', 'hbs');
 
-app.get('/',async function(req, res) {
+app.get('/', async function(req, res) {
     result = await product.all();
+    console.log(result);
     res.render('home', {
         products: result,
         empty: result.length === 0,
     });
-    //console.log(await product.all())
-    // const fn_done = results => console.log(results);
-    // db.load('select * from GENDERS', fn_done);
-    // const password_hash = bcrypt.hashSync("123456", config.authentication.salt);
-    // const newUser = {
-    //     userID: uuidv1(),
-    //     email: "seller@gmail.com",
-    //     password: password_hash,
-    //     fullName: "seller",
-    //     birthDate: "1999-30-05",
-    //     address: "address",
-    //     genderID: 1,
-    //     roleID: 2,
-    //     accepted: 1,
-    //     avatar: "",
-    // }
-    // user.add(newUser);
-    //res.render('home');
 });
 
 app.get('/login', function(req, res) {
@@ -78,11 +61,7 @@ app.get('/tablet-list', function(req, res) {
 app.get('/detail', function(req, res) {
     res.render('detail');
 });
-
-app.get('/add', function(req, res) {
-    res.render('add');
-});
-
+app.use('/add', require('./routes/_product.route'));
 app.use('/signup', require('./routes/signup.route'));
 app.use('/profile', require('./routes/profile.route'));
 //app.use('/', require('./routes/product.route'));
