@@ -11,6 +11,14 @@
 	<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
 	<script src="js/signIn.js"></script>
+    <script src='https://www.google.com/recaptcha/api.js'></script>
+    {{!-- <script>
+        grecaptcha.ready(function() {
+            grecaptcha.execute('6LdBTsoUAAAAABuD4RH-GVc67WJnW4kWsanbmHpj', {action: 'signup'}).then(function(token) {
+            ...
+            });
+        });
+    </script> --}}
 {{/section}}
 
 <div class="signup-content">
@@ -20,7 +28,7 @@
     </div>
     <div class="signup-form">
         <h2 class="form-title">Đăng ký</h2>
-        <form method="POST" name="register-form" onsubmit="return validate()" class="register-form" id="register-form">
+        <form method="POST" name="register-form" class="register-form" id="register-form">
             <div class="form-group">
                 <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
                 <span class="warning">
@@ -86,7 +94,13 @@
                     <i class="zmdi zmdi-alert-octagon"></i>
                 </span>
                 <label for="agree-term" class="label-agree-term"><span><span></span></span>
-                    Bạn chấp nhận với tất cả <a href="#" class="term-service">điều khoản dịch vụ</a></label>
+                    Bạn chấp nhận với tất cả <a class="term-service">điều khoản dịch vụ</a>
+                </label>
+            </div>
+            <div class="form-group">
+                <div class="g-recaptcha" data-sitekey="6LemPswUAAAAANZJU8nkTUKW6S5gkFIfWB382OFx" data-callback="verifyRecaptchaCallback" data-expired-callback="expiredRecaptchaCallback"></div>
+                {{!-- <input class="form-control d-none" data-recaptcha="true" required data-error="Please complete the Captcha"> --}}
+                <div class="help-block with-errors"></div>
             </div>
             <div class="form-group form-btn">
                 <input type="submit" name="signup" id="signup" class="form-submit" value="Đăng ký"/>

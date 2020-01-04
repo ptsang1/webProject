@@ -8,9 +8,9 @@ $(function () {
         $('input[data-recaptcha]').val("").trigger('change')
     }
 
-    $('#contact-form').validator();
+    $('#register-form').validator();
 
-    $('#contact-form').on('submit', function (e) {
+    $('#register-form').on('submit', function (e) {
         if (!e.isDefaultPrevented()) {
             var url = "contact.php";
 
@@ -24,8 +24,8 @@ $(function () {
 
                     var alertBox = '<div class="alert ' + messageAlert + ' alert-dismissable"><button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>' + messageText + '</div>';
                     if (messageAlert && messageText) {
-                        $('#contact-form').find('.messages').html(alertBox);
-                        $('#contact-form')[0].reset();
+                        $('#register-form').find('.messages').html(alertBox);
+                        $('#register-form')[0].reset();
                         grecaptcha.reset();
                     }
                 }

@@ -1,9 +1,10 @@
 (function ($) {
     "use strict";
     $('input[type="submit"]').click(function(){
-        if (validateEmail() === 1){
+        const checkEmail = validateEmail()
+        if (checkEmail.length){
             let input = $('input[name="email"]')[0];
-            return input.setCustomValidity('Bạn hãy nhập EMAIL đã đăng ký nhé!');
+            return input.setCustomValidity(checkEmail);
         }
         if (!validatePassword()){
             let input = $('input[name="confirm_password"]')[0];
@@ -19,14 +20,28 @@
     //     }
     // });
 
+    $('#register-form').submit(function() {
+        $(this).ajaxSubmit({
+          error: function(xhr) {
+            status('Error: ' + xhr.status);
+          },
+         success: function(response) {
+          console.log(response);
+         }
+        });
+        //Very important line, it disable the page refresh.
+        return false;
+      });
+
     function validateEmail () {
         let input = $('input[name="email"]');
         if (input.val().length === 0)
-            return 0
+            return 'Bạn chưa nhập thông tin nè!'
         if($(input).val().trim().match(/^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{1,5}|[0-9]{1,3})(\]?)$/) == null) {
-            return 1;
+            return "Bạn hãy nhập EMAIL để đăng ký nhé!";
         }
-        return 2;
+
+        return "";
     }
 
     function validatePassword () {
@@ -63,9 +78,10 @@
     });
 
     $('input[name="email"]').on('invalid', function(){
-        if(validateEmail() === 1){
-            return this.setCustomValidity('Bạn hãy nhập EMAIL đã đăng ký nhé!');
+        const checkEmail = validateEmail()
+        if (checkEmail.length){
+            return this.setCustomValidity(checkEmail);
         }
-        return this.setCustomValidity('Bạn chưa nhập thông tin nè!');
     })
+
 })(jQuery);
