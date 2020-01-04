@@ -20,7 +20,7 @@ router.post('/', async function(req, res) {
         sellerID: 'asdfghjkl',
         CatID: catID.catID,
         productName: req.body.productName,
-        bidderID: 'qwertyuiop',
+        bidderID: 'e6bc4520-2ec3-11ea-a05e-3b204d425aa5',
         priceCurent: req.body.priceCurrent,
         stepPrice: req.body.stepPrice,
         price: req.body.price,
@@ -29,7 +29,7 @@ router.post('/', async function(req, res) {
         timeEnd: tn
     };
 
-    //  const rs = await productModel.add(entity);
+    const rs = await productModel.add(entity);
     result = await categoryModel.all();
     res.render('vwProduct/add', {
         categories: result
