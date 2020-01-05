@@ -78,10 +78,6 @@ app.get('/about', function(req, res) {
     res.render('about');
 });
 
-app.get('/watch-list', function(req, res) {
-    res.render('watch-list');
-});
-
 app.use(function(req, res) {
     res.render('404', {
         layout: false
