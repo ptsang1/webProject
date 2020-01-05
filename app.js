@@ -73,7 +73,10 @@ app.get('/about', function(req, res) {
     res.render('about');
 });
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 235b31f8a13c5e662abf47f19d25ff7e8a341953
 app.use(function(req, res) {
     res.render('404', {
         layout: false
