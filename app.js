@@ -31,43 +31,6 @@ app.engine('hbs', exphbs({
 }));
 
 app.set('view engine', 'hbs');
-
-<<<<<<< HEAD
-app.get('/', async function(req, res) {
-    result = await product.all();
-    res.render('home', {
-        products: result,
-        empty: result.length === 0,
-    });
-});
-
-app.get('/login', function(req, res) {
-    res.render('login', { layout: 'signin_signup.hbs', template: 'signin' });
-});
-
-app.get('/forgottenPassword', function(req, res) {
-    res.render('forgottenPassword', { layout: 'signin_signup.hbs', template: 'signup' });
-});
-||||||| merged common ancestors
-app.get('/', async function(req, res) {
-    result = await product.all();
-    console.log(result);
-    res.render('home', {
-        products: result,
-        empty: result.length === 0,
-    });
-});
-
-app.get('/login', function(req, res) {
-    res.render('login', { layout: 'signin_signup.hbs', template: 'signin.hbs' });
-});
-
-app.get('/forgottenPassword', function(req, res) {
-    res.render('forgottenPassword', { layout: 'signin_signup.hbs', template: 'signin.hbs' });
-});
-=======
->>>>>>> a87093790e4eb4e2d0da1fb9af523277d1715e47
-
 app.use('/', require('./routes/product.route'));
 
 app.get('/detail', function(req, res) {

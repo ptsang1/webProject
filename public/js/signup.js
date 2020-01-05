@@ -110,7 +110,7 @@
     function isEmailExisted(){
         const input = $('input[name="email"]')[0];
         const email = CryptoJS.AES.encrypt($(input).val(), "ptSang").toString();
-        return $.getJSON(`/signup/is-available?email=${email}`).then(function (data) {
+        return $.getJSON(`account/signup/is-available?email=${email}`).then(function (data) {
             return data;
         });
     }
