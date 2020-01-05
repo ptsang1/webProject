@@ -1,53 +1,28 @@
 (function ($) {
     "use strict";
     $('input[type="submit"]').click(function(){
-        const checkEmail = validateEmail()
-        if (checkEmail.length){
-            let input = $('input[name="email"]')[0];
-            return input.setCustomValidity(checkEmail);
-        }
-        if (!validatePassword()){
-            let input = $('input[name="confirm_password"]')[0];
-            return input.setCustomValidity('Mật khẩu xác nhận chưa đúng!');
+        let input = $('input[name="email"]')[0];
+        let check = validateEmail();
+        if(check === 1){
+            return input.setCustomValidity('Bạn hãy nhập EMAIL đã đăng ký vào đây nhé!');
+        }else if(check == 0){
+            return input.setCustomValidity('Bạn chưa nhập thông tin nè!');
+        }else{
+            return input.setCustomValidity('');
         }
     });
 
-    // $('input[type="submit"]').submit(function(event){
-    //     if (!validateEmail()){
-    //         let input = $('input[name="email"]')[0];
-    //         input.setCustomValidity('Bạn hãy nhập EMAIL đã đăng ký nhé!');
-    //         return isValidForm();
-    //     }
-    // });
-
-    $('#register-form').submit(function() {
-        $(this).ajaxSubmit({
-          error: function(xhr) {
-            status('Error: ' + xhr.status);
-          },
-         success: function(response) {
-          console.log(response);
-         }
-        });
-        //Very important line, it disable the page refresh.
-        return false;
-      });
 
     function validateEmail () {
         let input = $('input[name="email"]');
         if (input.val().length === 0)
-            return 'Bạn chưa nhập thông tin nè!'
+            return 0;
         if($(input).val().trim().match(/^([a-zA-Z0-9_\-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([a-zA-Z0-9\-]+\.)+))([a-zA-Z]{1,5}|[0-9]{1,3})(\]?)$/) == null) {
-            return "Bạn hãy nhập EMAIL để đăng ký nhé!";
+            return 1;
         }
-
-        return "";
+        return 2;
     }
-
-    function validatePassword () {
-        return $('input[name="password"]').val() === $('input[name="confirm_password"]').val();
-    }
-    
+   
     var showPass = 0;
     $('.btn-show-pass').on('click', function(){
         if(showPass === 0) {
@@ -66,7 +41,7 @@
     });
 
     $(':input').each(function(){
-        if ($(this).attr("name") != "email" || $(this).attr("name") != "confirm_password"){
+        if ($(this).attr("name") != "email"){
             $(this) 
             .on('invalid', function(){
                 return this.setCustomValidity('Bạn chưa nhập thông tin nè!');
@@ -78,10 +53,13 @@
     });
 
     $('input[name="email"]').on('invalid', function(){
-        const checkEmail = validateEmail()
-        if (checkEmail.length){
-            return this.setCustomValidity(checkEmail);
+        let check = validateEmail();
+        if(check === 1){
+            return this.setCustomValidity('Bạn hãy nhập EMAIL đã đăng ký vào đây nhé!');
+        }else if(check == 0){
+            return this.setCustomValidity('Bạn chưa nhập thông tin nè!');
+        }else{
+            return this.setCustomValidity('');
         }
     })
-
 })(jQuery);

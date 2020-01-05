@@ -5,8 +5,7 @@ const bcrypt = require('bcryptjs');
 const db = require("../utils/db");
 const config = require("../config/default.json");
 const user = require("../models/user.model")
-const request = require('request');
-
+const CryptoJS = require("crypto-js");
 // var smtpTransport = nodemailer.createTransport({
 //     service: "Gmail",
 //     auth: {
@@ -26,22 +25,6 @@ router.get('/', async function(req, res) {
 });
 
 router.post('/', async function(req, res){
-    if(req.body['g-recaptcha-response'] === undefined || req.body['g-recaptcha-response'] === '' || req.body['g-recaptcha-response'] === null)
-    {
-      return res.json({"responseError" : "Please select captcha first"});
-    }
-    const secretKey = "6LemPswUAAAAADI3CmJIGBkPTFRTJtRhUF3lZWY1";
-  
-    const verificationURL = "https://www.google.com/recaptcha/api/siteverify?secret=" + secretKey + "&response=" + req.body['g-recaptcha-response'] + "&remoteip=" + req.connection.remoteAddress;
-  
-    request(verificationURL,function(error,response,body) {
-      body = JSON.parse(body);
-  
-      if(body.success !== undefined && !body.success) {
-        return res.json({"responseError" : "Failed captcha verification"});
-      }
-      res.json({"responseSuccess" : "Sucess"});
-    });
     const password_hash = bcrypt.hashSync(req.body.password, config.authentication.salt);
     const newUser = {
         userID: uuidv1(),
@@ -56,16 +39,17 @@ router.post('/', async function(req, res){
         avatar: "",
     }
     user.add(newUser);
-    res.redirect('/')
-    // const path = bcrypt.hashSync(newUser.email, config.authentication.salt),
-    //       host = req.get('host'),
-    //       link = `http://${host}/verify?id=${path}`;
-    //       mailOptions={
-    //         to : req.query.to,
-    //         subject : "Please confirm your Email account",
-    //         html : router.render("email/email.html")
-    //       }
+    res.redirect('/');
+});
 
+router.get('/is-available', async function (req, res) {
+    const email = CryptoJS.AES.decrypt(req.query.email, 'ptSang').toString(CryptoJS.enc.Utf8);
+    const check = await user.isEmailExisted(email);
+    if (check){
+        console.log(email);
+        return res.json("Email này đã được đăng ký rồi nè!");
+    }
+    return res.json("");
 });
 
 module.exports = router;

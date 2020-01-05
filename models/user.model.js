@@ -1,14 +1,13 @@
 const db = require("../utils/db");
 
 module.exports = {
-    all: _ => db.load('select * from USERS'),
-    add: entity => db.add(entity, 'USERS'),
-    confirmAccount: userID => db.updateValue("USERS", {accepted: 1}, {userID: userID}),
+    all: async _ => await db.load('select * from USERS'),
+    add: async entity => await db.add(entity, 'USERS'),
+    confirmAccount: async userID => await db.updateValue("USERS", {accepted: 1}, {userID: userID}),
     isEmailExisted: async email => {
-      let row = await db.load(`select email from USERS where email = '${email}`)
-      if (email)
-        return true;
-      return false;
+      const row = await db.load(`select email from USERS where email = ?`, [email]);
+      // console.log(row, email);
+      return row.length > 0;
     },
     getUserByEmail: async email => {
         const rows = await db.load(`select * from USERS where email = '${email}'`);

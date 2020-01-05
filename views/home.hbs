@@ -29,13 +29,14 @@
             </div>
         </div>
         <div class="row mt-2">
-            {{!-- {{#each this.products}}
-                <div class="col w-100 ml-1">
-                    <div class="card" style="height: 28rem;" style="width: 15rem;">
+            {{#each this.products}}
+                <div class="col mb-4" style="width: 18rem;" style="height: 28rem;">
+                    <div class="card">
                         <a href="/detail">
                         <img src="images/macbook.jpeg" height="250" class="card-img-top" alt="..."></a>                    					
                         <div class="card-body">
-                            <p class="card-text"><b>{{productName}}</b>
+                            <p class="card-text" style="overflow: hidden;">
+                                <b>{{productName}}</b>
                                 <br><small>Giá mua ngay: <b>{{price}}đ</b>
                                 <br>Giá hiện tại: <b>{{priceCurent}}đ</b>
                                 <br>Ra giá bởi: <b>{{bidderID}}</b>
@@ -46,8 +47,8 @@
                         </div>
                     </div>
                 </div>
-            {{/each}} --}}
-             <div class="col w-100 ml-1">
+            {{/each}}
+             {{!-- <div class="col w-100 ml-1">
                 <div class="card" style="height: 28rem;" style="width: 15rem;">
                     <a href="/detail">
                     <img src="images/macbook.jpeg" height="250" class="card-img-top" alt="..."></a>                    					
@@ -98,7 +99,8 @@
             <div class="col w-100 ml-1">
                 <div class="card" style="height: 28rem;" style="width: 15rem;">
                     <a href="/detail">
-                    <img src="images/iphone11.jpeg" height="250" class="card-img-top" alt="..."></a>                    					
+                    <img src="https://i.ibb.co/0XhTVKw/success.png" height="250" class="card-img-top" alt="...">
+                   </a>                    					
                     <div class="card-body">
                    	    <p class="card-text"><b>Apple iPhone 11 64GB</b>
                             <br><small>Giá mua ngay: <b>16.500.000đ</b>
@@ -116,7 +118,7 @@
                     <a href="/detail">
                     <img src="images/beats.jpeg" height="250" class="card-img-top" alt="..."></a>                    					
                     <div class="card-body">
-                   	    <p class="card-text"><b>Apple iPhone 11 64GB</b>
+                   	    <p class="card-text"><b>Beats By Dr.Dre</b>
                             <br><small>Giá mua ngay: <b>3.000.000đ</b>
                             <br>Giá hiện tại: <b>2.350.000đ</b>
                             <br>Ra giá bởi: <b>{{Bidder}}</b>
@@ -126,7 +128,7 @@
                         </p>
                     </div>
                 </div>
-            </div>
+            </div> --}}
         </div>
     </div>
 

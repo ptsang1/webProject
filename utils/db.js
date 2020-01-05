@@ -14,6 +14,7 @@ const pool_query = util.promisify(pool.query).bind(pool);
 
 module.exports = {
     load: query => pool_query(query),
+    load: (query, option) => pool_query(query, option),
     add: (entity, table) => pool_query(`insert into ${table} set ?`, entity),
     updateValue: (table, set, where) => {
         query = `UPDATE ${table} SET `;

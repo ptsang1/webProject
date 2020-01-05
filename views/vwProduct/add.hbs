@@ -10,16 +10,17 @@
 
 
 <div class="container-fluid">
+  <form method="POST">
     <div class="row ml-2">
-       
+        
         <div class="col-md-7">
                 <div class="form-group">
                 <label for="input-20">Ảnh vật phẩm</label>
                 <div class="file-loading">
-                <input id="input-20" type="file" class="file" data-preview-file-type="image" multiple required>
+                <input id="input-20" name="imageProduct" type="file" class="file" data-preview-file-type="image" multiple required>
                 </div>
                 </div> 
-                <div class="from-group">
+                <div class="form-group">
                     <label for="describeProduct">Mô tả sản phẩm</label>
                     <textarea name="describeProduct" id="describeProduct" cols="30" rows="10" required>
 
@@ -30,11 +31,11 @@
          <div class="col-md-5">
             <div class="form-group">
               <label for="name">Tên sản phẩm</label>
-              <input type="text" name="name" id="name" class="form-control" required> 
+              <input type="text" name="productName" id="name" class="form-control" required> 
             </div>
              <div class="form-group">
               <label for="startPrice">Giá khởi điểm</label>
-              <input type="text" name="startPrice" id="startPrice" class="form-control" required>
+              <input type="text" name="priceCurrent" id="startPrice" class="form-control" required>
             </div>
              <div class="form-group">
               <label for="stepPrice">Bước giá</label>
@@ -42,7 +43,15 @@
             </div>
             <div class="form-group">
               <label for="immediatePrice">Giá mua ngay</label>
-              <input type="text" name="immediatePrice" id="immediatePrice" class="form-control">
+              <input type="text" name="price" id="immediatePrice" class="form-control">
+            </div>
+            <div class="form-group">
+            <label for="exampleFormControlSelect1">Danh mục</label>
+            <select class="form-control" id="CatID" name="category">
+              {{#each this.categories}}
+              <option>{{catName}}</option>
+              {{/each}}
+              </select>
             </div>
             <div class="custom-control custom-checkbox">
               <input type="checkbox" class="custom-control-input" id="autoExtention" name="autoExtention">
@@ -54,9 +63,10 @@
                 Đăng bán</button>
             </div>
         </div>
+
     </div>
 
-
+        </form>
 </div>
 <!-- loading script-->
 <script src="https://cdn.tiny.cloud/1/8diax854jgwl4q64zdvah1ikycuzxz0kbs2wuccu25yx1eo8/tinymce/5/tinymce.min.js"></script>
