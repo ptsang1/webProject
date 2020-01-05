@@ -9,7 +9,6 @@ const router = express.Router();
 
 router.get('/', async function(req, res) {
     result = await categoryModel.all();
-    console.log(result);
     res.render('vwProduct/add', {
         categories: result
     });
