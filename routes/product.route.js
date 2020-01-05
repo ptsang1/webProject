@@ -5,8 +5,7 @@ const router = express.Router();
 
 router.get('/', async function(req, res) {
     result = await product.all();
-    console.log(result.length);
-    res.render('home', {
+    res.render('watch-list', {
         products: result,
         empty: result.length === 0,
     });

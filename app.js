@@ -1,6 +1,8 @@
 const express = require('express');
 const exphbs = require('express-handlebars');
 const hbs_sections = require('express-handlebars-sections');
+const numeral = require('numeral');
+const moment = require('moment');
 // const uuidv1 = require('uuid/v1');
 // const bcrypt = require('bcryptjs');
 // const db = require("./utils/db");
@@ -22,8 +24,9 @@ app.use(express.urlencoded({
 app.engine('hbs', exphbs({
     defaultLayout: 'main.hbs',
     helpers: {
-        section: hbs_sections()
-            // format: val => numeral(val).format('0.0')
+        section: hbs_sections(),
+        format: val => numeral(val).format('0,0'),
+        formatDate: val => moment(val).format('h:mm:ss a, DD/MM/YYYY')
     }
 }));
 
@@ -61,10 +64,11 @@ app.get('/tablet-list', function(req, res) {
 app.get('/detail', function(req, res) {
     res.render('detail');
 });
+
 app.use('/add', require('./routes/_product.route'));
+app.use('/watch-list', require('./routes/product.route'));
 app.use('/signup', require('./routes/signup.route'));
 app.use('/profile', require('./routes/profile.route'));
-//app.use('/', require('./routes/product.route'));
 
 app.get('/err', function(req, res) {
     throw new Error('beng beng');
@@ -72,6 +76,10 @@ app.get('/err', function(req, res) {
 
 app.get('/about', function(req, res) {
     res.render('about');
+});
+
+app.get('/watch-list', function(req, res) {
+    res.render('watch-list');
 });
 
 app.use(function(req, res) {
