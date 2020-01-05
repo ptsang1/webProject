@@ -6,7 +6,7 @@ const config = require('../config/default.json');
 const router = express.Router();
 
 router.get('/', async function(req, res) {
-    const user = await userModel.singleByEmail('ptsang@gmail.com');
+    const user = await userModel.singleByEmail('ngophat99@gmail.com');
     const gender = await userModel.getGender(user.genderID);
     const othergender = await userModel.getOtherGender(user.genderID);
     const dob = moment(user.birthDate, 'YYYY-MM-DD').format('YYYY-MM-DD');
@@ -28,10 +28,10 @@ router.post('/', async function(req, res) {
         address: req.body.address,
         email: req.body.email,
     };
-    const rt = await userModel.changeInfoByEmail(entity, 'ptsang@gmail.com');
+    const rt = await userModel.changeInfoByEmail(entity, 'ngophat99@gmail.com');
 
 
-    const user = await userModel.singleByEmail('ptsang@gmail.com');
+    const user = await userModel.singleByEmail('ngophat99@gmail.com');
     const gender = await userModel.getGender(user.genderID);
     const othergender = await userModel.getOtherGender(user.genderID);
     const dob = moment(user.birthDate, 'YYYY-MM-DD').format('YYYY-MM-DD');
@@ -53,12 +53,12 @@ router.get('/setting', function(req, res) {
     res.render('vwProfile/settingProfile');
 });
 router.post('/setting', async function(req, res) {
-    const user = await userModel.singleByEmail('ptsang@gmail.com');
+    const user = await userModel.singleByEmail('ngophat99@gmail.com');
     const rs = bcrypt.compareSync(req.body.currentPassword, user.password);
 
     if (rs === true) {
         const newPassword = bcrypt.hashSync(req.body.newPassword, config.authentication.salt);
-        const rt = await userModel.changePasswordByEmail('ptsang@gmail.com', newPassword);
+        const rt = await userModel.changePasswordByEmail('ngophat99@gmail.com', newPassword);
 
     } else {
         console.log(false);

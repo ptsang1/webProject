@@ -14,7 +14,7 @@ require('express-async-errors');
 
 const app = express();
 
-app.use(express.static('public'));
+app.use('/public', express.static('public'));
 app.use(express.urlencoded({
     extended: true
 }));
@@ -32,36 +32,14 @@ app.engine('hbs', exphbs({
 
 app.set('view engine', 'hbs');
 
-app.get('/', async function(req, res) {
-    result = await product.all();
 
-    res.render('home', {
-        products: result,
-        empty: result.length === 0,
-    });
-});
-
-
-
-
-app.get('/laptop-list', function(req, res) {
-    res.render('laptop-list');
-});
-
-app.get('/phone-list', function(req, res) {
-    res.render('phone-list');
-});
-
-app.get('/tablet-list', function(req, res) {
-    res.render('tablet-list');
-});
+app.use('/', require('./routes/product.route'));
 
 app.get('/detail', function(req, res) {
     res.render('detail');
 });
 
 app.use('/add', require('./routes/_product.route'));
-app.use('/watch-list', require('./routes/product.route'));
 app.use('/account', require('./routes/account.route'));
 app.use('/profile', require('./routes/profile.route'));
 
@@ -73,10 +51,6 @@ app.get('/about', function(req, res) {
     res.render('about');
 });
 
-<<<<<<< HEAD
-
-=======
->>>>>>> 235b31f8a13c5e662abf47f19d25ff7e8a341953
 app.use(function(req, res) {
     res.render('404', {
         layout: false

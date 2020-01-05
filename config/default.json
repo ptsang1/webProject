@@ -5,5 +5,8 @@
     "mail": {
         "username": "phasamique",
         "password": "695930599"
+    },
+    "pagination": {
+        "limit": 6
     }
 }
