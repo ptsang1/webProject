@@ -1,6 +1,8 @@
 const express = require('express');
 const exphbs = require('express-handlebars');
 const hbs_sections = require('express-handlebars-sections');
+const numeral = require('numeral');
+const moment = require('moment');
 // const uuidv1 = require('uuid/v1');
 // const bcrypt = require('bcryptjs');
 // const db = require("./utils/db");
@@ -12,7 +14,7 @@ require('express-async-errors');
 
 const app = express();
 
-app.use(express.static('public'));
+app.use('/public', express.static('public'));
 app.use(express.urlencoded({
     extended: true
 }));
@@ -22,13 +24,15 @@ app.use(express.urlencoded({
 app.engine('hbs', exphbs({
     defaultLayout: 'main.hbs',
     helpers: {
-        section: hbs_sections()
-            // format: val => numeral(val).format('0.0')
+        section: hbs_sections(),
+        format: val => numeral(val).format('0,0'),
+        formatDate: val => moment(val).format('h:mm:ss a, DD/MM/YYYY')
     }
 }));
 
 app.set('view engine', 'hbs');
 
+<<<<<<< HEAD
 app.get('/', async function(req, res) {
     result = await product.all();
     res.render('home', {
@@ -44,26 +48,35 @@ app.get('/login', function(req, res) {
 app.get('/forgottenPassword', function(req, res) {
     res.render('forgottenPassword', { layout: 'signin_signup.hbs', template: 'signup' });
 });
-
-app.get('/laptop-list', function(req, res) {
-    res.render('laptop-list');
+||||||| merged common ancestors
+app.get('/', async function(req, res) {
+    result = await product.all();
+    console.log(result);
+    res.render('home', {
+        products: result,
+        empty: result.length === 0,
+    });
 });
 
-app.get('/phone-list', function(req, res) {
-    res.render('phone-list');
+app.get('/login', function(req, res) {
+    res.render('login', { layout: 'signin_signup.hbs', template: 'signin.hbs' });
 });
 
-app.get('/tablet-list', function(req, res) {
-    res.render('tablet-list');
+app.get('/forgottenPassword', function(req, res) {
+    res.render('forgottenPassword', { layout: 'signin_signup.hbs', template: 'signin.hbs' });
 });
+=======
+>>>>>>> a87093790e4eb4e2d0da1fb9af523277d1715e47
+
+app.use('/', require('./routes/product.route'));
 
 app.get('/detail', function(req, res) {
     res.render('detail');
 });
+
 app.use('/add', require('./routes/_product.route'));
-app.use('/signup', require('./routes/signup.route'));
+app.use('/account', require('./routes/account.route'));
 app.use('/profile', require('./routes/profile.route'));
-//app.use('/', require('./routes/product.route'));
 
 app.get('/err', function(req, res) {
     throw new Error('beng beng');

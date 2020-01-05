@@ -82,6 +82,11 @@
     border: none;
 }
 
+.image-pane {
+    display: flex;
+    justify-content: space-around;
+}
+
 .buttonEdit {
     padding: 10px 20px;
     border: 1px solid palevioletred;
