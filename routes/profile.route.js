@@ -3,6 +3,7 @@ const userModel = require('../models/user.model');
 const moment = require('moment');
 const bcrypt = require('bcryptjs');
 const config = require('../config/default.json');
+const product = require("../models/product.model")
 const router = express.Router();
 
 router.get('/', async function(req, res) {
@@ -70,12 +71,14 @@ router.post('/setting', async function(req, res) {
     res.render('vwProfile/settingProfile');
 })
 
-
-
-
-
-router.get('/productProfile', function(req, res) {
-    res.render('vwProfile/productProfile');
+router.get('/product-watch-list', async function(req, res) {
+    result = await product.all();
+    res.render('vwProfile/productProfile', {
+        products: result,
+        empty: result.length === 0,
+    });
 });
+
+
 router.use(express.static('public'));
 module.exports = router;

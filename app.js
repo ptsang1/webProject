@@ -66,7 +66,6 @@ app.get('/detail', function(req, res) {
 });
 
 app.use('/add', require('./routes/_product.route'));
-app.use('/watch-list', require('./routes/product.route'));
 app.use('/signup', require('./routes/signup.route'));
 app.use('/profile', require('./routes/profile.route'));
 
