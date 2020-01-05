@@ -30,10 +30,6 @@ router.post('/', async function(req, res) {
         email: req.body.email,
     };
     const rt = await userModel.changeInfoByEmail(entity, 'ptsang@gmail.com');
-    console.log(rt);
-
-
-
 
 
     const user = await userModel.singleByEmail('ptsang@gmail.com');

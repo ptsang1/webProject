@@ -3,7 +3,7 @@ const categoryModel = require('../models/category.model');
 const productModel = require('../models/product.model');
 const multer = require('multer');
 const upload = multer({ dest: 'upload/' });
-const config = require('../config/default.json')
+const config = require('../config/default.json');
 const router = express.Router();
 
 router.get('/', async function(req, res) {
@@ -12,6 +12,7 @@ router.get('/', async function(req, res) {
         categories: result
     });
 })
+
 
 router.post('/', upload.array('imageProduct', 3), async function(req, res) {
     let tn = new Date();
@@ -37,50 +38,5 @@ router.post('/', upload.array('imageProduct', 3), async function(req, res) {
     });
 })
 
-/*router.get('/byCat/:catId', async function(req, res) {
-
-    for (const c of res.locals.lcCategories) {
-        if (c.CatID === +req.params.catId) {
-            c.isActive = true;
-        }
-    }
-    const page = +req.query.page || 1;
-    if (page < 0) page = 1;
-    const offset = (page - 1) * config.pagination.limit;
-
-
-
-    const [total, rows] = await Promise.all([
-        productModel.countByCat(req.params.catId),
-        productModel.pageByCat(req.params.catId, offset)
-    ])
-
-
-
-    const nPages = Math.ceil(total / config.pagination.limit);
-
-    page_items = [];
-    for (i = 1; i <= nPages; i++) {
-        const item = {
-            value: i,
-            isActive: i === page
-        }
-        page_items.push(item);
-    }
-
-
-
-
-    res.render('vwProducts/byCat', {
-        products: rows,
-        empty: rows.length === 0,
-        page_items,
-        can_go_prev: page > 1,
-        can_go_next: page < nPages,
-        next_value: page + 1,
-        prev_value: page - 1,
-    })
-})
-*/
 
 module.exports = router;
