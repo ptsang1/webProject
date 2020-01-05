@@ -8,15 +8,48 @@ const router = express.Router();
 router.get('/', async function(req, res) {
     const user = await userModel.singleByEmail('ptsang@gmail.com');
     const gender = await userModel.getGender(user.genderID);
-    const dob = moment(user.birthDate, 'YYYY-MM-DD').format('DD/MM/YYYY');
-    console.log(dob);
+    const othergender = await userModel.getOtherGender(user.genderID);
+    const dob = moment(user.birthDate, 'YYYY-MM-DD').format('YYYY-MM-DD');
+    console.log(othergender);
     res.render('vwProfile/infoProfile', {
         user,
-        genders: gender.genderName,
+        gender,
+        other: othergender,
         dob
     });
 });
+router.post('/', async function(req, res) {
+    const genderID = await userModel.getGenderByName(req.body.gender);
+    console.log(genderID);
+    const entity = {
+        name: req.body.name,
+        genderID,
+        birthday: req.body.birthday,
+        address: req.body.address,
+        email: req.body.email,
+    };
+    const rt = await userModel.changeInfoByEmail(entity, 'ptsang@gmail.com');
+    console.log(rt);
 
+
+
+
+
+    const user = await userModel.singleByEmail('ptsang@gmail.com');
+    const gender = await userModel.getGender(user.genderID);
+    const othergender = await userModel.getOtherGender(user.genderID);
+    const dob = moment(user.birthDate, 'YYYY-MM-DD').format('YYYY-MM-DD');
+
+    res.render('vwProfile/infoProfile', {
+        user,
+        gender,
+        other: othergender,
+        dob
+    });
+
+
+
+});
 
 
 
@@ -30,7 +63,7 @@ router.post('/setting', async function(req, res) {
     if (rs === true) {
         const newPassword = bcrypt.hashSync(req.body.newPassword, config.authentication.salt);
         const rt = await userModel.changePasswordByEmail('ptsang@gmail.com', newPassword);
-        console.log(rt);
+
     } else {
         console.log(false);
     }

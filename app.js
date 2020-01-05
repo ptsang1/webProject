@@ -34,7 +34,7 @@ app.set('view engine', 'hbs');
 
 app.get('/', async function(req, res) {
     result = await product.all();
-    console.log(result);
+
     res.render('home', {
         products: result,
         empty: result.length === 0,
