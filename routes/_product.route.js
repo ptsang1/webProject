@@ -1,6 +1,8 @@
 const express = require('express');
 const categoryModel = require('../models/category.model');
 const productModel = require('../models/product.model');
+const multer = require('multer');
+const upload = multer({ dest: 'upload/' });
 const config = require('../config/default.json')
 const router = express.Router();
 
@@ -12,6 +14,7 @@ router.get('/', async function(req, res) {
 })
 
 router.post('/', async function(req, res) {
+router.post('/', upload.array('imageProduct', 3), async function(req, res) {
     let tn = new Date();
     let catID = await categoryModel.singleByName(req.body.category);
     console.log(req.body);

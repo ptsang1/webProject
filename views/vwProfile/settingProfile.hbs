@@ -4,30 +4,31 @@
             <div class="sidebar">
                 <h1> My Account</h1>
                 <ul>
-                    <li id="viewInfoLink" style="font-weight: 700;"><a href="profile" onclick="viewInfo()">Thông tin tài khoản</a></li>
-                    <li id="viewSettingLink" ><a href="profile/settingProfile" onclick="viewSetting()">Đổi mật khẩu</a></li>
-                    <li><a href="#">Sản phẩm</a href="profile/productProfile"></li>
+                    <li id="viewInfoLink"><a href="/profile">Thông tin tài khoản</a></li>
+                    <li id="viewSettingLink"  style="font-weight: 700;"><a href="/profile/setting" >Đổi mật khẩu</a></li>
+                    <li><a href="#">Sản phẩm</a></li>
                 </ul>
             </div>
-            <div class="info-pane" id="infoAccount">
-                <form>
+            <div class="info-pane m-5" id="infoAccount">
+                <form method="POST">
                     <div class="form-group">
-                      <label for="currentPassword">Mật khẩu hiện tại</label>
-                      <input type="text" name="currentPassword" id="currentPassword" class="form-control" placeholder="" aria-describedby="helpId">
-                      <small id="helpId" class="text-muted">Help text</small>
+                      <label class = "d-inline" for="currentPassword">Mật khẩu hiện tại</label>
+                      <input type="password" name="currentPassword" id="currentPassword" class="form-control border rounded" placeholder="" aria-describedby="helpId">
+        
                     </div>
                     <div class="form-group">
-                      <label for="newPassword">Mật khẩu mới</label>
-                      <input type="text" name="newPassword" id="newPassword" class="form-control" placeholder="" aria-describedby="helpId">
-                      <small id="helpId" class="text-muted">Help text</small>
+                      <label class = "d-inline" for="newPassword">Mật khẩu mới</label>
+                      <input type="password" name="newPassword" id="newPassword" class="form-control border rounded" placeholder="" aria-describedby="helpId">
+                      <small id="helpId" class="text-muted">Mật khẩu chứa ít nhất 8 ký tự</small>
                     </div>
                     <div class="form-group">
-                      <label for="confirmPassword">Nhập lại mật khẩu</label>
-                      <input type="text" name="confirmPassword" id="confirmPassword" class="form-control" placeholder="" aria-describedby="helpId">
-                      <small id="helpId" class="text-muted">Help text</small>
+                      <label class = "d-inline" for="confirmPassword">Nhập lại mật khẩu</label>
+                      <input type="password" name="confirmPassword" id="confirmPassword" class="form-control border rounded" placeholder="" aria-describedby="helpId">
+                      <small id="helpId" class="text-muted">Mật khẩu chứa ít nhất 8 ký tự</small>
                     </div>
+                     <button class="buttonEdit" id="editbtn" type="submit">Đổi mật khẩu</button>
                 </form>
-                <button class="buttonEdit" id="editbtn" onclick="showEditable()" type="button">Đổi mật khẩu</button>
+               
             </div>
     </div>
 </div>
