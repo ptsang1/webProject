@@ -22,7 +22,7 @@
             </div>
              {{#if this.empty}}
                 <div class="card-body">
-                     <h3 class="card-text">Không có dữ liệu</h3>
+                     <h1 class="card-text">Không có dữ liệu</h1>
                 </div>
              {{else}}
             <div class="col">
@@ -31,7 +31,7 @@
                         <div class="container">
                             {{#each lcCategories}}
                            {{#if isActive}}
-                            <h2 class="display-6">{{CatName}}<h5 class="text-secondary">{{num_of_products}}</h5></h2>
+                            <h2 class="display-6">{{CatName}}<h5 class="text-secondary">{{num_of_products}} sản phẩm</h5></h2>
                             {{/if}}
                             {{/each}}
                         </div>
@@ -55,7 +55,7 @@
                                 {{#each this.product}}
                                 <div class="col-md-4 mt-2 mb-3">
                                    <div class="card">
-                                        <a href="/detail">
+                                        <a href="/product/detail?id={{productID}}">
                                         <img src="images/macbook.jpeg" class="card-img-top" alt="..."></a>                    					
                                         <div class="card-body">
                                             <p class="card-text" style="overflow: hidden;">

@@ -1,37 +1,39 @@
-.clock{
+.clock {
     font-family: 'Lato', sans-serif;
     text-decoration-color: red;
     text-align: center;
     width: 750px;
     height: fit-content;
-
-    color: #990000;
+    color: #997500;
     padding-left: 10px;
 }
-       
+
 .clock span p b {
     color: #990000;
 }
 
-.clock-hour, .clock-minute, .clock-second {
+.clock-hour,
+.clock-minute,
+.clock-second {
     border: 1px solid #C0C0C0;
     border-radius: 8px;
     padding: 1px;
     margin: 5px;
 }
-        
-.clock-hour p, .clock-minute p, .clock-second p {
 
+.clock-hour p,
+.clock-minute p,
+.clock-second p {
     margin: 1px;
     font-size: 30px;
 }
-                
+
 span p b {
     text-align: center;
     /*color: red;*/
     font-size: 30px;
 }
-        
+
 span p {
     margin-block-end: 0em;
     margin-block-start: 6px;

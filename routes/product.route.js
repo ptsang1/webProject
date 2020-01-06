@@ -1,15 +1,12 @@
 const express = require('express');
 const product = require("../models/product.model");
+const categoryModel = require('../models/category.model');
+const stringCompare = require('string-similarity');
 const config = require('../config/default.json');
 
 const router = express.Router();
 router.use(express.static('public'));
-const categoryModel = require('../models/category.model');
-router.use(async function(req, res, next) {
-    const rows = await categoryModel.allWithDetails();
-    res.locals.lcCategories = rows;
-    next();
-})
+
 
 
 router.get('/', async function(req, res) {
@@ -23,7 +20,27 @@ router.get('/', async function(req, res) {
         empty: topEnd.length === 0,
     });
 });
-
+router.post('/', async function(req, res) {
+    const name = req.body.search;
+    let flag = false;
+    for (const c of res.locals.lcCategories) {
+        if (c.CatName === name) {
+            res.redirect(`/byCat?id=${c.CatID}&sort=ASC`);
+            flag = true;
+        }
+    }
+    if (flag === false) {
+        const products = await product.all();
+        let productName = [];
+        for (const p of products) {
+            productName.push(p.productName);
+        }
+        const rs = stringCompare.findBestMatch(name, productName);
+        if (rs.bestMatch.rating >= 0.4) {
+            res.redirect(`/product/detail?id=${products[rs.bestMatchIndex].productID}`);
+        } else res.render('vwProduct/404');
+    }
+});
 router.get('/byCat', async function(req, res) {
     for (const c of res.locals.lcCategories) {
         if (c.CatID === +req.query.id) {
