@@ -4,10 +4,10 @@ module.exports = {
     all: _ => db.load('select * from CATEGORIES'),
     allWithDetails: _ => {
         const sql = `
-      select c.CatID, c.CatName, count(p.ProductID) as num_of_products
-      from CATEGORIES c left join PRODUCTS p on c.CatID = p.CatID
-      group by c.CatID, c.CatName
-    `;
+            select c.CatID, c.CatName, count(p.ProductID) as num_of_products
+            from CATEGORIES c left join PRODUCTS p on c.CatID = p.CatID
+            group by c.CatID, c.CatName
+            `;
         return db.load(sql);
     },
 

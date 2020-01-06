@@ -19,6 +19,7 @@ router.get('/', async function(req, res) {
         dob
     });
 });
+
 router.post('/', async function(req, res) {
     const genderID = await userModel.getGenderByName(req.body.gender);
     console.log(genderID);
@@ -43,16 +44,12 @@ router.post('/', async function(req, res) {
         other: othergender,
         dob
     });
-
-
-
 });
-
-
 
 router.get('/setting', function(req, res) {
     res.render('vwProfile/settingProfile');
 });
+
 router.post('/setting', async function(req, res) {
     const user = await userModel.singleByEmail('ngophat99@gmail.com');
     const rs = bcrypt.compareSync(req.body.currentPassword, user.password);

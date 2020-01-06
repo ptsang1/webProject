@@ -23,6 +23,4 @@ module.exports = {
     topFiveProductValue: _ => db.load(`SELECT * from PRODUCTS p ORDER BY p.priceCurent DESC limit 5;`),
     singleByID: productID => db.load(`select * from PRODUCTS where productID = ${productID}`),
     timeSingleByID: productID => db.load(`SELECT (TIME_TO_SEC(timeEnd)-TIME_TO_SEC(timePost)) as time from PRODUCTS where productID = ${productID}`),
-
-
 }
