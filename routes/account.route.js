@@ -1,13 +1,14 @@
 const express = require('express');
-const router = express.Router();
 const uuidv1 = require('uuid/v1');
 const bcrypt = require('bcryptjs');
 const db = require("../utils/db");
 const userModel = require('../models/user.model');
 const config = require("../config/default.json");
 const user = require("../models/user.model")
+
+const router = express.Router();
+
 router.use(express.static('public'));
-const CryptoJS = require("crypto-js");
 // var smtpTransport = nodemailer.createTransport({
 //     service: "Gmail",
 //     auth: {
@@ -44,17 +45,14 @@ router.post('/signup', async function(req, res){
     res.redirect('/');
 });
 
-router.get('/signup/is-available', async function (req, res) {
-    const email = CryptoJS.AES.decrypt(req.query.email, 'ptSang').toString(CryptoJS.enc.Utf8);
-    const check = await user.isEmailExisted(email);
+router.get('/is-available', async function (req, res) {
+    // const email = CryptoJS.AES.decrypt(, 'ptSang').toString(CryptoJS.enc.Utf8);
+    const check = await user.isEmailExisted(req.query.email);
     if (check){
-        console.log(email);
         return res.json("Email này đã được đăng ký rồi nè!");
     }
-    return res.json("");
+    res.json("");
 });
-
-module.exports = router;
 
 router.get('/login', function(req, res) {
 
@@ -75,12 +73,11 @@ router.post('/login', async function(req, res) {
     }
 });
 
-
 router.get('/forgottenPassword', function(req, res) {
-
     res.render('vwAccount/forgottenPassword', {
         layout: 'signin_signup.hbs',
         template: 'signup',
     });
 });
+
 module.exports = router;

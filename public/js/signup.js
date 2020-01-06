@@ -13,7 +13,7 @@
         }
     
         $(this) 
-            .on("input propertychange", function(){
+            .on("input change", function(){
                     return this.setCustomValidity("");
             });
     });
@@ -33,6 +33,10 @@
         return this.setCustomValidity("");
     });
 
+    $('input[name="confirm_password"]').on('input change', function(){
+        return this.setCustomValidity("");
+    });
+
     // $('input[name="email"]').on({
     //     invalid: function(){
     //         const message = validateEmail();
@@ -48,6 +52,18 @@
     //         return this.setCustomValidity("");
     //     }
     // });
+
+    $('#register-form').submit(function(event){
+        event.preventDefault();
+        isEmailExisted();
+        // isEmailExisted().then(function(data){
+        //     if (data.length > 0){
+        //         let input = $('input[name="email"]')[0];
+        //         return input.setCustomValidity(data);
+        //     }
+        //     $('#register-form').off('submit').submit();
+        // });
+    })
 
     $('input[name="agree-term"]').on({
         invalid: function(){
@@ -79,12 +95,13 @@
             let input = $('input[name="email"]')[0];
             return input.setCustomValidity(messageEmail);
         }
-        isEmailExisted().then(function(data){
-            if (data.length > 0){
-                let input = $('input[name="email"]')[0];
-                return input.setCustomValidity(data);
-            }
-        });
+        // isEmailExisted().then(function(data){
+        //     if (data.length > 0){
+        //         let input = $('input[name="email"]')[0];
+        //         return input.setCustomValidity(data);
+        //     }
+        //     $('#register-form').off('submit').submit();
+        // });
         const messageConfirm_Password = validateConfirm_password();
         if (messageConfirm_Password.length > 0){
             let input = $('input[name="confirm_password"]')[0];
@@ -94,7 +111,6 @@
             alert("Bạn chưa chọn reCaptcha kìa!");
             return false;
         }
-        return true;
     });
 
     function validateEmail () {
@@ -109,10 +125,18 @@
 
     function isEmailExisted(){
         const input = $('input[name="email"]')[0];
-        const email = CryptoJS.AES.encrypt($(input).val(), "ptSang").toString();
-        return $.getJSON(`account/signup/is-available?email=${email}`).then(function (data) {
-            return data;
-        });
+        // return $.getJSON(`/account/is-available?id=${id}`).then(function (data) {
+        //     return data;
+        // });
+        $.getJSON(`/account/is-available?email=${$(input).val()}`, function (data) {
+            if (data.length > 0){
+                let input = $('input[name="email"]')[0];
+                input.setCustomValidity(data);
+                input.reportValidity();
+            }else{
+                $('#register-form').off('submit').submit();
+            }
+        })
     }
 
     function validateConfirm_password () {
