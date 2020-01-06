@@ -17,11 +17,16 @@
                     </div>
                 </div>
             </div>
+             {{#if this.empty}}
+                <div class="card-body">
+                     <h3 class="card-text">Không có dữ liệu</h3>
+                </div>
+             {{else}}
             <div class="col mt-3">
                 <nav>
                     <div class="jumbotron jumbotron-fluid p-1 m-1" style="background-color: white;">
                         <div class="container">
-                            <h2 class="display-6">Máy tính xách tay<h5 class="text-secondary">16 kết quả</h5></h2>
+                            <h2 class="display-6">{{catName}}<h5 class="text-secondary">{{count}}</h5></h2>
                         </div>
                         <div class="container">
                             <div class="dropdown">
@@ -58,6 +63,7 @@
                     </div>
                 </nav>
             </div>
+            {{/if}}
         </div>
         <nav aria-label="Page navigation example">
             <ul class="pagination float-right mr-3">

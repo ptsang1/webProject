@@ -14,7 +14,7 @@ require('express-async-errors');
 
 const app = express();
 
-app.use('/public', express.static('public'));
+
 app.use(express.urlencoded({
     extended: true
 }));
@@ -31,7 +31,7 @@ app.engine('hbs', exphbs({
 }));
 
 app.set('view engine', 'hbs');
-
+app.use('/public', express.static('public'));
 
 app.use('/', require('./routes/product.route'));
 

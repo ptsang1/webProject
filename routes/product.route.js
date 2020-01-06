@@ -24,7 +24,9 @@ router.get('/', async function(req, res) {
 });
 
 router.get('/byCat', async function(req, res) {
-    res.render('vwProduct/byCat');
+    res.render('vwProduct/byCat', {
+        empty: true
+    });
     //res.render('vwProduct/byCat', {
     //  products: rows,
     // empty: rows.length === 0,
