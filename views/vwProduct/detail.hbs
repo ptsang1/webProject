@@ -1,4 +1,4 @@
-
+{{#section 'css'}}
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600%7CRaleway:300,400,500,600,700%7CLato:300,400,400italic,600,700" rel="stylesheet" type="text/css" />
 
   
@@ -11,12 +11,17 @@
     <link href="css/view-product.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" type="text/css" href="css/clock.css">
     <!-- <link href="assets/css/color_scheme/green.css" rel="stylesheet" type="text/css" id="color_scheme" /> -->
-
-
+{{/section}}
     <!-- -->
     
         <div class="container">
             <div class="row">
+                <!-- không có thông tin-->
+                {{#if empty}}
+                    <div class="card-body">
+                         <h1 class="card-title">Không có dữ liệu</h1>
+                    </div>
+                {{else}}
                 <!-- IMAGE -->
                 <div class="col-lg-4 col-sm-4 product-image">
                     <div>
@@ -47,20 +52,7 @@
                                     <span class="sr-only">Next</span>
                                 </a>
                         </div>
-                        <!-- 
-                            IMAGE ZOOM 
-                            
-                            data-mode="mouseover|grab|click|toggle"
-                        -->
-                        <!-- <figure class="zoom">
-                        	<img class="img-fluid" src="/Users/nauqmac/Desktop/images/macbook16.jpeg" alt="...">
-                        </figure> -->
-                         {{!-- <div class="card">
-                        	<img class="card-img" src="images/mac1.png" height="350rem" alt="...">
-                   	    </div> --}}
                     </div>
-
-                    <!-- Thumbnails (required height:100px) -->
                     <div style="display: flex;">
                         <a class="thumbnail active" href="images/mac1.png">
                         	<img src="images/mac1.png" width="110rem" height="110rem" alt="...">
@@ -72,41 +64,30 @@
                         	<img src="images/mac3.png" width="110rem" height="110rem" alt="...">
                         </a>
                     </div>
-                    <!-- /Thumbnails -->
-
                 </div>
                 <!-- /IMAGE -->
 
                 <!-- ITEM DESC -->
+                {{#if this.product}}
                 <div class="col-lg-5 col-sm-8">
-                    <section class="productTitle" >
-                        <h1 style="margin-bottom: 30px; display: inline-flex;">
-                            <span product-name>Macbook Pro 2019 MVVJ2</span>
-                        </h1>
-                        <span class="float-right text-success check-product"><i class="fa fa-check"></i> In Stock</span>
-                        <div class="row clock">
-                            <div class="col-md-1 clock-hour">
-                                <p><b>00</b></p>
-                            </div>
-                            <span><p><b>:</b></p></span>
-                            <div class="col-md-1 clock-minute">
-                                <p><b>00</b></p>
-                            </div>
-                            <span><p><b>:</b></p></span>
-                            <div class="col-md-1 clock-second">
-                                <p><b>00</b></p>
-                            </div>
-
+                      <section class="productTitle pt-0" >
+                        <h2 class="text-primary ml-3">
+                            {{product.productName}}
+                        </h2>
+                        <span class="text-success check-product"><i class="fa fa-check"></i>{{#if outOfStock}} In Stock{{else}}Out of Stock{{/if}}</span>
+                        <div class="row ml-3" style="margin-top: 20px;">
+                            <i class="fa fa-clock-o" aria-hidden="true"></i>
+                           <h1>{{product.time}}</h1>
                         </div>
 
-                        <div class="row" style="margin-top: 50px;">
+                        <div class="row" style="margin-top: 25px;">
                              <div class="col-auto">
                                 <header class="smallUpperHeader"> 
-                                Giá mua ngay: 
+                                Giá hiện tại: 
                                 </header>
-                                    <main >
+                                    <main>
                                         <div >
-                                            <span>100,000,000 đ</span>
+                                            <span class="text-danger display-4">{{format product.priceCurent}}đ</span>
                                         </div></main>
                             </div>
                         </div>
@@ -114,11 +95,11 @@
                         <div class="row" id="bidInfo" style="margin-top: 50px; margin-bottom: 20px;">
                             <div class="col-auto">
                                 <header class="smallUpperHeader titleSetForMobile">
-                                    Giá hiện tại:
+                                    Giá mua ngay:
                                 </header>
                                       <main id="currentBidText" class="marginT10 customShadowBorder currentBidMobile bidAmount">
                                         <span class="cBid">
-                                            15K ₫
+                                            {{format product.price}}
                                         </span></main>
                             </div>
                             <div>
@@ -127,11 +108,11 @@
                                 </header>
                                     <main >
                                         <div >
-                                            <span>TNM</span>
+                                            <span>{{product.bidderID}}</span>
                                         </div>
                                     </main>
                             </div>
-                            <div style="margin-left: 135px;">
+                            <div class="row m-5 p-5">
                                 <button type="submit" class="btn btn-outline-danger">
                                 <i class="fa fa-heart" aria-hidden="true"></i>
                                     Thêm vào yêu thích
@@ -149,7 +130,7 @@
 
                                 <span class="bidding_box_fancy" style="display: inline-flex;">  
                                     <span class="BidValue">
-                                        <div id="NewBidTxt" class="CustomSelect" basevalue="21.00">28K</div>
+                                        <div id="NewBidTxt" class="CustomSelect" basevalue="21.00">{{format product.stepPrice}}</div>
                                     </span>
 
                                     <button class="btn btn-primary product-bidding">ĐẤU GIÁ</button>
@@ -163,14 +144,15 @@
                     </div>
 
                 </div>
+                {{/if}}
                 <!-- /ITEM DESC -->
-
+                {{/if}}
                 <!-- INFO -->
                 <div class="col-sm-4 col-md-3">
 
                     <h4 class="fs-18">
                         <i class="fa fa-paper-plane-o"></i> 
-                        MIỄN PHÍ GIAO HÀNG
+                       Miễn phí giao hàng
                     </h4>
                     <p>Miễn phí giao hàng khu vực nội thành TP. HCM.</br>Những khu vực khác phí vận chuyển từ 49.000đ.</p>
 

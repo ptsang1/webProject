@@ -14,7 +14,7 @@ require('express-async-errors');
 
 const app = express();
 
-app.use('/public', express.static('public'));
+
 app.use(express.urlencoded({
     extended: true
 }));
@@ -31,13 +31,18 @@ app.engine('hbs', exphbs({
 }));
 
 app.set('view engine', 'hbs');
-app.use('/', require('./routes/product.route'));
 
-app.get('/detail', function(req, res) {
-    res.render('detail');
+// hỗ trợ show danh mục trên nav bar và trang xem danh sách sản phẩm
+const categoryModel = require('./models/category.model');
+app.use(async function(req, res, next) {
+    const rows = await categoryModel.allWithDetails();
+    res.locals.lcCategories = rows;
+    next();
 });
+//--------------------------------------------------------------------
 
-app.use('/add', require('./routes/_product.route'));
+app.use('/', require('./routes/product.route'));
+app.use('/product', require('./routes/_product.route'));
 app.use('/account', require('./routes/account.route'));
 app.use('/profile', require('./routes/profile.route'));
 

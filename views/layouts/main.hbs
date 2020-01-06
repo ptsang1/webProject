@@ -23,13 +23,13 @@
                             <div class="menuDropdon">
                                 <div class="btnsp">
                                     <a>
-                                        Các sản phẩm
+                                        Các danh mục
                                         <span class="caret"></span>
                                     </a>
                                     <div class="dropdown-sp">
-                                        <a class="DDT" href="/laptop-list">Laptop</a>
-                                        <a class="DDT" href="/phone-list">Điện Thoại Di Động</a>
-                                        <a class="DDT" href="/tablet-list">Tablet</a>
+                                         {{#each lcCategories}}
+                                        <a class="DDT" href="/byCat?id={{CatID}}&sort=ASC">{{CatName}}</a>
+                                        {{/each}}
                                     </div>
                                 </div>
                                 <a class="about"href="/about">About</a>
@@ -45,7 +45,7 @@
                             </a>
                         </div>
                         <div id="searchContainer">
-                            <form action="/action_page.php">
+                            <form action="/" method="POST">
                                 <input type="text" placeholder="Tìm kiếm" name="search">
                                 <button type="submit"><i class="fa fa-search"></i></button>
                             </form>
