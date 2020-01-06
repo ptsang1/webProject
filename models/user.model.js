@@ -3,11 +3,11 @@ const db = require("../utils/db");
 module.exports = {
     all: async _ => await db.load('select * from USERS'),
     add: async entity => await db.add(entity, 'USERS'),
-    confirmAccount: async userID => await db.updateValue("USERS", {accepted: 1}, {userID: userID}),
+    confirmAccount: async userID => await db.updateValue("USERS", { accepted: 1 }, { userID: userID }),
     isEmailExisted: async email => {
-      const row = await db.load(`select email from USERS where email = ?`, [email]);
-      // console.log(row, email);
-      return row.length > 0;
+        const row = await db.load(`select email from USERS where email = ?`, [email]);
+        // console.log(row, email);
+        return row.length > 0;
     },
     getUserByEmail: async email => {
         const rows = await db.load(`select * from USERS where email = '${email}'`);
@@ -54,4 +54,10 @@ module.exports = {
             return null;
         return rows[0].genderID;
     },
+    del: id => db.del({ userID: id }, 'USERS'),
+    patch: entity => {
+        const condition = { userID: entity.userID };
+        delete entity.userID;
+        return db.patch(entity, condition, 'USERS');
+    }
 }

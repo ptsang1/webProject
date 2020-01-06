@@ -50,6 +50,7 @@ app.use('/', require('./routes/product.route'));
 app.use('/product', require('./routes/_product.route'));
 app.use('/account', require('./routes/account.route'));
 app.use('/profile', require('./routes/profile.route'));
+app.use('/admin', require('./routes/admin.route'));
 
 app.get('/err', function(req, res) {
     throw new Error('beng beng');

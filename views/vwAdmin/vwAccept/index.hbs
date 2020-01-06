@@ -1,0 +1,38 @@
+<div class="card">
+    <div class="card-header d-flex">
+        <div class="w-50">
+        <h4>Duyệt tài khoản</h4>
+    </div>
+    </div>
+    {{#if this.empty}}
+    <div class="card-body">
+            <p class="card-text">Không có dữ liệu</p>
+    </div>
+    {{else}}
+   <table class="table table-hover">
+       <thead>
+           <tr>
+               <th scope="col">Mã người dùng</th>
+               <th scope="col">Tên Người Dùng</th>
+               <th scope="col">&nbsp;</th>
+            </tr>
+       </thead>
+       <tbody>
+           {{#each this.users}}
+           <tr>
+               <td scope="row">{{userID}}</td>
+               <td>{{fullName}}</td>
+               <td class="text-right">
+                   <a class="btn btn-sm  btn-primary" href="/admin/accepts/{{bidderID}}?res=1" role="button">
+                       <i class="fa fa-check-circle" aria-hidden="true"></i>
+                   </a>
+                   <a class="btn btn-sm  btn-danger" href="/admin/accepts/{{bidderID}}?res=0" role="button">
+                      <i class="fa fa-window-close" aria-hidden="true"></i>
+                   </a>
+               </td>
+           </tr>
+           {{/each}}
+       </tbody>
+   </table>
+   {{/if}}
+</div>
