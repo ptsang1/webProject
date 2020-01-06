@@ -13,7 +13,6 @@ router.get('/', async function(req, res) {
     });
 })
 
-
 router.post('/', upload.array('imageProduct', 3), async function(req, res) {
     let tn = new Date();
     let catID = await categoryModel.singleByName(req.body.category);
@@ -37,6 +36,5 @@ router.post('/', upload.array('imageProduct', 3), async function(req, res) {
         categories: result
     });
 })
-
 
 module.exports = router;

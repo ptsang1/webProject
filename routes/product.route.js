@@ -33,14 +33,4 @@ router.get('/byCat', async function(req, res) {
     //})
 })
 
-
-
-router.get('/watch-list', async function(req, res) {
-    result = await product.all();
-    res.render('vwProduct/watch-list', {
-        products: result,
-        empty: result.length === 0,
-    });
-});
-
 module.exports = router;
