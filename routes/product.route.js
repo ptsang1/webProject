@@ -3,11 +3,8 @@ const product = require("../models/product.model");
 const categoryModel = require('../models/category.model');
 const stringCompare = require('string-similarity');
 const config = require('../config/default.json');
-
 const router = express.Router();
 router.use(express.static('public'));
-
-
 
 router.get('/', async function(req, res) {
     topEnd = await product.topFiveProductEnd();
@@ -20,6 +17,7 @@ router.get('/', async function(req, res) {
         empty: topEnd.length === 0,
     });
 });
+
 router.post('/', async function(req, res) {
     const name = req.body.search;
     let flag = false;
@@ -41,6 +39,7 @@ router.post('/', async function(req, res) {
         } else res.render('vwProduct/404');
     }
 });
+
 router.get('/byCat', async function(req, res) {
     for (const c of res.locals.lcCategories) {
         if (c.CatID === +req.query.id) {
@@ -83,9 +82,7 @@ router.get('/byCat', async function(req, res) {
         }
         page_items.push(item);
     }
-
     console.log(req.query);
-
     res.render('vwProduct/byCat', {
         product: rows,
         empty: rows.length === 0,
@@ -98,14 +95,5 @@ router.get('/byCat', async function(req, res) {
         sort,
     })
 })
-
-
-router.get('/watch-list', async function(req, res) {
-    result = await product.all();
-    res.render('vwProduct/watch-list', {
-        products: result,
-        empty: result.length === 0,
-    });
-});
 
 module.exports = router;
