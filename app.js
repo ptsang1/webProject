@@ -31,8 +31,6 @@ app.engine('hbs', exphbs({
 }));
 
 app.set('view engine', 'hbs');
-app.use('/public', express.static('public'));
-
 app.use('/', require('./routes/product.route'));
 
 app.get('/detail', function(req, res) {

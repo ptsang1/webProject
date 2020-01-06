@@ -14,18 +14,20 @@ const pool_query = util.promisify(pool.query).bind(pool);
 
 module.exports = {
     load: query => pool_query(query),
+    load: (query, option) => pool_query(query, option),
     add: (entity, table) => pool_query(`insert into ${table} set ?`, entity),
-    updateValue: (table, list, cond) => {
+    updateValue: (table, set, where) => {
         query = `UPDATE ${table} SET `;
         let values = [];
-        for (let attribute in list){
-            query += att + " = ?";
-            values.push(list[attribute]);
+        for (let attribute in set){
+            query += att + " = ?, ";
+            values.push(set[attribute]);
         }
-        if (cond){
-            for (let attribute in cond){
-                query += att + " = ?";
-                values.push(list[attribute]);
+        if (where){
+            query += "WHERE "
+            for (let attribute in where){
+                query += att + " = ? and";
+                values.push(set[attribute]);
             }
         }
         pool_query(query, values);
@@ -46,5 +48,5 @@ module.exports = {
 };
     // load: sql => pool_query(sql),
     // add: (entity, table) => pool_query(`insert into ${table} set ?`, entity),
-    // del: (condition, table) => pool_query(`delete from ${table} where ?`, condition),
-    // patch: (entity, condition, table) => pool_query(`update ${table} set ? where ?`, [entity, condition]),
+    // del: (whereition, table) => pool_query(`delete from ${table} where ?`, whereition),
+    // patch: (entity, whereition, table) => pool_query(`update ${table} set ? where ?`, [entity, whereition]),

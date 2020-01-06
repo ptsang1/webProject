@@ -5,12 +5,16 @@
 {{#section 'css'}}
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
 	<link rel="stylesheet" href="css/signIn.css">
+    {{!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"> --}}
 {{/section}}
 
 {{#section 'js'}}
 	<script type="text/javascript" src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+    <script src="http://ajax.aspnetcdn.com/ajax/jquery.validate/1.11.1/jquery.validate.min.js"></script>
 	<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
-	<script src="js/signIn.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/aes.js"></script>
+    <script src="js/signup.js"></script>
+    <script src='https://www.google.com/recaptcha/api.js'></script>
 {{/section}}
 
 <div class="signup-content">
@@ -20,7 +24,7 @@
     </div>
     <div class="signup-form">
         <h2 class="form-title">Đăng ký</h2>
-        <form method="POST" name="register-form" onsubmit="return validate()" class="register-form" id="register-form">
+        <form method="POST" name="register-form" class="register-form" id="register-form">
             <div class="form-group">
                 <label for="name"><i class="zmdi zmdi-account material-icons-name"></i></label>
                 <span class="warning">
@@ -33,7 +37,7 @@
                 <span class="warning">
                     <i class="zmdi zmdi-alert-octagon"></i>
                 </span>
-                <select class="form-control form-control-lg" id="gender" name="gender" required/>
+                <select id="gender" name="gender" required/>
                     <option value="" disabled selected>Giới tính</option>
                     {{#if this.empty}}
                         <option value="0">Nữ</option>
@@ -50,7 +54,15 @@
                 <span class="warning">
                     <i class="zmdi zmdi-alert-octagon"></i>
                 </span>
-                <input id="birthday" name="birthday" required="" type="date" value="" required/>
+                <input id="birthday" name="birthday" type="date" placeholder="dd/mm/yyyy" required/>
+                <script>
+                    let today = new Date(),
+                        year = today.getFullYear();
+                        min = (year-150)+'-01-01',
+                        max = (year-18)+'-01-01';
+                    document.getElementById("birthday").setAttribute("min", min);
+                    document.getElementById("birthday").setAttribute("max", max);
+                </script>
             </div>
             <div class="form-group">
                 <label for="address"><i class="zmdi zmdi-home"></i></label>
@@ -60,6 +72,12 @@
                 <input type="text" name="address" id="address" placeholder="Địa chỉ" required/>
             </div>
             <div class="form-group">
+                {{!-- {{#if this.errorEmail}}
+                    <script>
+                        let message = "{{this.message}}";
+                        $('input[name="email"]').setCustomValidity(message);
+                    </script>
+                {{/if}} --}}
                 <label for="email"><i class="zmdi zmdi-email"></i></label>
                 <span class="warning">
                     <i class="zmdi zmdi-alert-octagon"></i>
@@ -81,12 +99,14 @@
                 <input type="password" name="confirm_password" id="confirm_password" placeholder="Xác nhận lại mật khẩu" required/>
             </div>
             <div class="form-group">
-                <input type="checkbox" name="agree-term" id="agree-term" class="agree-term"/>
-                <span class="warning">
-                    <i class="zmdi zmdi-alert-octagon"></i>
-                </span>
+                <input required type="checkbox" name="agree-term" id="agree-term" class="agree-term" oninvalid="this.setCustomValidity('Bạn chưa chọn nè!')"  onchange="this.setCustomValidity('')" value="1"/>
                 <label for="agree-term" class="label-agree-term"><span><span></span></span>
-                    Bạn chấp nhận với tất cả <a href="#" class="term-service">điều khoản dịch vụ</a></label>
+                    Bạn chấp nhận với tất cả <a href="" class="term-service">điều khoản dịch vụ</a>
+                </label>
+            </div>
+            <div class="form-group">
+                <div class="g-recaptcha" data-sitekey="6LemPswUAAAAANZJU8nkTUKW6S5gkFIfWB382OFx" data-callback="verifyRecaptchaCallback" data-expired-callback="expiredRecaptchaCallback"></div>
+                <div class="help-block with-errors"></div>
             </div>
             <div class="form-group form-btn">
                 <input type="submit" name="signup" id="signup" class="form-submit" value="Đăng ký"/>
