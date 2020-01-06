@@ -1,5 +1,6 @@
 const express = require('express');
-const product = require("../models/product.model")
+const product = require("../models/product.model");
+const config = require('../config/default.json');
 
 const router = express.Router();
 router.use(express.static('public'));
@@ -24,15 +25,62 @@ router.get('/', async function(req, res) {
 });
 
 router.get('/byCat', async function(req, res) {
-    res.render('vwProduct/byCat', {
-        empty: true
-    });
-    //res.render('vwProduct/byCat', {
-    //  products: rows,
-    // empty: rows.length === 0,
-    //})
-})
+    for (const c of res.locals.lcCategories) {
+        if (c.CatID === +req.query.id) {
+            c.isActive = true;
+        }
+    }
+    console.log(req.query.id);
+    let id = req.query.id;
+    let sort = req.query.sort;
+    if (!id || !sort) {
+        id = 1;
+        sort = 'ASC';
+    }
+    console.log(id);
+    const page = +req.query.page || 1;
+    if (page < 0) page = 1;
+    const offset = (page - 1) * config.pagination.limit;
 
+    const total = await product.countByCat(id);
+    let rows = await product.pageByCatOrderValueASC(id, offset);
+    if (sort === 'ASC') {
+        rows = await product.pageByCatOrderValueASC(id, offset);
+    } else if (sort === 'DESC') {
+        rows = await product.pageByCatOrderValueDESC(id, offset);
+    } else if (sort === 'TASC') {
+        rows = await product.pageByCatOrderTimeASC(id, offset);
+    } else if (sort === 'TDESC') {
+        rows = await product.pageByCatOrderTimeDESC(id, offset);
+    }
+
+    const nPages = Math.ceil(total / config.pagination.limit);
+
+    page_items = [];
+    for (i = 1; i <= nPages; i++) {
+        const item = {
+            value: i,
+            id,
+            sort,
+            isActive: i === page
+        }
+        page_items.push(item);
+    }
+
+    console.log(req.query);
+
+    res.render('vwProduct/byCat', {
+        product: rows,
+        empty: rows.length === 0,
+        page_items,
+        can_go_prev: page > 1,
+        can_go_next: page < nPages,
+        next_value: page + 1,
+        prev_value: page - 1,
+        id,
+        sort,
+    })
+})
 
 
 router.get('/watch-list', async function(req, res) {
