@@ -1,13 +1,16 @@
+
+    
+    
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-3  ml-2">
                <div class="card">
                     <div class="card-header">
-                        <h4>Categories</h4>
+                        <h4>Các Danh Mục</h4>
                      </div>
                     <div class="list-group list-group-flush">
                       {{#each lcCategories}}
-                         <a href="/products/byCat/{{CatID}}" class="list-group-item list-group-item-action {{#if isActive}}active{{/if}}">
+                         <a href="/byCat?id={{CatID}}&sort=ASC" class="list-group-item list-group-item-action {{#if isActive}}active{{/if}}">
                             {{CatName}}    
                             {{#if num_of_products}}
                             <span class="badge badge-danger float-right">{{num_of_products}}</span>
@@ -19,71 +22,88 @@
             </div>
              {{#if this.empty}}
                 <div class="card-body">
-                     <h3 class="card-text">Không có dữ liệu</h3>
+                     <h1 class="card-text">Không có dữ liệu</h1>
                 </div>
              {{else}}
-            <div class="col mt-3">
+            <div class="col">
                 <nav>
                     <div class="jumbotron jumbotron-fluid p-1 m-1" style="background-color: white;">
                         <div class="container">
-                            <h2 class="display-6">{{catName}}<h5 class="text-secondary">{{count}}</h5></h2>
+                            {{#each lcCategories}}
+                           {{#if isActive}}
+                            <h2 class="display-6">{{CatName}}<h5 class="text-secondary">{{num_of_products}} sản phẩm</h5></h2>
+                            {{/if}}
+                            {{/each}}
                         </div>
                         <div class="container">
+                            
                             <div class="dropdown">
                                 <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     Sắp xếp
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item" href="#">Giá tăng dần</a>
-                                    <a class="dropdown-item" href="#">Giá giảm dần</a>
-                                    <a class="dropdown-item" href="#">Thời gian kết thúc tăng dần</a>
-                                    <a class="dropdown-item" href="#">Thời gian kết thúc giảm dần</a>
+                                    <a class="dropdown-item"  href="/byCat?id={{id}}&sort=ASC">Giá tăng dần</a>
+                                    <a class="dropdown-item" href="/byCat?id={{id}}&sort=DESC">Giá giảm dần</a>
+                                    <a class="dropdown-item" href="/byCat?id={{id}}&sort=TASC">Thời gian kết thúc tăng dần</a>
+                                    <a class="dropdown-item" href="/byCat?id={{id}}&sort=TDESC">Thời gian kết thúc giảm dần</a>
                                 </div>
                             </div>
+                            
                         </div>
                         <div class="container-fluid">
                             <div class="row">
-                                <div class="col-md-3 mt-2 mb-3">
-                                   <div class="card" style="height: 28rem;" style="width: 15rem;">
-                   						<img src="images/macbook16.jpeg" height="250" class="card-img-top" alt="...">
-                    					<div class="card-body">
-                   							<p class="card-text"><b>Apple Macbook Pro 16"</b>
-                                                <br><small>Giá mua ngay: <b>70.000.000đ</b>
-                                                <br>Giá hiện tại: <b>63.500.000đ</b>
-                                                <br>Ra giá bởi: <b>{{Bidder}}</b>
-                                                <br>Ngày đăng: <b>{{Date}}</b>
-                                                <br>Thời gian còn lại: <b>10:30:57</b>
+                                {{#each this.product}}
+                                <div class="col-md-4 mt-2 mb-3">
+                                   <div class="card">
+                                        <a href="/product/detail?id={{productID}}">
+                                        <img src="images/macbook.jpeg" class="card-img-top" alt="..."></a>                    					
+                                        <div class="card-body">
+                                            <p class="card-text" style="overflow: hidden;">
+                                                <b>{{productName}}</b>
+                                                <br><small>Giá mua ngay: <br><b>{{format price}}đ</b>
+                                                <br>Giá hiện tại: <br><b>{{format priceCurent}}đ</b>
+                                                <br>Ra giá bởi: <br><b>{{bidderID}}</b>
+                                                <br>Thời gian còn lại: <br><b>{{formatDate timeEnd}}</b>
                                                 <br>Số lượt ra giá hiện tại: <b>10</b></small>
                                             </p>
-                  						</div>
-                 					</div>
+                                        </div>
+                                    </div>
                                 </div>
+                                {{/each}}
                             </div>
                         </div>
                     </div>
                 </nav>
             </div>
-            {{/if}}
         </div>
-        <nav aria-label="Page navigation example">
-            <ul class="pagination float-right mr-3">
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                        <span class="sr-only">Previous</span>
-                    </a>
-                </li>
-                <li class="page-item"><a class="page-link" href="list-product1">1</a></li>
-                <li class="page-item"><a class="page-link" href="list-product2">2</a></li>
-                <li class="page-item"><a class="page-link" href="list-product3">3</a></li>
-                <li class="page-item">
-                    <a class="page-link" href="#" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                        <span class="sr-only">Next</span>
-                    </a>
-                </li>
-            </ul>
-        </nav>
+         <div class="row d-flex justify-content-end mr-3">
+             <nav aria-label="...">
+                <ul class="pagination">
+                    <li class="page-item  {{#unless can_go_prev}}disabled{{/unless}}">
+                        <a href="?id={{id}}&sort={{sort}}&page={{prev_value}}" class="page-link" tabindex="-1">
+                            <i class="fa fa-backward" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                    {{#each this.page_items}}
+                            {{#if this.isActive}}
+                            <li class="page-item active">
+                            <a href="javascript:;" class="page-link">{{value}}</a>
+                            </li>
+                            {{else}}
+                            <li class="page-item">
+                            <a href="?id={{id}}&sort={{sort}}&page={{value}}" class="page-link">{{value}}</a>
+                            </li>
+                            {{/if}}
+                    {{/each}}
+                    <li class="page-item {{#unless can_go_next}}disabled{{/unless}}">
+                        <a href="?id={{id}}&sort={{sort}}&page={{next_value}}" class="page-link">
+                            <i class="fa fa-forward" aria-hidden="true"></i>
+                        </a>
+                    </li>
+                </ul>
+             </nav>
+         </div>
+            {{/if}}
     </div>
-
+</div>
   
