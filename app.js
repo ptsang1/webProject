@@ -26,7 +26,8 @@ app.engine('hbs', exphbs({
     helpers: {
         section: hbs_sections(),
         format: val => numeral(val).format('0,0'),
-        formatDate: val => moment(val).format('h:mm:ss a, DD/MM/YYYY')
+        formatDate: val => moment(val).format('h:mm:ss a, DD/MM/YYYY'),
+        formatTime: val => moment(val).fromNow(),
     }
 }));
 
