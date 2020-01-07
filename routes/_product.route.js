@@ -1,9 +1,12 @@
 const express = require('express');
 const categoryModel = require('../models/category.model');
 const productModel = require('../models/product.model');
+const describeModel = require('../models/describe.model');
+const imageModel = require('../models/image.model');
 const multer = require('multer');
 const moment = require('moment');
-
+const mkdirp = require('mkdirp');
+const fs = require('fs');
 const config = require('../config/default.json');
 const router = express.Router();
 
@@ -19,41 +22,74 @@ router.get('/add', async function(req, res) {
 })
 
 router.post('/add', async function(req, res) {
+    const row = await productModel.getNextID();
+    const id = row[0].number;
+    // tao thu muc chua anh
+    mkdirp(`./public/images/${id}`, function(err) {
+        if (err) console.error(err);
+    });
+    //load hinh len
     const storage = multer.diskStorage({
         filename: function(req, file, cb) {
-            cb(null, file.originalname)
+            const filename = file.originalname;
+            const fileExtension = filename.split(".")[1];
+
+            cb(null, `${id}` + "-" + Date.now() + "." + fileExtension);
         },
         destination: function(req, file, cb) {
-            cb(null, `./public/images/`);
+            cb(null, `./public/images/${id}`);
         },
     });
     const upload = multer({ storage });
-    upload.array('input-b1', 3)(req, res, async function(err) {
+    await upload.array('input-b1', 3)(req, res, async err => {
         if (err) {
-
+            console.log(err);
         } else {
-            let tn = new Date();
+            let timePost = new Date();
             let catID = await categoryModel.singleByName(req.body.category);
-            console.log(req.body);
+            let timeEnd = new Date(new Date().getTime() + (10 * 24 * 60 * 60 * 1000));
             const entity = {
-                sellerID: 'SellerVipPro',
+                sellerID: 'ad002110-3082-11ea-8a84-9b34a52a433d',
                 CatID: catID.catID,
                 productName: req.body.productName,
-                bidderID: '',
+                bidderID: null,
                 priceCurent: req.body.priceCurrent,
                 stepPrice: req.body.stepPrice,
                 price: req.body.price,
                 sold: 0,
-                timePost: tn,
-                timeEnd: tn
+                timePost: timePost,
+                timeEnd: timeEnd
             };
             const rs = await productModel.add(entity);
-            result = await categoryModel.all();
-            res.render('vwProduct/add', {
-                categories: result
+            const des = req.body.describeProduct;
+            if (des) await describeModel.add({
+                productID: id,
+                sellerID: 'ad002110-3082-11ea-8a84-9b34a52a433d',
+                description: des,
+                timeUpdate: timePost,
+            });
+            fs.readdir(`./public/images/${id}`, async function(err, items) {
+                if (err) {
+                    console.log(err);
+                }
+                for (let i = 0; i < items.length; i++) {
+                    if (items[i]) await imageModel.add({
+                        productID: id,
+                        sellerID: 'ad002110-3082-11ea-8a84-9b34a52a433d',
+                        imageLink: `./public/images/${id}/${items[i]}`,
+                    });
+                }
             });
         }
-    })
+    });
+
+
+    //upload thong tin va anh va mo ta
+    //render lại view
+    result = await categoryModel.all();
+    res.render('vwProduct/add', {
+        categories: result
+    });
 })
 
 router.get('/detail', async function(req, res) {
