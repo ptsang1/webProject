@@ -4,6 +4,7 @@ const config = require('../config/default.json');
 module.exports = {
     all: _ => db.load('select * from PRODUCTS'),
     add: entity => db.add(entity, 'PRODUCTS'),
+    saved: entity => db.add(entity, 'PRODUCTS_SAVED'),
     allByCat: catId => db.load(`select * from PRODUCTS where catID = ${catId}`),
     countByCat: async catId => {
         const rows = await db.load(`select count(*) as total  from PRODUCTS where catID = ${catId}`);

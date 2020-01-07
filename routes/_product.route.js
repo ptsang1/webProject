@@ -78,4 +78,32 @@ router.get('/detail', async function(req, res) {
     });
 });
 
+router.post('/detail', async function(req, res) {
+    const entity = {
+        userID: bidderID,
+        sellerID: sellerID,
+        productID: req.query.id,
+        };
+    const rs = await productModel.saved(entity);
+    const item = await productModel.singleByID(req.query.id);
+    let empty = false;
+    const time = moment(item[0].timeEnd).fromNow();
+    const product = {
+        priceCurent: item[0].priceCurent,
+        stepPrice: item[0].stepPrice ,
+        bidPrice: item[0].stepPrice + item[0].priceCurent,
+        price: item[0].price,
+        productName: item[0].productName,
+        bidderID: item[0].bidderID,
+        sellerID: item[0].sellerID,
+        time: time,
+    };
+    if (!item) empty = true;
+    res.render('vwProduct/detail', {
+        product,
+        outOfStock: item.sold === 0,
+        empty,
+    });
+})
+
 module.exports = router;
