@@ -5,6 +5,7 @@
 {{#section 'css'}}
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/material-design-iconic-font/2.2.0/css/material-design-iconic-font.min.css">
 	<link rel="stylesheet" href="css/signIn.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css">
 {{/section}}
 
 {{#section 'js'}}
@@ -15,18 +16,18 @@
 <div class="signin-content">
     
     <div class="signin-image">
-        <a href="/account"><img src="images/signIn.jpg" alt="sing up image"></a>
+        <a href="/"><img src="images/signIn.jpg" alt="sing up image"></a>
         <a href="/account/forgottenPassword" class="signup-image-link">Bạn quên mật khẩu?</a>
         <a href="/account/signup" class="signup-image-link">Bạn chưa có tài khoản?</a>
     </div>
     <div class="signin-form">
         <h2 class="form-title">Đăng nhập</h2>
-        {{#if this.err}}
-        <div class="alert alert-warning alert-dismissible fade shadow-1">
-            <button type="button" class="close">
+        {{#if err_message}}
+        <div class="alert alert-warning alert-dismissible fade show" role="alert">
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
             </button>
-            {{err}}
+            {{err_message}}
         </div>
         {{/if}}
         <form method="POST" class="login-form" id="login-form">

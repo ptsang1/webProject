@@ -6,8 +6,12 @@ const config = require('../config/default.json');
 const product = require("../models/product.model")
 const router = express.Router();
 
-router.get('/', async function(req, res) {
-    const user = await userModel.singleByEmail('ngophat99@gmail.com');
+const restrict = require('../middlewares/auth.mdw');
+router.get('/', restrict, async function (req, res) {
+    // if (!req.session.isAuthenticated){
+    //     return res.redirect(`/account/login?retUrl=${req.originalUrl}`);
+    // }
+    const user = req.session.authUser;
     const gender = await userModel.getGender(user.genderID);
     const othergender = await userModel.getOtherGender(user.genderID);
     const dob = moment(user.birthDate, 'YYYY-MM-DD').format('YYYY-MM-DD');
