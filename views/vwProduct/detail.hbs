@@ -97,17 +97,18 @@
                                 <header class="smallUpperHeader titleSetForMobile">
                                     Giá mua ngay:
                                 </header>
-                                      <main id="currentBidText" class="marginT10 customShadowBorder currentBidMobile bidAmount">
+                                    <main id="currentBidText" class="marginT10 customShadowBorder currentBidMobile bidAmount">
                                         <span class="cBid">
                                             {{format product.price}}
-                                        </span></main>
+                                        </span>
+                                    </main>
                             </div>
                             <div>
                                 <header class="smallUpperHeader"> 
                                     Ra giá bởi:
                                 </header>
-                                    <main >
-                                        <div >
+                                    <main>
+                                        <div>
                                             <span>{{product.bidderID}}</span>
                                         </div>
                                     </main>
@@ -124,21 +125,17 @@
                     </section>
 
                     <div class="bidDetailArea">
-                        <div class="right marginT15 noMarginMobile " style="margin-top: 20px;">
-                            <header class="smallUpperHeader placeBidTxt" id="bid">Place Your Bid:</header>
-                            <div class="info_data place_bid">
-
+                        <div class="right marginT15 noMarginMobile" style="margin-top: 15px;">
+                                <div style="margin-bottom: 5px;">
+                                    <span>Bước giá: {{format product.stepPrice}}</span>
+                                </div>
+                            <div class="info_data place_bid">     
                                 <span class="bidding_box_fancy" style="display: inline-flex;">  
                                     <span class="BidValue">
-                                        <div id="NewBidTxt" class="CustomSelect" basevalue="21.00">{{format product.stepPrice}}</div>
+                                        <div id="NewBidTxt" class="CustomSelect" basevalue="21.00">{{format product.bidPrice}}</div>
                                     </span>
-
                                     <button class="btn btn-primary product-bidding">ĐẤU GIÁ</button>
                                 </span>
-
-                                <div id="ContentPlaceHolder1_UpdatePanel1">
-                                    <p class="service_charge">Plus a 10% Service Charge</p>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -167,7 +164,7 @@
                         <i class="fa fa-users"></i> 
                         NHÀ CUNG CẤP
                     </h4>
-                    <p>PORNHUB.</p>
+                    <p>{{product.sellerID}}</p>
                     <h4 class="fs-18">
                         <i class="fa fa-star"></i> 
                         ĐIỂM ĐÁNH GIÁ
