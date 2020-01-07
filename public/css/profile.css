@@ -2,6 +2,10 @@
     margin-top: 60px;
 }
 
+.container-fluid{
+    padding: 0;
+}
+
 .profile-pane {
     margin: 0;
     padding: 0;

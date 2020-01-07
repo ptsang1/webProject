@@ -200,11 +200,10 @@ body {
   line-height: 1.8;
   color: #222;
   background: #f8f8f8;
-  font-weight: 400;
-  font-family: Poppins; }
+  font-family: Poppins !important; }
 
 .container {
-  width: 900px;
+  width: 900px !important;
   background: #fff;
   display: flex;
   justify-items: center;
@@ -273,7 +272,9 @@ body {
 }
 
 .form-title {
-  margin-bottom: 33px; }
+  margin-bottom: 33px; 
+  font-weight: 700;
+}
 
 figure {
   margin-bottom: 50px;
@@ -298,8 +299,6 @@ figure {
 }
 
 .signup-image-link {
-  font-size: 14px;
-  color: #222;
   display: block;
   text-align: center; }
 
@@ -524,12 +523,16 @@ label.valid {
     justify-content: center;
     text-align: center;
 }
+.form-btn:hover {
+  transform: scale(1.05); }
+.form-btn:focus{
+  outline: none; }
 
 .form-title {
     text-align: center;
 }
 
-@media screen and (max-width: 1200px) {
+/* @media screen and (max-width: 1200px) {
   .container {
     width: calc( 100% - 30px);
     max-width: 100%; } }
@@ -556,7 +559,6 @@ label.valid {
     margin-left: 0px;
     margin-right: 0px;
     padding-left: 0px;
-    /* box-sizing: border-box; */
     padding: 0 30px; }
 
   .signin-image {
@@ -601,24 +603,24 @@ label.valid {
     margin-right: 0px;
     margin-bottom: 10px;
   }
-}
+} */
 
-  .btn{
-    background-image: linear-gradient(to right bottom, #FBDB89, #F48982);
-    border-radius: 10rem;
-    border: none;
-    text-transform: uppercase;
-    color: #fff;
-    cursor: pointer;
-    transition: all .2s;
-    margin-top: 0 !important;
-  }
-    .btn:hover {
-      transform: scale(1.05); }
-    .btn:focus{
-      outline: none; }
-    .btn > *:first-child, .btn-small > *:first-child {
-      margin-right: 1rem; }
+.btn{
+  background-image: linear-gradient(to right bottom, #FBDB89, #F48982);
+  border-radius: 10rem;
+  border: none;
+  text-transform: uppercase;
+  color: #fff;
+  cursor: pointer;
+  transition: all .2s;
+  margin-top: 0 !important;
+}
+.btn:hover {
+  transform: scale(1.05); }
+.btn:focus{
+  outline: none; }
+.btn > *:first-child, .btn-small > *:first-child {
+  margin-right: 1rem; }
 
 .btn-show-pass {
   font-size: 15px;

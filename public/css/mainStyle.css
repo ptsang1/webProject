@@ -26,7 +26,7 @@ body {
     align-items: center;
 }
 
-#centerContainer {
+.centerContainer {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
@@ -35,7 +35,7 @@ body {
     width: 100%;
 }
 
-#centerContainer input[type=text] {
+.centerContainer input[type=text] {
     font-size: 17px !important;
     border: none !important;
     line-height: 1.5 !important;
@@ -49,7 +49,7 @@ body {
     box-shadow: none;
 }
 
-#centerContainer #searchContainer button {
+.centerContainer #searchContainer button {
     float: right;
     background: #FAFAFA;
     font-size: 17px;
@@ -57,42 +57,42 @@ body {
     cursor: pointer;
 }
 
-#centerContainer #searchContainer button:hover {
+.centerContainer #searchContainer button:hover {
     background: #ccc;
 }
 
-#centerContainer div {
+/* .centerContainer div {
     display: flex;
     align-items: center;
     white-space: nowrap
-}
+} */
 
-#centerContainer #logoContainer {
+.centerContainer #logoContainer {
     justify-content: flex-start;
     align-self: center;
     width: auto;
 }
 
-#centerContainer #logoContainer a {
+.centerContainer #logoContainer a {
     vertical-align: middle;
     display: flex;
     align-items: center;
 }
 
-#centerContainer #searchContainer {
+.centerContainer #searchContainer {
     justify-content: center !important;
     align-self: center !important;
     width: auto !important;
 }
 
-#centerContainer #rightContainer {
+.centerContainer #rightContainer {
     justify-content: flex-end !important;
     width: auto !important;
     margin-right: 50px;
     padding-left: 60px;
 }
 
-#centerContainer form {
+.centerContainer form {
     display: flex !important;
     border: 1px solid rgba(var(--b6a, 219, 219, 219), 1);
     width: auto !important;
@@ -100,18 +100,18 @@ body {
     margin: 0 !important;
 }
 
-#centerContainer form input {
+.centerContainer form input {
     width: auto !important;
     height: auto !important;
     margin: 0.5px 0px 0.5px 3px !important;
     vertical-align: middle;
 }
 
-#centerContainer form input:focus {
+.centerContainer form input:focus {
     outline: none !important;
 }
 
-#centerContainer #signIn {
+.centerContainer #signIn {
     color: #000000;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     font-size: 20px;
@@ -147,7 +147,6 @@ body {
 }
 
 .footerContainer {
-    margin-top: 30px;
     background-color: #EEEEF0;
     padding: 30px 50px 30px 50px;
     text-align: center;
@@ -210,7 +209,6 @@ body {
     border: 1px solid rgba(var(--b6a, 219, 219, 219), 1);
     width: 35px;
     height: 35px;
-    padding: 0px;
 }
 
 .dropdown-toggle::after {
@@ -266,6 +264,11 @@ body {
     background-color: #ddd;
 }
 
+.dropdown-menu{
+    min-width: 10rem !important;
+    margin: 0;
+}
+
 .btnHoverContainer:hover {
     display: flex;
     align-self: flex-end;
@@ -286,6 +289,32 @@ body {
 
 .btnHoverContainer:hover .dropdown-toggle::after {
     vertical-align: bottom;
+}
+
+.btnHoverContainer:hover .dropdown-menu {
+    display: block;
+}
+
+.dropdown-menu2{
+    display: none !important;
+    left: 100%;
+    top: 100%;
+    position: absolute;
+    background-color: #fff;
+    border: 1px solid rgba(0,0,0,.15);
+    list-style: none;
+    background-clip: padding-box; 
+    min-width: 10rem !important;
+    margin: 0;
+
+}
+
+.dropdownsp:hover .dropdown-menu2 {
+    display: block !important;
+}
+
+.dropdownsp:hover .dropdown-menu {
+    display: block;
 }
 
 div .row {

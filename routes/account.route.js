@@ -1,10 +1,9 @@
-const express = require('express');
-const uuidv1 = require('uuid/v1');
-const bcrypt = require('bcryptjs');
-const db = require("../utils/db");
-const userModel = require('../models/user.model');
-const config = require("../config/default.json");
-const user = require("../models/user.model")
+const express = require('express'),
+      uuidv1 = require('uuid/v1'),
+      bcrypt = require('bcryptjs'),
+      db = require("../utils/db"),
+      const config = require("../config/default.json"),
+      USERS = require("../models/user.model"),
 
 const router = express.Router();
 
@@ -41,13 +40,13 @@ router.post('/signup', async function(req, res){
         accepted: 1,
         avatar: "",
     }
-    user.add(newUser);
+    USERS.add(newUser);
     res.redirect('/');
 });
 
 router.get('/is-available', async function (req, res) {
     // const email = CryptoJS.AES.decrypt(, 'ptSang').toString(CryptoJS.enc.Utf8);
-    const check = await user.isEmailExisted(req.query.email);
+    const check = await USERS.isEmailExisted(req.query.email);
     if (check){
         return res.json("Email này đã được đăng ký rồi nè!");
     }
@@ -55,23 +54,46 @@ router.get('/is-available', async function (req, res) {
 });
 
 router.get('/login', function(req, res) {
-
     res.render('vwAccount/login', {
         layout: 'signin_signup.hbs',
         template: 'signup',
     });
 });
 
+router.post('/logout', function(req, res) {
+    req.session.isAuthenticated = false;
+    req.session.authUser = null;
+    res.redirect('/');
+});
+
 router.post('/login', async function(req, res) {
-    const user = await userModel.singleByEmail(req.body.email);
-    if (user === null) {
-        res.render('vwAccount/login', {
+    user = await USERS.getUserByEmail(req.body.email);
+    if (user === null){
+        return res.render('vwAccount/login', {
             layout: 'signin_signup.hbs',
             template: 'signup',
-            err: 'Invalid Email or Password'
+            err_message: 'Email hoặc password bạn nhập đã không đúng.'
         });
     }
-});
+
+    const isPasswordCorrect = bcrypt.compareSync(req.body.password, user.password);
+    if (isPasswordCorrect === false){
+        return res.render('vwAccount/login', {
+            layout: 'signin_signup.hbs',
+            template: 'signup',
+            err_message: 'Email hoặc password bạn nhập đã không đúng.'
+        });
+    }
+    
+    delete user.password_hash;
+    req.session.isAuthenticated = true;
+    req.session.authUser = user;
+
+    const url = req.query.retUrl || '/';
+    res.redirect(url);
+
+    // res.redirect('/');
+}); 
 
 router.get('/forgottenPassword', function(req, res) {
     res.render('vwAccount/forgottenPassword', {
