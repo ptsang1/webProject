@@ -62,10 +62,12 @@ router.get('/detail', async function(req, res) {
     const time = moment(item[0].timeEnd).fromNow();
     const product = {
         priceCurent: item[0].priceCurent,
-        stepPrice: item[0].stepPrice,
+        stepPrice: item[0].stepPrice ,
+        bidPrice: item[0].stepPrice + item[0].priceCurent,
         price: item[0].price,
         productName: item[0].productName,
         bidderID: item[0].bidderID,
+        sellerID: item[0].sellerID,
         time: time,
     };
     if (!item) empty = true;
