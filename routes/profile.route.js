@@ -8,9 +8,6 @@ const router = express.Router();
 
 const restrict = require('../middlewares/auth.mdw');
 router.get('/', restrict, async function (req, res) {
-    // if (!req.session.isAuthenticated){
-    //     return res.redirect(`/account/login?retUrl=${req.originalUrl}`);
-    // }
     const user = req.session.authUser;
     const gender = await userModel.getGender(user.genderID);
     const othergender = await userModel.getOtherGender(user.genderID);
