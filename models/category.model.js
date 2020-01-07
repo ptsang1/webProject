@@ -12,7 +12,7 @@ module.exports = {
     },
 
     single: async id => {
-        const sql = `select * from categories where CatID = ${id}`;
+        const sql = `select * from CATEGORIES where catID = ${id}`;
         const rows = await db.load(sql);
         if (rows.length === 0)
             return null;
@@ -26,11 +26,11 @@ module.exports = {
             return null;
         return rows[0];
     },
-    add: entity => db.add(entity, 'categories'),
-    del: id => db.del({ CatID: id }, 'categories'),
+    add: entity => db.add(entity, 'CATEGORIES'),
+    del: id => db.del({ catID: id }, 'CATEGORIES'),
     patch: entity => {
-        const condition = { CatID: entity.CatID };
-        delete entity.CatID;
-        return db.patch(entity, condition, 'categories');
+        const condition = { catID: entity.catID };
+        delete entity.catID;
+        return db.patch(entity, condition, 'CATEGORIES');
     }
 };

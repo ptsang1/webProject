@@ -4,6 +4,7 @@ const config = require('../config/default.json');
 module.exports = {
     all: _ => db.load('select * from PRODUCTS'),
     add: entity => db.add(entity, 'PRODUCTS'),
+    saved: entity => db.add(entity, 'PRODUCTS_SAVED'),
     allByCat: catId => db.load(`select * from PRODUCTS where catID = ${catId}`),
     countByCat: async catId => {
         const rows = await db.load(`select count(*) as total  from PRODUCTS where catID = ${catId}`);
@@ -23,4 +24,9 @@ module.exports = {
     topFiveProductValue: _ => db.load(`SELECT * from PRODUCTS p ORDER BY p.priceCurent DESC limit 5;`),
     singleByID: productID => db.load(`select * from PRODUCTS where productID = ${productID}`),
     timeSingleByID: productID => db.load(`SELECT (TIME_TO_SEC(timeEnd)-TIME_TO_SEC(timePost)) as time from PRODUCTS where productID = ${productID}`),
+    getNextID: _ => db.load(`SELECT AUTO_INCREMENT as number
+    FROM information_schema.TABLES
+    WHERE TABLE_SCHEMA = "webproject"
+    AND TABLE_NAME = "PRODUCTS"`),
+
 }

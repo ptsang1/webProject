@@ -10,7 +10,7 @@
                          <a href="/byCat?id={{CatID}}&sort=ASC" class="list-group-item list-group-item-action {{#if isActive}}active{{/if}}">
                             {{CatName}}    
                             {{#if num_of_products}}
-                            <span class="badge badge-danger float-right">{{num_of_products}}</span>
+                                <span class="badge badge-danger float-right">{{num_of_products}}</span>
                             {{/if}}
                          </a>
                         {{/each}}
@@ -39,10 +39,10 @@
                                     Sắp xếp
                                 </button>
                                 <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                    <a class="dropdown-item"  href="/byCat?id={{id}}&sort=ASC">Giá tăng dần</a>
-                                    <a class="dropdown-item" href="/byCat?id={{id}}&sort=DESC">Giá giảm dần</a>
-                                    <a class="dropdown-item" href="/byCat?id={{id}}&sort=TASC">Thời gian kết thúc tăng dần</a>
-                                    <a class="dropdown-item" href="/byCat?id={{id}}&sort=TDESC">Thời gian kết thúc giảm dần</a>
+                                    <a class="dropdown-item {{#if sortASC}}active{{/if}}" href="/byCat?id={{id}}&sort=ASC">Giá tăng dần</a>
+                                    <a class="dropdown-item {{#if sortDESC}}active{{/if}}" href="/byCat?id={{id}}&sort=DESC">Giá giảm dần</a>
+                                    <a class="dropdown-item {{#if sortTASC}}active{{/if}}" href="/byCat?id={{id}}&sort=TASC">Thời gian kết thúc tăng dần</a>
+                                    <a class="dropdown-item {{#if sortTDESC}}active{{/if}}" href="/byCat?id={{id}}&sort=TDESC">Thời gian kết thúc giảm dần</a>
                                 </div>
                             </div>
                             
@@ -60,7 +60,7 @@
                                                 <br><small>Giá mua ngay: <br><b>{{format price}}đ</b>
                                                 <br>Giá hiện tại: <br><b>{{format priceCurent}}đ</b>
                                                 <br>Ra giá bởi: <br><b>{{bidderID}}</b>
-                                                <br>Thời gian còn lại: <br><b>{{formatDate timeEnd}}</b>
+                                                <br>Thời gian còn lại: <br><b>{{formatTime timeEnd}}</b>
                                                 <br>Số lượt ra giá hiện tại: <b>10</b></small>
                                             </p>
                                         </div>

@@ -61,12 +61,16 @@ router.get('/byCat', async function(req, res) {
     const total = await product.countByCat(id);
     let rows = await product.pageByCatOrderValueASC(id, offset);
     if (sort === 'ASC') {
+        sortNo = 1;
         rows = await product.pageByCatOrderValueASC(id, offset);
     } else if (sort === 'DESC') {
+        sortNo = 2;
         rows = await product.pageByCatOrderValueDESC(id, offset);
     } else if (sort === 'TASC') {
+        sortNo = 3;
         rows = await product.pageByCatOrderTimeASC(id, offset);
     } else if (sort === 'TDESC') {
+        sortNo = 4;
         rows = await product.pageByCatOrderTimeDESC(id, offset);
     }
 
@@ -93,6 +97,10 @@ router.get('/byCat', async function(req, res) {
         prev_value: page - 1,
         id,
         sort,
+        sortASC: sortNo === 1,
+        sortDESC: sortNo === 2,
+        sortTASC: sortNo === 3,
+        sortTDESC: sortNo === 4,
     })
 })
 

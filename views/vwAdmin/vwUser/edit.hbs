@@ -1,0 +1,39 @@
+<div class="card">
+    <div class="card-header">
+        Chỉnh sửa thông tin
+    </div>
+
+    <div class="card-body">
+        <form method="post">
+            <div class="form-group">
+            <label for="txtid">Mã người dùng</label>
+            <input type="text" class="form-control" name="userID" id="txtid" value="{{this.user.userID}}" readonly>
+            </div>
+            <div class="form-group">
+            <label for="txtName">Tên người dùng</label>
+            <input type="text" class="form-control" name="fullName" id="txtName" value="{{this.user.fullName}}" autofocus>
+            </div>
+             <div class="form-group">
+            <label for="txtEmail">Email</label>
+            <input type="email" class="form-control" name="email" id="txtEmail" value="{{this.user.email}}">
+            </div>
+             <div class="form-group">
+            <label for="txtAddress">Địa chỉ</label>
+            <input type="text" class="form-control" name="address" id="txtAddress" value="{{this.user.address}}">
+            </div>            
+        <a class="btn btn-outline-primary" href="/admin/users" role="button">
+            <i class="fa fa-backward" aria-hidden="true"></i>
+            List
+        </a>
+        <button type="submit" class="btn btn-outline-success" formaction="/admin/users/update">
+           <i class="fa fa-check" aria-hidden="true"></i>
+            Save
+        </button>
+        <button type="submit" class="btn btn-outline-danger" formaction="/admin/users/del">
+           <i class="fa fa-trash-o" aria-hidden="true"></i>
+            Delete
+        </button>
+        </form>
+    </div>
+   
+</div>
