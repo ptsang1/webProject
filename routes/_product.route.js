@@ -76,7 +76,7 @@ router.post('/add', async function(req, res) {
                     if (items[i]) await imageModel.add({
                         productID: id,
                         sellerID: 'ad002110-3082-11ea-8a84-9b34a52a433d',
-                        imageLink: `./public/images/${id}/${items[i]}`,
+                        imageLink: `images/${id}/${items[i]}`,
                     });
                 }
             });
@@ -94,11 +94,14 @@ router.post('/add', async function(req, res) {
 
 router.get('/detail', async function(req, res) {
     const item = await productModel.singleByID(req.query.id);
+    const images = await imageModel.allByProductID(req.query.id);
+    const describe = await describeModel.single(req.query.id);
+    console.log(typeof describe.description);
     let empty = false;
     const time = moment(item[0].timeEnd).fromNow();
     const product = {
         priceCurent: item[0].priceCurent,
-        stepPrice: item[0].stepPrice ,
+        stepPrice: item[0].stepPrice,
         bidPrice: item[0].stepPrice + item[0].priceCurent,
         price: item[0].price,
         productName: item[0].productName,
@@ -110,6 +113,8 @@ router.get('/detail', async function(req, res) {
     res.render('vwProduct/detail', {
         product,
         outOfStock: item.sold === 0,
+        images,
+        describe,
         empty,
     });
 });
@@ -119,14 +124,14 @@ router.post('/detail', async function(req, res) {
         userID: bidderID,
         sellerID: sellerID,
         productID: req.query.id,
-        };
+    };
     const rs = await productModel.saved(entity);
     const item = await productModel.singleByID(req.query.id);
     let empty = false;
     const time = moment(item[0].timeEnd).fromNow();
     const product = {
         priceCurent: item[0].priceCurent,
-        stepPrice: item[0].stepPrice ,
+        stepPrice: item[0].stepPrice,
         bidPrice: item[0].stepPrice + item[0].priceCurent,
         price: item[0].price,
         productName: item[0].productName,

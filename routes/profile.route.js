@@ -7,17 +7,19 @@ const product = require("../models/product.model")
 const router = express.Router();
 
 const restrict = require('../middlewares/auth.mdw');
-router.get('/', restrict, async function (req, res) {
+router.get('/', restrict, async function(req, res) {
     // if (!req.session.isAuthenticated){
     //     return res.redirect(`/account/login?retUrl=${req.originalUrl}`);
     // }
     const user = req.session.authUser;
+    const Strname = user.fullName.split(' ');
+    const name = Strname[Strname.length - 1];
     const gender = await userModel.getGender(user.genderID);
     const othergender = await userModel.getOtherGender(user.genderID);
     const dob = moment(user.birthDate, 'YYYY-MM-DD').format('YYYY-MM-DD');
-    console.log(othergender);
     res.render('vwProfile/infoProfile', {
         user,
+        name,
         gender,
         other: othergender,
         dob
@@ -34,10 +36,11 @@ router.post('/', async function(req, res) {
         address: req.body.address,
         email: req.body.email,
     };
-    const rt = await userModel.changeInfoByEmail(entity, 'ngophat99@gmail.com');
+    const user = req.session.authUser;
+    const rt = await userModel.changeInfoByEmail(entity, user.email);
 
 
-    const user = await userModel.singleByEmail('ngophat99@gmail.com');
+
     const gender = await userModel.getGender(user.genderID);
     const othergender = await userModel.getOtherGender(user.genderID);
     const dob = moment(user.birthDate, 'YYYY-MM-DD').format('YYYY-MM-DD');
@@ -55,12 +58,12 @@ router.get('/setting', function(req, res) {
 });
 
 router.post('/setting', async function(req, res) {
-    const user = await userModel.singleByEmail('ngophat99@gmail.com');
+    const user = req.session.authUser;
     const rs = bcrypt.compareSync(req.body.currentPassword, user.password);
 
     if (rs === true) {
         const newPassword = bcrypt.hashSync(req.body.newPassword, config.authentication.salt);
-        const rt = await userModel.changePasswordByEmail('ngophat99@gmail.com', newPassword);
+        const rt = await userModel.changePasswordByEmail(user.email, newPassword);
 
     } else {
         console.log(false);

@@ -8,6 +8,7 @@
         $('input').removeAttr("readonly");
         $('select').removeAttr("disabled");
         $('input[type=password]').prop('readonly', true);
+        $('input[type=email]').prop('readonly', true);
         $('input, select').css({"border": "1px solid pink", "border-radius": "10px"});
         $('#cancelbtn').show();
         
@@ -27,7 +28,7 @@
 <div class="container-fluid">
     <div class="profile-pane">
             <div class="sidebar">
-                <h1> My Account</h1>
+                <h1>Hồ sơ của tôi</h1>
                 <ul>
                     <li id="viewInfoLink" style="font-weight: 700;"><a href="/profile">Thông tin tài khoản</a></li>
                     <li id="viewSettingLink" ><a href="/profile/setting" >Đổi mật khẩu</a></li>
@@ -36,7 +37,7 @@
             </div>
             <div class="info-pane" id="infoAccount"> 
 
-                <h1>Hello {{user.fullName}}</h1>
+                <h1>Chào {{name}},</h1>
                 <form method="POST">
                     <div class="form-group">
                         <label for="name">Họ và Tên </label>
