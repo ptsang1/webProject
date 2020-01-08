@@ -77,12 +77,12 @@ router.post('/setting', async function(req, res) {
 // });
 
 router.get('/product-watch-list', async function(req, res) {
-    let id = req.query.id;
-    const total = await product.allWatchList();
+    const user = req.session.authUser;
+    let id = user.userID;
+    const total = await product.allWatchList(id);
     res.render('vwProfile/productProfile', {
         products: total,
         empty: total.length === 0,
-        id,
     })
 })
 
