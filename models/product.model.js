@@ -3,7 +3,8 @@ const config = require('../config/default.json');
 
 module.exports = {
     all: _ => db.load('select * from PRODUCTS'),
-    allSellProduct: userID => db.load(`select * from PRODUCTS p join USERS u on u.userID = p.sellerID join PRODUCT_IMAGES pi on pi.productID = p.productID where u.userID = '${userID}' group by p.productID`),
+    allSellProduct: (userID, time) => db.load(`select * from PRODUCTS p join USERS u on u.userID = p.sellerID join PRODUCT_IMAGES pi on pi.productID = p.productID where u.userID = '${userID}' and p.timeEnd > '${time}' and p.sold = 0 group by p.productID`),
+    allSoldProduct: userID => db.load(`select * from PRODUCTS p join USERS u on u.userID = p.sellerID join PRODUCT_IMAGES pi on pi.productID = p.productID where u.userID = '${userID}' and p.sold = 1 group by p.productID`),
     allWatchList: id => db.load(`select * from USERS u join PRODUCTS_SAVED ps on u.userID = ps.userID 
     join PRODUCT_IMAGES pi on pi.productID = ps.productID 
     join PRODUCTS p on p.productID = pi.productID 
@@ -39,7 +40,7 @@ module.exports = {
     topFiveProductEnd: _ => db.load(`select * 
     from (select * from PRODUCTS c ORDER BY timeEnd ASC LIMIT 5) as ta RIGHT JOIN PRODUCT_IMAGES pi on pi.productID = ta.productID
 		GROUP BY pi.productID
-    ORDER BY timeEnd DESC ;`),
+    ORDER BY timeEnd DESC LIMIT 5;`),
     topFiveProductStar: _ => db.load(`
           SELECT
           p.productID,
@@ -51,7 +52,7 @@ module.exports = {
           LEFT OUTER JOIN AUCTION_HISTORIES a ON a.productID = p.productID
           LEFT OUTER JOIN PRODUCT_IMAGES pi ON pi.productID = p.productID
           GROUP BY (p.productID)
-          ORDER BY amount DESC; `),
+          ORDER BY amount DESC LIMIT 5; `),
     topFiveProductValue: _ => db.load(`
     SELECT * 
     from PRODUCTS p join PRODUCT_IMAGES pi on pi.productID = p.productID

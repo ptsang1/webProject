@@ -75,6 +75,11 @@ router.post('/setting', async function(req, res) {
     res.render('vwProfile/settingProfile');
 })
 
+router.get('/review', restrict, function(req, res) {
+    res.render('vwProfile/review');
+});
+
+
 router.get('/product-watch-list', async function(req, res) {
     const user = req.session.authUser;
     let id = user.userID;

@@ -222,8 +222,14 @@ router.get('/sell', restrict, async function(req, res) {
     if (Number(user.roleID) !== 2) {
         res.redirect('/');
     }
-    const rows = await productModel.allSellProduct(user.userID);
-
+    const sold = req.query.sold;
+    const t = new Date();
+    const time = moment(t).format('YYYY-MM-DD hh:mm:ss');
+    let rows = await productModel.allSellProduct(user.userID, time);
+    if (sold === 'true') {
+        rows = await productModel.allSoldProduct(user.userID);
+    }
+    console.log(time);
 
     res.render('vwProduct/sellProduct', {
         product: rows,

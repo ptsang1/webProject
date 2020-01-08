@@ -8,6 +8,8 @@ const router = express.Router();
 router.use(express.static('public'));
 const restrict = require('../middlewares/auth.mdw');
 router.get('/', restrict, async function(req, res) {
+    const user = req.session.authUser;
+    if (user.roleID < 3) return res.redirect('/');
     const results = await categoryModel.all();
 
     res.render('vwAdmin/vwCategories/index', {
@@ -17,7 +19,9 @@ router.get('/', restrict, async function(req, res) {
     });
 });
 
-router.get('/categories', async function(req, res) {
+router.get('/categories', restrict, async function(req, res) {
+    const user = req.session.authUser;
+    if (user.roleID < 3) return res.redirect('/');
     const results = await categoryModel.all();
 
     res.render('vwAdmin/vwCategories/index', {
@@ -27,12 +31,16 @@ router.get('/categories', async function(req, res) {
     });
 });
 
-router.get('/categories/add', function(req, res) {
+router.get('/categories/add', restrict, function(req, res) {
+    const user = req.session.authUser;
+    if (user.roleID < 3) return res.redirect('/');
     res.render('vwAdmin/vwCategories/add', {
         layout: 'admin.hbs'
     });
 })
-router.post('/categories/add', async function(req, res) {
+router.post('/categories/add', restrict, async function(req, res) {
+    const user = req.session.authUser;
+    if (user.roleID < 3) return res.redirect('/');
     const entity = {
         CatName: req.body.CatName
     }
@@ -41,7 +49,9 @@ router.post('/categories/add', async function(req, res) {
         layout: 'admin.hbs'
     });
 })
-router.get('/categories/edit/:catId', async function(req, res) {
+router.get('/categories/edit/:catId', restrict, async function(req, res) {
+    const user = req.session.authUser;
+    if (user.roleID < 3) return res.redirect('/');
     const category = await categoryModel.single(req.params.catId);
     if (category === null) throw new Error('Invalid Parameter');
     res.render('vwAdmin/vwCategories/edit', {
@@ -50,7 +60,7 @@ router.get('/categories/edit/:catId', async function(req, res) {
     });
 })
 
-router.post('/categories/update', async function(req, res) {
+router.post('/categories/update', restrict, async function(req, res) {
 
     const rs = await categoryModel.patch(req.body);
 
@@ -62,7 +72,9 @@ router.post('/categories/del', async function(req, res) {
     res.redirect('/admin/categories');
 })
 
-router.get('/accepts', async function(req, res) {
+router.get('/accepts', restrict, async function(req, res) {
+    const user = req.session.authUser;
+    if (user.roleID < 3) return res.redirect('/');
     const results = await acceptModel.all();
 
     res.render('vwAdmin/vwAccept/index', {
@@ -71,7 +83,9 @@ router.get('/accepts', async function(req, res) {
         empty: results.length === 0
     });
 });
-router.get('/accepts/:bidderID', async function(req, res) {
+router.get('/accepts/:bidderID', restrict, async function(req, res) {
+    const user = req.session.authUser;
+    if (user.roleID < 3) return res.redirect('/');
     const rt = req.query.res;
     console.log(req.params.bidderID);
     if (rt === '1') {
@@ -82,8 +96,11 @@ router.get('/accepts/:bidderID', async function(req, res) {
 })
 
 
-router.get('/users', async function(req, res) {
+router.get('/users', restrict, async function(req, res) {
+    const user = req.session.authUser;
+    if (user.roleID < 3) return res.redirect('/');
     const results = await userModel.all();
+
     console.log(results);
     res.render('vwAdmin/vwUser/index', {
         layout: 'admin.hbs',
@@ -91,7 +108,9 @@ router.get('/users', async function(req, res) {
         empty: results.length === 0
     });
 });
-router.get('/users/edit/:userID', async function(req, res) {
+router.get('/users/edit/:userID', restrict, async function(req, res) {
+    const users = req.session.authUser;
+    if (users.roleID < 3) return res.redirect('/');
     const user = await userModel.getUserByUserID(req.params.userID);
     if (user === null) throw new Error('Invalid Parameter');
     res.render('vwAdmin/vwUser/edit', {
