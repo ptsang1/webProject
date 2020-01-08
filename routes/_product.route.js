@@ -109,7 +109,6 @@ router.get('/detail', async function(req, res) {
             let rs = await productModel.saved(entity);
         }
     }
-
     const item = await productModel.singleByID(req.query.id);
     const images = await imageModel.allByProductID(req.query.id);
     const describe = await describeModel.single(req.query.id);
