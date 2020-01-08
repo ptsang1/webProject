@@ -81,6 +81,12 @@
                                             <i class="fa fa-user" aria-hidden="true"></i>
                                             Tài khoản
                                         </a>
+                                        {{#if this.isSeller}}
+                                        <a class="dropdown-item" href='/product/sell'>
+                                            <i class="fa fa-trademark" aria-hidden="true"></i>
+                                            Các sản phẩm đang bán
+                                        </a>
+                                        {{/if}}
                                         <div class="dropdown-divider"></div>
                                         <a class="dropdown-item" href="javascript: $('#frmLogout').submit()">
                                         <i class="fa fa-sign-out" aria-hidden="true"></i>

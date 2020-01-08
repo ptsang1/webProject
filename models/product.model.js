@@ -3,6 +3,7 @@ const config = require('../config/default.json');
 
 module.exports = {
     all: _ => db.load('select * from PRODUCTS'),
+    allSellProduct: userID => db.load(`select * from PRODUCTS p join USERS u on u.userID = p.sellerID join PRODUCT_IMAGES pi on pi.productID = p.productID where u.userID = '${userID}' group by p.productID`),
     allWatchList: id => db.load(`select * from USERS u join PRODUCTS_SAVED ps on u.userID = ps.userID 
     join PRODUCT_IMAGES pi on pi.productID = ps.productID 
     join PRODUCTS p on p.productID = pi.productID 
