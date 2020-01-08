@@ -68,13 +68,23 @@ router.post('/setting', async function(req, res) {
     res.render('vwProfile/settingProfile');
 })
 
+// router.get('/product-watch-list', async function(req, res) {
+//     result = await product.all();
+//     res.render('vwProfile/productProfile', {
+//         products: result,
+//         empty: result.length === 0,
+//     });
+// });
+
 router.get('/product-watch-list', async function(req, res) {
-    result = await product.all();
+    let id = req.query.id;
+    const total = await product.allWatchList();
     res.render('vwProfile/productProfile', {
-        products: result,
-        empty: result.length === 0,
-    });
-});
+        products: total,
+        empty: total.length === 0,
+        id,
+    })
+})
 
 router.get('/product-bidding-list', async function(req, res) {
     result = await product.all();
