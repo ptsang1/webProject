@@ -1,10 +1,14 @@
 const express = require('express');
 const product = require("../models/product.model");
-const categoryModel = require('../models/category.model');
+const HandlebarsIntl = require('handlebars-intl');
 const stringCompare = require('string-similarity');
 const config = require('../config/default.json');
 const router = express.Router();
+const Handlebars = require('handlebars');
+
 router.use(express.static('public'));
+
+HandlebarsIntl.registerWith(Handlebars);
 
 router.get('/', async function(req, res) {
     const topEnd = await product.topFiveProductEnd();

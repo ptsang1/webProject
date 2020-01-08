@@ -46,7 +46,7 @@ router.post('/signup', async function(req, res) {
         avatar: "",
     }
     USERS.add(newUser);
-    res.redirect(`/account/send?fullname=${newUser.fullName}&to=${newUser.email}`);
+    res.redirect(`/account/send?fullname=${newUser.fullName}&to=${newUser.email}&id=${newUser.userID}`);
 });
 
 router.get('/is-available', async function(req, res) {
@@ -91,6 +91,15 @@ router.post('/login', async function(req, res) {
         });
     }
 
+    let check = await USERS.isUserAccepted(user.email);
+
+    if (!check){
+        return res.render('vwAccount/login', {
+            layout: 'signin_signup.hbs',
+            template: 'signup',
+            err_message: 'Tài khoản của bạn chưa được xác nhận. Hãy kiểm tra email và xác nhận tài khoản để đăng nhập nhé!'
+        });
+    }
 
     delete user.password_hash;
     req.session.isAuthenticated = true;
@@ -116,9 +125,9 @@ function render(filename, data) {
     var output = template(data);
     return output;
 }
-const rand = Math.floor((Math.random() * 100) + 54);
-router.get('/send', function(req, res) {
-    const link = "http://" + req.get('host') + `/account/verify?id=${rand}&email=${req.query.to}`;
+
+router.get('/send',function(req,res){
+    const link="http://"+req.get('host')+`/account/verify?id=${req.query.id}`;
     replacements = {
         fullname: req.query.fullname,
         email: req.query.to,
@@ -144,17 +153,20 @@ router.get('/send', function(req, res) {
     res.redirect('/');
 });
 
-router.get('/verify', function(req, res) {
+router.get('/verify', async function(req, res) {
     console.log(req.protocol + ":/" + req.get('host'));
     if ((req.protocol + "://" + req.get('host')) == ("http://" + req.get('host'))) {
         console.log("Domain is matched. Information is from Authentic email");
-        if (req.query.id == rand) {
+        user = await USERS.getUserByUserID(req.query.id)
+        if(user)
+        {
             console.log("email is verified");
-            USERS.acceptedUserByEmail(req.query.email);
-
-        } else {
-            console.log("email is not verified");
-            return res.redirect('/');
+            await USERS.acceptedUserByUserID(user.userID);
+            await USERS.changeUserID(user.userID, uuidv1());
+            
+        }else{
+            console.log("something is wrong");
+            return res.redirect('/err');
         }
     }
     res.redirect('/');
