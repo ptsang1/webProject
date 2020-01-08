@@ -6,8 +6,8 @@ const config = require('../config/default.json');
 const router = express.Router();
 
 router.use(express.static('public'));
-
-router.get('/', async function(req, res) {
+const restrict = require('../middlewares/auth.mdw');
+router.get('/', restrict, async function(req, res) {
     const results = await categoryModel.all();
 
     res.render('vwAdmin/vwCategories/index', {

@@ -13,8 +13,8 @@ const router = express.Router();
 
 router.use(express.static('public'));
 
-
-router.get('/add', async function(req, res) {
+const restrict = require('../middlewares/auth.mdw');
+router.get('/add', restrict, async function(req, res) {
     result = await categoryModel.all();
     res.render('vwProduct/add', {
         categories: result
