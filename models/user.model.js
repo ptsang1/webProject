@@ -3,6 +3,8 @@ const db = require("../utils/db");
 module.exports = {
     all: async _ => await db.load('select * from USERS'),
     add: async entity => await db.add(entity, 'USERS'),
+    changeUserID: async (oldUserID, newUserID) => 
+        await db.load(`UPDATE USERS SET userID='${newUserID}' where userID='${oldUserID}'`),
     confirmAccount: async userID => await db.updateValue("USERS", { accepted: 1 }, { userID: userID }),
     isEmailExisted: async email => {
         const row = await db.load(`select email from USERS where email = ?`, [email]);
@@ -21,8 +23,8 @@ module.exports = {
             return rows[0];
         return null;
     },
-    acceptedUserByUserID: userID => db.load(`UPDATE USERS SET accepted = 1 WHERE userID='${userID}'`),
-    acceptedUserByEmail: email => db.load(`UPDATE USERS SET accepted = 1 WHERE email= '${email}'`),
+    acceptedUserByUserID: async userID => await db.load(`UPDATE USERS SET accepted = 1 WHERE userID='${userID}'`),
+    acceptedUserByEmail: async email => await db.load(`UPDATE USERS SET accepted = 1 WHERE email= '${email}'`),
     singleByEmail: async email => {
         const rows = await db.load(`select * from USERS where email = '${email}'`);
         if (rows.length > 0)
@@ -65,5 +67,12 @@ module.exports = {
         const condition = { userID: entity.userID };
         delete entity.userID;
         return db.patch(entity, condition, 'USERS');
-    }
+    },
+    getUserAcceptedByEmail: email => db.load(`select * from USERS where accepted=1 and email=${email}`),
+    isUserAccepted: async email => {
+        userID = await db.load(`select userID from USERS where accepted=1 and email='${email}'`);
+        if (userID.length === 0)
+            return false;
+        return true;
+    },
 }

@@ -5,4 +5,9 @@ module.exports = function(app) {
     app.use('/profile', require('../routes/profile.route'));
     app.use('/admin', require('../routes/admin.route'));
     app.use('/auth', require('../routes/auth.route'));
+    app.get('/about', function(req, res) {
+        res.render('about', {
+            layout: 'main.hbs',
+        });
+    });
 };

@@ -3,6 +3,8 @@ const config = require('../config/default.json');
 
 module.exports = {
     all: _ => db.load('select * from PRODUCTS'),
+    allWatchList: _ => db.load(`select * from PRODUCTS_SAVED ps join PRODUCT_IMAGES pi on pi.productID = ps.productID 
+    join PRODUCTS p on p.productID = pi.productID GROUP BY p.productID`),
     add: entity => db.add(entity, 'PRODUCTS'),
     saved: entity => db.add(entity, 'PRODUCTS_SAVED'),
     checkSaved: async(sellerID, bidderID, productID) => {
