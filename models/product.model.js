@@ -9,6 +9,8 @@ module.exports = {
         const rows = await db.load(`select count(*) as total  from PRODUCTS_SAVED where userID = '${bidderID}' and sellerID = '${sellerID}' and productID = ${productID}`);
         return rows[0].total;
     },
+    bidded: entity => db.add(entity, 'AUCTION_HISTORIES'),
+    saveBidPrice: (price, productID, bidderID) => db.load(`UPDATE PRODUCTS SET priceCurent = ${price}, bidderID='${bidderID}' WHERE productID='${productID}'`),
     allByCat: catId => db.load(`select * from PRODUCTS where catID = ${catId}`),
     countByCat: async catId => {
         const rows = await db.load(`select count(*) as total  from PRODUCTS where catID = ${catId}`);

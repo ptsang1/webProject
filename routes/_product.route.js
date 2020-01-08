@@ -2,6 +2,7 @@ const express = require('express');
 const categoryModel = require('../models/category.model');
 const productModel = require('../models/product.model');
 const describeModel = require('../models/describe.model');
+const userModel = require('../models/user.model');
 const imageModel = require('../models/image.model');
 const multer = require('multer');
 const moment = require('moment');
@@ -94,13 +95,37 @@ router.post('/add', async function(req, res) {
 })
 
 router.get('/detail', async function(req, res) {
+
+    if (req.query.sellerID) {
+        if (!req.session.authUser) res.redirect('/account/login');
+        const user = req.session.authUser;
+        const entity = {
+            userID: user.userID,
+            sellerID: req.query.sellerID,
+            productID: req.query.id,
+        };
+        const count = await productModel.checkSaved(entity.sellerID, entity.userID, entity.productID);
+        if (Number(count) === 0) {
+            let rs = await productModel.saved(entity);
+        }
+    }
+
     const item = await productModel.singleByID(req.query.id);
     const images = await imageModel.allByProductID(req.query.id);
     const describe = await describeModel.single(req.query.id);
-
+    const sellerName = await userModel.singleByID(item[0].sellerID);
+    const bidderName = await userModel.singleByID(item[0].bidderID);
+    let name = sellerName.fullName.split(' ');
+    const seller = "******" + name[name.length - 1];
+    let bidder = '';
+    if (bidderName) {
+        name = bidderName.fullName.split(' ');
+        bidder = "******" + name[name.length - 1];
+    }
     let empty = false;
     const time = moment(item[0].timeEnd).fromNow();
     const product = {
+        productID: item[0].productID,
         priceCurent: item[0].priceCurent,
         stepPrice: item[0].stepPrice,
         bidPrice: item[0].stepPrice + item[0].priceCurent,
@@ -108,6 +133,8 @@ router.get('/detail', async function(req, res) {
         productName: item[0].productName,
         bidderID: item[0].bidderID,
         sellerID: item[0].sellerID,
+        bidder,
+        seller,
         timePost: item[0].timePost,
         time: time,
     };
@@ -123,21 +150,36 @@ router.get('/detail', async function(req, res) {
 
 router.post('/detail', restrict, async function(req, res) {
     const user = req.session.authUser;
+    const timeOffer = new Date();
+    console.log(req.body);
     const entity = {
-        userID: user.userID,
         sellerID: req.body.sellerID,
         productID: req.query.id,
+        bidderID: user.userID,
+        offer: req.body.bidPrice,
+        productID: req.query.id,
+        timeOffer
     };
-    const count = await productModel.checkSaved(entity.sellerID, entity.userID, entity.productID);
-    if (Number(count) === 0) {
-        let rs = await productModel.saved(entity);
-    }
+    await productModel.bidded(entity);
+    await productModel.saveBidPrice(req.body.bidPrice, req.query.id, user.userID);
+
     const item = await productModel.singleByID(req.query.id);
     const images = await imageModel.allByProductID(req.query.id);
     const describe = await describeModel.single(req.query.id);
+    const sellerName = await userModel.singleByID(item[0].sellerID);
+    const bidderName = await userModel.singleByID(item[0].bidderID);
+
+    let name = sellerName.fullName.split(' ');
+    const seller = "******" + name[name.length - 1];
+    let bidder = '';
+    if (bidderName) {
+        name = bidderName.fullName.split(' ');
+        bidder = "******" + name[name.length - 1];
+    }
     let empty = false;
     const time = moment(item[0].timeEnd).fromNow();
     const product = {
+        productID: item[0].productID,
         priceCurent: item[0].priceCurent,
         stepPrice: item[0].stepPrice,
         bidPrice: item[0].stepPrice + item[0].priceCurent,
@@ -145,6 +187,8 @@ router.post('/detail', restrict, async function(req, res) {
         productName: item[0].productName,
         bidderID: item[0].bidderID,
         sellerID: item[0].sellerID,
+        bidder,
+        seller,
         timePost: item[0].timePost,
         time: time,
     };
