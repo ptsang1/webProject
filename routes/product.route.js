@@ -34,7 +34,7 @@ router.post('/', async function(req, res) {
             productName.push(p.productName);
         }
         const rs = stringCompare.findBestMatch(name, productName);
-        if (rs.bestMatch.rating >= 0.4) {
+        if (rs.bestMatch.rating >= 0.2) {
             res.redirect(`/product/detail?id=${products[rs.bestMatchIndex].productID}`);
         } else res.render('vwProduct/404');
     }

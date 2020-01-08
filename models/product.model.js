@@ -5,6 +5,10 @@ module.exports = {
     all: _ => db.load('select * from PRODUCTS'),
     add: entity => db.add(entity, 'PRODUCTS'),
     saved: entity => db.add(entity, 'PRODUCTS_SAVED'),
+    checkSaved: async(sellerID, bidderID, productID) => {
+        const rows = await db.load(`select count(*) as total  from PRODUCTS_SAVED where userID = '${bidderID}' and sellerID = '${sellerID}' and productID = ${productID}`);
+        return rows[0].total;
+    },
     allByCat: catId => db.load(`select * from PRODUCTS where catID = ${catId}`),
     countByCat: async catId => {
         const rows = await db.load(`select count(*) as total  from PRODUCTS where catID = ${catId}`);
