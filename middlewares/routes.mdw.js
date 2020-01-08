@@ -1,6 +1,4 @@
 module.exports = function(app) {
-
-
     app.use('/', require('../routes/product.route'));
     app.use('/product', require('../routes/_product.route'));
     app.use('/account', require('../routes/account.route'));
