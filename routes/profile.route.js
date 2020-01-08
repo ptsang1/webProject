@@ -74,14 +74,6 @@ router.post('/setting', async function(req, res) {
     res.render('vwProfile/settingProfile');
 })
 
-// router.get('/product-watch-list', async function(req, res) {
-//     result = await product.all();
-//     res.render('vwProfile/productProfile', {
-//         products: result,
-//         empty: result.length === 0,
-//     });
-// });
-
 router.get('/product-watch-list', async function(req, res) {
     const user = req.session.authUser;
     let id = user.userID;
@@ -93,11 +85,13 @@ router.get('/product-watch-list', async function(req, res) {
 })
 
 router.get('/product-bidding-list', async function(req, res) {
-    result = await product.all();
+    const user = req.session.authUser;
+    let id = user.userID;
+    const total = await product.allBiddingList(id);
     res.render('vwProfile/productProfile2', {
-        products: result,
-        empty: result.length === 0,
-    });
+        products: total,
+        empty: total.length === 0,
+    })
 });
 
 router.get('/product-won-list', async function(req, res) {
