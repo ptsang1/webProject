@@ -43,25 +43,30 @@
                   <div class="card">
                       <div class="card-body"> 
                           <div class="row">
+                              {{#if this.empty}}
+                                <div class="card-body">
+                                    <h2 class="card-text">Không có dữ liệu</h2>
+                                </div>
+                                {{else}}
                               {{#each this.products}}
                                   <div class="col-sm-4 mb-3">
-                                      <div class="card" style="height: 35rem;">
-                                          <a href="/detail">
-                                          <img style="height: 15rem" src="images/mac1.png" class="card-img-top" alt="..."></a>                    					
-                                          <div class="card-body">
-                                              <p class="card-text" style="overflow: hidden;">
-                                                  <b>{{productName}}</b>
-                                                  <br><small>Giá mua ngay: <br><b>{{format price}}đ</b>
-                                                  <br>Giá hiện tại: <br><b>{{format priceCurent}}đ</b>
-                                                  <br>Ra giá bởi: <br><b>{{bidderID}}</b>
-                                                  <br>Ngày đăng: <br><b>{{formatDate timePost}}</b>
-                                                  <br>Thời gian còn lại: <br><b>{{formatDate timeEnd}}</b>
-                                                  <br>Số lượt ra giá hiện tại: <b>10</b></small>
-                                              </p>
-                                          </div>
-                                      </div>
+                                       <div class="card" style="height: 35rem;">
+                                        <a href="/product/detail?id={{productID}}">
+                                        <img style="height: 15rem;" src="{{imageLink}}" class="card-img-top" alt="..."></a>                    					
+                                        <div class="card-body">
+                                            <p class="card-text" style="overflow: hidden;">
+                                                <b>{{productName}}</b>
+                                                <br><small>Giá mua ngay: <br><b>{{format price}}đ</b>
+                                                <br>Giá hiện tại: <br><b>{{format priceCurent}}đ</b>
+                                                <br>Ra giá bởi: <br><b>{{bidderID}}</b>
+                                                <br>Thời gian còn lại: <br><b>{{formatTime timeEnd}}</b>
+                                                <br>Số lượt ra giá hiện tại: <b>10</b></small>
+                                            </p>
+                                        </div>
+                                    </div>
                                   </div>
                               {{/each}}
+                              {{/if}}
                           </div>
                       </div>
                   </div>

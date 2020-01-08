@@ -12,8 +12,9 @@ module.exports = {
     allBiddingList: id => db.load(`select * from USERS u join AUCTION_HISTORIES ah on u.userID = ah.bidderID 
     join PRODUCT_IMAGES pi on pi.productID = ah.productID 
     join PRODUCTS p on p.productID = pi.productID 
-    WHERE u.userID = '${id}'
-    GROUP BY p.productID`),
+    WHERE u.userID = '${id}' GROUP BY p.productID`),
+    allWonList: id => db.load(`select * from PRODUCTS p join PRODUCT_IMAGES pi on pi.productID = p.productID
+    WHERE p.bidderID = '${id}' and p.sold = 1 GROUP BY p.productID`),
     add: entity => db.add(entity, 'PRODUCTS'),
     saved: entity => db.add(entity, 'PRODUCTS_SAVED'),
     checkSaved: async(sellerID, bidderID, productID) => {
