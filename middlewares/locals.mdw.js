@@ -8,7 +8,10 @@ module.exports = function(app) {
 
         res.locals.lcIsAuthenticated = req.session.isAuthenticated;
         res.locals.lcAuthUser = req.session.authUser;
-
+        if (req.session.authUser) {
+            res.locals.isSeller = req.session.authUser.roleID === 2;
+            res.locals.isAdmin = req.session.authUser.roleID === 3;
+        }
         next();
     })
 

@@ -216,4 +216,21 @@ router.post('/detail', restrict, async function(req, res) {
     });
 })
 
+
+
+
+router.get('/sell', restrict, async function(req, res) {
+    const user = req.session.authUser;
+    if (Number(user.roleID) !== 2) {
+        res.redirect('/');
+    }
+    const rows = await productModel.allSellProduct(user.userID);
+
+
+    res.render('vwProduct/sellProduct', {
+        product: rows,
+        empty: rows.length === 0,
+    });
+});
+
 module.exports = router;
