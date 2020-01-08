@@ -13,8 +13,8 @@ const router = express.Router();
 
 router.use(express.static('public'));
 
-
-router.get('/add', async function(req, res) {
+const restrict = require('../middlewares/auth.mdw');
+router.get('/add', restrict, async function(req, res) {
     result = await categoryModel.all();
     res.render('vwProduct/add', {
         categories: result
@@ -48,8 +48,9 @@ router.post('/add', async function(req, res) {
             let timePost = new Date();
             let catID = await categoryModel.singleByName(req.body.category);
             let timeEnd = new Date(new Date().getTime() + (10 * 24 * 60 * 60 * 1000));
+            const user = req.session.authUser;
             const entity = {
-                sellerID: 'ad002110-3082-11ea-8a84-9b34a52a433d',
+                sellerID: user.userID,
                 CatID: catID.catID,
                 productName: req.body.productName,
                 bidderID: null,
@@ -64,7 +65,7 @@ router.post('/add', async function(req, res) {
             const des = req.body.describeProduct;
             if (des) await describeModel.add({
                 productID: id,
-                sellerID: 'ad002110-3082-11ea-8a84-9b34a52a433d',
+                sellerID: user.userID,
                 description: des,
                 timeUpdate: timePost,
             });
@@ -75,8 +76,8 @@ router.post('/add', async function(req, res) {
                 for (let i = 0; i < items.length; i++) {
                     if (items[i]) await imageModel.add({
                         productID: id,
-                        sellerID: 'ad002110-3082-11ea-8a84-9b34a52a433d',
-                        imageLink: `./public/images/${id}/${items[i]}`,
+                        sellerID: user.userID,
+                        imageLink: `images/${id}/${items[i]}`,
                     });
                 }
             });
@@ -94,11 +95,14 @@ router.post('/add', async function(req, res) {
 
 router.get('/detail', async function(req, res) {
     const item = await productModel.singleByID(req.query.id);
+    const images = await imageModel.allByProductID(req.query.id);
+    const describe = await describeModel.single(req.query.id);
+
     let empty = false;
     const time = moment(item[0].timeEnd).fromNow();
     const product = {
         priceCurent: item[0].priceCurent,
-        stepPrice: item[0].stepPrice ,
+        stepPrice: item[0].stepPrice,
         bidPrice: item[0].stepPrice + item[0].priceCurent,
         price: item[0].price,
         productName: item[0].productName,
@@ -106,29 +110,36 @@ router.get('/detail', async function(req, res) {
         sellerID: item[0].sellerID,
         timePost: item[0].timePost,
         time: time,
-    };  
+    };
     if (!item) empty = true;
     res.render('vwProduct/detail', {
         product,
         outOfStock: item.sold === 0,
+        images,
+        describe,
         empty,
     });
 });
 
-router.post('/detail', async function(req, res) {
+router.post('/detail', restrict, async function(req, res) {
+    const user = req.session.authUser;
     const entity = {
-        userID: req.body.bidderID,
+        userID: user.userID,
         sellerID: req.body.sellerID,
         productID: req.query.id,
     };
-    console.log(entity);
-    const rs = await productModel.saved(entity);
+    const count = await productModel.checkSaved(entity.sellerID, entity.userID, entity.productID);
+    if (Number(count) === 0) {
+        let rs = await productModel.saved(entity);
+    }
     const item = await productModel.singleByID(req.query.id);
+    const images = await imageModel.allByProductID(req.query.id);
+    const describe = await describeModel.single(req.query.id);
     let empty = false;
     const time = moment(item[0].timeEnd).fromNow();
     const product = {
         priceCurent: item[0].priceCurent,
-        stepPrice: item[0].stepPrice ,
+        stepPrice: item[0].stepPrice,
         bidPrice: item[0].stepPrice + item[0].priceCurent,
         price: item[0].price,
         productName: item[0].productName,
@@ -141,6 +152,8 @@ router.post('/detail', async function(req, res) {
     res.render('vwProduct/detail', {
         product,
         outOfStock: item.sold === 0,
+        images,
+        describe,
         empty,
     });
 })

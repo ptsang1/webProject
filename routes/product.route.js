@@ -11,9 +11,9 @@ router.use(express.static('public'));
 HandlebarsIntl.registerWith(Handlebars);
 
 router.get('/', async function(req, res) {
-    topEnd = await product.topFiveProductEnd();
-    topStar = await product.topFiveProductStar();
-    topVal = await product.topFiveProductValue();
+    const topEnd = await product.topFiveProductEnd();
+    const topStar = await product.topFiveProductStar();
+    const topVal = await product.topFiveProductValue();
     res.render('vwProduct/home', {
         topEnd,
         topStar,
@@ -38,7 +38,7 @@ router.post('/', async function(req, res) {
             productName.push(p.productName);
         }
         const rs = stringCompare.findBestMatch(name, productName);
-        if (rs.bestMatch.rating >= 0.4) {
+        if (rs.bestMatch.rating >= 0.2) {
             res.redirect(`/product/detail?id=${products[rs.bestMatchIndex].productID}`);
         } else res.render('vwProduct/404');
     }
@@ -50,14 +50,12 @@ router.get('/byCat', async function(req, res) {
             c.isActive = true;
         }
     }
-    console.log(req.query.id);
     let id = req.query.id;
     let sort = req.query.sort;
     if (!id || !sort) {
         id = 1;
         sort = 'ASC';
     }
-    console.log(id);
     const page = +req.query.page || 1;
     if (page < 0) page = 1;
     const offset = (page - 1) * config.pagination.limit;
@@ -90,7 +88,6 @@ router.get('/byCat', async function(req, res) {
         }
         page_items.push(item);
     }
-    console.log(req.query);
     res.render('vwProduct/byCat', {
         product: rows,
         empty: rows.length === 0,

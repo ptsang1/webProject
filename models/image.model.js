@@ -1,6 +1,7 @@
 const db = require('../utils/db');
 
 module.exports = {
+    allByProductID: productID => db.load(`select imageLink from PRODUCT_IMAGES where productID = ${productID}`),
     single: async id => {
         const sql = `select * from PRODUCT_IMAGES where productID = ${id}`;
         const rows = await db.load(sql);

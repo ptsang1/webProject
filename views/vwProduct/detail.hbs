@@ -36,21 +36,13 @@
                     <div>
                          <div id="carouselExampleControls" class="carousel slide d-flex justify-content-center" data-ride="carousel">
                                 <div class="carousel-inner">
+                                    {{#each images}}
                                     <div class="carousel-item active">
                                         <div class="card">
-                                            <img class="card-img" src="images/mac1.png" height="350rem" alt="...">
+                                            <img class="card-img" src="{{imageLink}}" height="350rem" alt="...">
                                         </div>
                                     </div>
-                                    <div class="carousel-item">
-                                        <div class="card">
-                                            <img class="card-img" src="images/mac2.png" height="350rem" alt="...">
-                                        </div>
-                                    </div>
-                                    <div class="carousel-item">
-                                        <div class="card">
-                                            <img class="card-img" src="images/mac3.png" height="350rem" alt="...">
-                                        </div>
-                                    </div>
+                                     {{/each}}
                                 </div>
                                 <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
                                     <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -63,15 +55,11 @@
                         </div>
                     </div>
                     <div style="display: flex;">
-                        <a class="thumbnail active" href="images/mac1.png">
-                        	<img src="images/mac1.png" width="110rem" height="110rem" alt="...">
+                        {{#each images}}
+                        <a class="thumbnail active" href="{{imageLink}}">
+                        	<img src="{{imageLink}}" width="110rem" height="110rem" alt="...">
                         </a>
-                        <a class="thumbnail" href="images/mac2.png">
-                        	<img src="images/mac2.png" width="110rem" height="110rem" alt="...">
-                        </a>
-                        <a class="thumbnail" href="images/mac3.png">
-                        	<img src="images/mac3.png" width="110rem" height="110rem" alt="...">
-                        </a>
+                        {{/each}}
                     </div>
                 </div>
                 <!-- /IMAGE -->
@@ -208,11 +196,7 @@
 
                 <!-- DESCRIPTION -->
                 <div role="tabpanel" class="tab-pane active" id="description">
-                    Được thiết kế dành cho những người thách thức các giới hạn và thay đổi thế giới, 
-                    MacBook Pro mới đến nay là máy tính xách tay mạnh mẽ nhất mà chúng tôi từng thực hiện. 
-                    Với màn hình Retina 16 inch, bộ xử lý siêu tốc, đồ họa thế hệ tiếp theo, dung lượng pin 
-                    lớn nhất từng có trong MacBook Pro, Bàn phím ma thuật mới và bộ lưu trữ lớn, nó là máy tính 
-                    xách tay chuyên nghiệp tuyệt đỉnh cho người dùng cuối cùng.
+                    {{{describe.description}}}
                 </div>
                 
                 <!-- SPECIFICATIONS -->
