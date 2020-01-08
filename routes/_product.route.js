@@ -4,6 +4,7 @@ const productModel = require('../models/product.model');
 const describeModel = require('../models/describe.model');
 const userModel = require('../models/user.model');
 const imageModel = require('../models/image.model');
+const historyModel = require('../models/history.model');
 const multer = require('multer');
 const moment = require('moment');
 const mkdirp = require('mkdirp');
@@ -100,7 +101,7 @@ router.get('/detail', async function(req, res) {
         if (!req.session.authUser) res.redirect('/account/login');
         const user = req.session.authUser;
         const entity = {
-            userID: user.userID,
+            userID: user.userID || '',
             sellerID: req.query.sellerID,
             productID: req.query.id,
         };
@@ -115,6 +116,11 @@ router.get('/detail', async function(req, res) {
     const describe = await describeModel.single(req.query.id);
     const sellerName = await userModel.singleByID(item[0].sellerID);
     const bidderName = await userModel.singleByID(item[0].bidderID);
+    let history = await historyModel.allByProductID(req.query.id);
+    for (let h of history) {
+        let part = h.fullName.split(' ');
+        h.fullName = "******" + part[part.length - 1] || "******";
+    }
     let name = sellerName.fullName.split(' ');
     const seller = "******" + name[name.length - 1];
     let bidder = '';
@@ -143,7 +149,9 @@ router.get('/detail', async function(req, res) {
         product,
         outOfStock: item.sold === 0,
         images,
+        imgTitle: images[0],
         describe,
+        history,
         empty,
     });
 });
@@ -168,7 +176,11 @@ router.post('/detail', restrict, async function(req, res) {
     const describe = await describeModel.single(req.query.id);
     const sellerName = await userModel.singleByID(item[0].sellerID);
     const bidderName = await userModel.singleByID(item[0].bidderID);
-
+    let history = await historyModel.allByProductID(req.query.id);
+    for (let h of history) {
+        let part = h.fullName.split(' ');
+        h.fullName = "******" + part[part.length - 1] || "******";
+    }
     let name = sellerName.fullName.split(' ');
     const seller = "******" + name[name.length - 1];
     let bidder = '';
@@ -197,7 +209,9 @@ router.post('/detail', restrict, async function(req, res) {
         product,
         outOfStock: item.sold === 0,
         images,
+        imgTitle: images[0],
         describe,
+        history,
         empty,
     });
 })
