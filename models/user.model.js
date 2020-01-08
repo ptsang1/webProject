@@ -3,6 +3,8 @@ const db = require("../utils/db");
 module.exports = {
     all: async _ => await db.load('select * from USERS'),
     add: async entity => await db.add(entity, 'USERS'),
+    changeUserID: async (oldUserID, newUserID) => 
+        await db.load(`UPDATE USERS SET userID=${newUserID} where userID=${oldUserID}`),
     confirmAccount: async userID => await db.updateValue("USERS", { accepted: 1 }, { userID: userID }),
     isEmailExisted: async email => {
         const row = await db.load(`select email from USERS where email = ?`, [email]);
