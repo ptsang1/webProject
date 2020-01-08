@@ -12,9 +12,18 @@
     <link rel="stylesheet" type="text/css" href="css/clock.css">
     <!-- <link href="assets/css/color_scheme/green.css" rel="stylesheet" type="text/css" id="color_scheme" /> -->
 {{/section}}
+
+{{#section 'js'}}
+    <script>
+        function save() {
+            $('form').submit();
+        }
+    </script>
+{{/section}}
     <!-- -->
     
         <div class="container">
+            <form method="POST">
             <div class="row">
                 <!-- không có thông tin-->
                 {{#if empty}}
@@ -76,7 +85,8 @@
                                     <main>
                                         <div >
                                             <span class="text-danger display-4">{{format product.priceCurent}}đ</span>
-                                        </div></main>
+                                        </div>
+                                    </main>
                             </div>
                         </div>
                         
@@ -93,16 +103,18 @@
                             </div>
                             <div>
                                 <header class="smallUpperHeader"> 
-                                    Ra giá bởi:
+                                    NGƯỜI GIỮ GIÁ CAO NHẤT:
                                 </header>
                                     <main>
-                                        <div>
-                                            <span>{{product.bidderID}}</span>
+                                        <div class="form-group">
+                                            <span><input type="hidden" id="bidderID" name="bidderID" value="{{product.bidderID}}"/>
+                                            {{product.bidderID}}
+                                            </span>
                                         </div>
                                     </main>
                             </div>
-                            <div class="row m-5 p-5">
-                                <button type="submit" class="btn btn-outline-danger">
+                            <div class="form-group row m-5 p-5">
+                                <button type="button" onclick="save()" class="btn btn-outline-danger">
                                 <i class="fa fa-heart" aria-hidden="true"></i>
                                     Thêm vào yêu thích
                                 </button>
@@ -137,22 +149,24 @@
 
                     <h4 class="fs-18">
                         <i class="fa fa-paper-plane-o"></i> 
-                       Miễn phí giao hàng
+                       MIỄN PHÍ GIAO HÀNG
                     </h4>
                     <p>Miễn phí giao hàng khu vực nội thành TP. HCM.</br>Những khu vực khác phí vận chuyển từ 49.000đ.</p>
 
                     <h4 class="fs-18">
                         <i class="fa fa-clock-o"></i>
-                        CHÍNH SÁCH HOÀN TRẢ 30 NGÀY
+                        THỜI ĐIỂM ĐĂNG
                     </h4>
-                    <p>Được hoàn trả sản phẩm cho nhà cung cấp 
-                    <br>sản phẩm không đúng tiêu chuẩn.</p>
+                    <p>{{formatDate product.timePost}}</p>
 
                     <h4 class="fs-18">
                         <i class="fa fa-users"></i> 
                         NHÀ CUNG CẤP
                     </h4>
-                    <p>{{product.sellerID}}</p>
+                    <div class="form-group">
+                        <input type="hidden" name="sellerID" value="{{product.sellerID}}"/>
+                        {{product.sellerID}}
+                    </div>
                     <h4 class="fs-18">
                         <i class="fa fa-star"></i> 
                         ĐIỂM ĐÁNH GIÁ
@@ -349,7 +363,7 @@
             </div>
 
 
-
+        </form>
         </div>
     
             <!-- / -->

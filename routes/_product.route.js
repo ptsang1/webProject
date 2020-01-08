@@ -107,6 +107,7 @@ router.get('/detail', async function(req, res) {
         productName: item[0].productName,
         bidderID: item[0].bidderID,
         sellerID: item[0].sellerID,
+        timePost: item[0].timePost,
         time: time,
     };
     if (!item) empty = true;
@@ -121,8 +122,8 @@ router.get('/detail', async function(req, res) {
 
 router.post('/detail', async function(req, res) {
     const entity = {
-        userID: bidderID,
-        sellerID: sellerID,
+        userID: req.body.bidderID,
+        sellerID: req.body.sellerID,
         productID: req.query.id,
     };
     const rs = await productModel.saved(entity);
@@ -137,6 +138,7 @@ router.post('/detail', async function(req, res) {
         productName: item[0].productName,
         bidderID: item[0].bidderID,
         sellerID: item[0].sellerID,
+        timePost: item[0].timePost,
         time: time,
     };
     if (!item) empty = true;

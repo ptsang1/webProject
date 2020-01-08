@@ -8,9 +8,6 @@ const router = express.Router();
 
 const restrict = require('../middlewares/auth.mdw');
 router.get('/', restrict, async function(req, res) {
-    // if (!req.session.isAuthenticated){
-    //     return res.redirect(`/account/login?retUrl=${req.originalUrl}`);
-    // }
     const user = req.session.authUser;
     const Strname = user.fullName.split(' ');
     const name = Strname[Strname.length - 1];
