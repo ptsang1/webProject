@@ -31,6 +31,12 @@ module.exports = {
             return rows[0];
         return null;
     },
+    singleByID: async id => {
+        const rows = await db.load(`select * from USERS where userID = '${id}'`);
+        if (rows.length > 0)
+            return rows[0];
+        return null;
+    },
     getGender: async id => {
         const rows = await db.load(`select * from GENDERS where genderID = ${id}`);
         if (rows.length === 0)

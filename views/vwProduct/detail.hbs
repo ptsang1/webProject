@@ -108,15 +108,15 @@
                                     <main>
                                         <div class="form-group">
                                             <span><input type="hidden" id="bidderID" name="bidderID" value="{{product.bidderID}}"/>
-                                            {{product.bidderID}}
+                                            {{product.bidder}}
                                             </span>
                                         </div>
                                     </main>
                             </div>
                             <div class="form-group row m-5 p-5">
-                                <button type="button" onclick="save()" class="btn btn-outline-danger">
+                                <button type="button" class="btn btn-outline-danger">
                                 <i class="fa fa-heart" aria-hidden="true"></i>
-                                    Thêm vào yêu thích
+                                    <a href="/product/detail?id={{product.productID}}&sellerID={{product.sellerID}}">Thêm vào yêu thích</a>
                                 </button>
                             </div>
                             <div class="clearfix"></div>
@@ -132,9 +132,9 @@
                             <div class="info_data place_bid">     
                                 <span class="bidding_box_fancy" style="display: inline-flex;">  
                                     <span class="BidValue">
-                                        <div id="NewBidTxt" class="CustomSelect" basevalue="21.00">{{format product.bidPrice}}</div>
+                                        <div id="NewBidTxt" class="CustomSelect" basevalue="21.00"><input type="hidden" id="bidPrice" name="bidPrice" value="{{product.bidPrice}}"/>{{format product.bidPrice}}</div>
                                     </span>
-                                    <button class="btn btn-primary product-bidding">ĐẤU GIÁ</button>
+                                    <button class="btn btn-primary product-bidding" onclick="save()">ĐẤU GIÁ</button>
                                 </span>
                             </div>
                         </div>
@@ -165,7 +165,7 @@
                     </h4>
                     <div class="form-group">
                         <input type="hidden" name="sellerID" value="{{product.sellerID}}"/>
-                        {{product.sellerID}}
+                        {{product.seller}}
                     </div>
                     <h4 class="fs-18">
                         <i class="fa fa-star"></i> 

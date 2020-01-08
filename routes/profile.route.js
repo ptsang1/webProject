@@ -33,7 +33,13 @@ router.post('/', async function(req, res) {
         address: req.body.address,
         email: req.body.email,
     };
+    console.log(entity);
+    req.authUser.fullName = entity.name;
+    req.authUser.genderID = entity.genderID;
+    req.authUser.birthDate = entity.birthday;
+    req.authUser.address = entity.address;
     const user = req.session.authUser;
+
     const rt = await userModel.changeInfoByEmail(entity, user.email);
 
 
