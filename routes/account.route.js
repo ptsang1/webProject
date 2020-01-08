@@ -93,7 +93,7 @@ router.post('/login', async function(req, res) {
 
     let check = await USERS.isUserAccepted(user.email);
 
-    if (!check){
+    if (!check) {
         return res.render('vwAccount/login', {
             layout: 'signin_signup.hbs',
             template: 'signup',
@@ -126,8 +126,8 @@ function render(filename, data) {
     return output;
 }
 
-router.get('/send',function(req,res){
-    const link="http://"+req.get('host')+`/account/verify?id=${req.query.id}`;
+router.get('/send', function(req, res) {
+    const link = "http://" + req.get('host') + `/account/verify?id=${req.query.id}`;
     replacements = {
         fullname: req.query.fullname,
         email: req.query.to,
@@ -158,15 +158,14 @@ router.get('/verify', async function(req, res) {
     if ((req.protocol + "://" + req.get('host')) == ("http://" + req.get('host'))) {
         console.log("Domain is matched. Information is from Authentic email");
         user = await USERS.getUserByUserID(req.query.id)
-        if(user)
-        {
+        if (user) {
             console.log("email is verified");
             await USERS.acceptedUserByUserID(user.userID);
             await USERS.changeUserID(user.userID, uuidv1());
-            
-        }else{
+
+        } else {
             console.log("something is wrong");
-            return res.redirect('/err');
+            return res.redirect('/1234567890');
         }
     }
     res.redirect('/');
