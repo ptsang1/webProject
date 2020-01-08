@@ -97,7 +97,7 @@ router.get('/detail', async function(req, res) {
     const item = await productModel.singleByID(req.query.id);
     const images = await imageModel.allByProductID(req.query.id);
     const describe = await describeModel.single(req.query.id);
-    console.log(typeof describe.description);
+
     let empty = false;
     const time = moment(item[0].timeEnd).fromNow();
     const product = {
@@ -122,16 +122,19 @@ router.get('/detail', async function(req, res) {
 });
 
 router.post('/detail', restrict, async function(req, res) {
+    const user = req.session.authUser;
     const entity = {
-        userID: req.body.bidderID,
+        userID: user.userID,
         sellerID: req.body.sellerID,
         productID: req.query.id,
     };
-    const rs = await productModel.saved(entity);
+    const count = await productModel.checkSaved(entity.sellerID, entity.userID, entity.productID);
+    if (Number(count) === 0) {
+        let rs = await productModel.saved(entity);
+    }
     const item = await productModel.singleByID(req.query.id);
     const images = await imageModel.allByProductID(req.query.id);
     const describe = await describeModel.single(req.query.id);
-    console.log(typeof describe.description);
     let empty = false;
     const time = moment(item[0].timeEnd).fromNow();
     const product = {
