@@ -135,7 +135,6 @@ router.post('/detail', restrict, async function(req, res) {
     const item = await productModel.singleByID(req.query.id);
     const images = await imageModel.allByProductID(req.query.id);
     const describe = await describeModel.single(req.query.id);
-
     let empty = false;
     const time = moment(item[0].timeEnd).fromNow();
     const product = {
