@@ -48,8 +48,9 @@ router.post('/add', async function(req, res) {
             let timePost = new Date();
             let catID = await categoryModel.singleByName(req.body.category);
             let timeEnd = new Date(new Date().getTime() + (10 * 24 * 60 * 60 * 1000));
+            const user = req.session.authUser;
             const entity = {
-                sellerID: 'ad002110-3082-11ea-8a84-9b34a52a433d',
+                sellerID: user.userID,
                 CatID: catID.catID,
                 productName: req.body.productName,
                 bidderID: null,
@@ -64,7 +65,7 @@ router.post('/add', async function(req, res) {
             const des = req.body.describeProduct;
             if (des) await describeModel.add({
                 productID: id,
-                sellerID: 'ad002110-3082-11ea-8a84-9b34a52a433d',
+                sellerID: user.userID,
                 description: des,
                 timeUpdate: timePost,
             });
@@ -75,7 +76,7 @@ router.post('/add', async function(req, res) {
                 for (let i = 0; i < items.length; i++) {
                     if (items[i]) await imageModel.add({
                         productID: id,
-                        sellerID: 'ad002110-3082-11ea-8a84-9b34a52a433d',
+                        sellerID: user.userID,
                         imageLink: `images/${id}/${items[i]}`,
                     });
                 }
@@ -120,7 +121,7 @@ router.get('/detail', async function(req, res) {
     });
 });
 
-router.post('/detail', async function(req, res) {
+router.post('/detail', restrict, async function(req, res) {
     const entity = {
         userID: req.body.bidderID,
         sellerID: req.body.sellerID,
@@ -128,6 +129,9 @@ router.post('/detail', async function(req, res) {
     };
     const rs = await productModel.saved(entity);
     const item = await productModel.singleByID(req.query.id);
+    const images = await imageModel.allByProductID(req.query.id);
+    const describe = await describeModel.single(req.query.id);
+    console.log(typeof describe.description);
     let empty = false;
     const time = moment(item[0].timeEnd).fromNow();
     const product = {
@@ -145,6 +149,8 @@ router.post('/detail', async function(req, res) {
     res.render('vwProduct/detail', {
         product,
         outOfStock: item.sold === 0,
+        images,
+        describe,
         empty,
     });
 })
