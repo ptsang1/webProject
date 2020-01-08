@@ -94,12 +94,22 @@ router.get('/product-bidding-list', async function(req, res) {
     })
 });
 
+// router.get('/product-won-list', async function(req, res) {
+//     result = await product.all();
+//     res.render('vwProfile/productProfile3', {
+//         products: result,
+//         empty: result.length === 0,
+//     });
+// });
+
 router.get('/product-won-list', async function(req, res) {
-    result = await product.all();
+    const user = req.session.authUser;
+    let id = user.userID;
+    const total = await product.allWonList(id);
     res.render('vwProfile/productProfile3', {
-        products: result,
-        empty: result.length === 0,
-    });
+        products: total,
+        empty: total.length === 0,
+    })
 });
 
 router.use(express.static('public'));
