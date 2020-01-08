@@ -96,7 +96,6 @@ router.post('/add', async function(req, res) {
 })
 
 router.get('/detail', async function(req, res) {
-
     if (req.query.sellerID) {
         if (!req.session.authUser) res.redirect('/account/login');
         const user = req.session.authUser;
