@@ -47,13 +47,13 @@
                             </div>
                             
                         </div>
-                        <div class="container-fluid">
+                        <div class="container-fluid" style="margin-top: 10px;">
                             <div class="row">
                                 {{#each this.product}}
-                                <div class="col-md-4 mt-2 mb-3">
-                                   <div class="card">
+                               <div class="col-sm-4 mb-3">
+                                       <div class="card" style="height: 35rem;">
                                         <a href="/product/detail?id={{productID}}">
-                                        <img src="{{imageLink}}" class="card-img-top" alt="..."></a>                    					
+                                        <img style="height: 15rem;" src="{{imageLink}}" class="card-img-top" alt="..."></a>                    					
                                         <div class="card-body">
                                             <p class="card-text" style="overflow: hidden;">
                                                 <b>{{productName}}</b>
@@ -65,7 +65,7 @@
                                             </p>
                                         </div>
                                     </div>
-                                </div>
+                                  </div>
                                 {{/each}}
                             </div>
                         </div>

@@ -1,5 +1,6 @@
 const express = require('express');
 const userModel = require('../models/user.model');
+const requestModel = require('../models/request.model');
 const moment = require('moment');
 const bcrypt = require('bcryptjs');
 const config = require('../config/default.json');
@@ -33,7 +34,13 @@ router.post('/', async function(req, res) {
         address: req.body.address,
         email: req.body.email,
     };
+    console.log(req.session.sauthUser);
+    req.session.authUser.fullName = req.body.name;
+    req.session.authUser.genderID = genderID;
+    req.session.authUser.birthDate = req.body.birthday;
+    req.session.authUser.address = req.body.address;
     const user = req.session.authUser;
+
     const rt = await userModel.changeInfoByEmail(entity, user.email);
 
 
@@ -50,7 +57,7 @@ router.post('/', async function(req, res) {
     });
 });
 
-router.get('/setting', function(req, res) {
+router.get('/setting', restrict, function(req, res) {
     res.render('vwProfile/settingProfile');
 });
 
@@ -68,39 +75,59 @@ router.post('/setting', async function(req, res) {
     res.render('vwProfile/settingProfile');
 })
 
-// router.get('/product-watch-list', async function(req, res) {
+router.get('/review', restrict, function(req, res) {
+    res.render('vwProfile/review');
+});
+
+
+router.get('/product-watch-list', async function(req, res) {
+    const user = req.session.authUser;
+    let id = user.userID;
+    const total = await product.allWatchList(id);
+    res.render('vwProfile/productProfile', {
+        products: total,
+        empty: total.length === 0,
+    })
+})
+
+router.get('/product-bidding-list', async function(req, res) {
+    const user = req.session.authUser;
+    let id = user.userID;
+    const total = await product.allBiddingList(id);
+    res.render('vwProfile/productProfile2', {
+        products: total,
+        empty: total.length === 0,
+    })
+});
+
+// router.get('/product-won-list', async function(req, res) {
 //     result = await product.all();
-//     res.render('vwProfile/productProfile', {
+//     res.render('vwProfile/productProfile3', {
 //         products: result,
 //         empty: result.length === 0,
 //     });
 // });
 
-router.get('/product-watch-list', async function(req, res) {
-    let id = req.query.id;
-    const total = await product.allWatchList();
-    res.render('vwProfile/productProfile', {
+router.get('/product-won-list', async function(req, res) {
+    const user = req.session.authUser;
+    let id = user.userID;
+    const total = await product.allWonList(id);
+    res.render('vwProfile/productProfile3', {
         products: total,
         empty: total.length === 0,
-        id,
     })
-})
-
-router.get('/product-bidding-list', async function(req, res) {
-    result = await product.all();
-    res.render('vwProfile/productProfile2', {
-        products: result,
-        empty: result.length === 0,
-    });
 });
-
-router.get('/product-won-list', async function(req, res) {
-    result = await product.all();
-    res.render('vwProfile/productProfile3', {
-        products: result,
-        empty: result.length === 0,
-    });
+router.get('/upgrade', restrict, async function(req, res) {
+    const user = req.session.authUser;
+    const entity = {
+        bidderID: user.userID,
+        accepted: 0
+    };
+    const count = requestModel.checkRequest(user.userID);
+    if (Number(count) > 0) {
+        const rs = await requestModel.add(entity);
+    }
+    res.redirect('/profile');
 });
-
 router.use(express.static('public'));
 module.exports = router;

@@ -1,0 +1,45 @@
+    <div class="container-fluid">
+            <div class="dropdown" style="margin-left: 18px;">
+                <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Hiển thị
+                </button>
+                <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                    <a class="dropdown-item" href="/product/sell?sold=true">Đã bán</a>
+                    <a class="dropdown-item" href="/product/sell?sold=false">Còn hạn</a>
+                </div>
+            </div>
+        <div class="row" style="margin-top: 5px">
+             {{#if this.empty}}
+                <div class="card-body">
+                     <h1 class="card-text">Không có dữ liệu</h1>
+                </div>
+             {{else}}
+            <div class="col">
+                <div class="container-fluid">
+                    <div class="row">
+                        {{#each this.product}}
+                        <div class="col-md-2 mt-2 mb-3" style="height: 18rem; width: 20rem;">
+                            <div class="card">
+                                <a href="/product/detail?id={{productID}}">
+                                <img src="{{imageLink}}" class="card-img-top" alt="..."></a>                    					
+                                <div class="card-body">
+                                    <p class="card-text" style="overflow: hidden;">
+                                        <b>{{productName}}</b>
+                                        <br><small>Giá mua ngay: <br><b>{{format price}}đ</b>
+                                        <br>Giá hiện tại: <br><b>{{format priceCurent}}đ</b>
+                                        <br>Ra giá bởi: <br><b>{{bidderID}}</b>
+                                        <br>Thời gian còn lại: <br><b>{{formatTime timeEnd}}</b>
+                                        <br>Số lượt ra giá hiện tại: <b>10</b></small>
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                        {{/each}}
+                    </div>
+                </div>
+            </div>
+             {{/if}}
+        </div>
+        <div class="row" style="height: 500px;"></div>
+    </div>
+   

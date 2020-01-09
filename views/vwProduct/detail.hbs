@@ -16,7 +16,10 @@
 {{#section 'js'}}
     <script>
         function save() {
+            var r = confirm("Confirm bid");
+            if (r == true) {
             $('form').submit();
+            } 
         }
     </script>
 {{/section}}
@@ -36,8 +39,15 @@
                     <div>
                          <div id="carouselExampleControls" class="carousel slide d-flex justify-content-center" data-ride="carousel">
                                 <div class="carousel-inner">
+                                    {{#if this.imgTitle}}
+                                     <div class="carousel-item active">
+                                        <div class="card">
+                                            <img class="card-img" src="{{imgTitle.imageLink}}" height="350rem" alt="...">
+                                        </div>
+                                    </div>
+                                    {{/if}}
                                     {{#each images}}
-                                    <div class="carousel-item active">
+                                    <div class="carousel-item">
                                         <div class="card">
                                             <img class="card-img" src="{{imageLink}}" height="350rem" alt="...">
                                         </div>
@@ -108,15 +118,15 @@
                                     <main>
                                         <div class="form-group">
                                             <span><input type="hidden" id="bidderID" name="bidderID" value="{{product.bidderID}}"/>
-                                            {{product.bidderID}}
+                                            {{product.bidder}}
                                             </span>
                                         </div>
                                     </main>
                             </div>
                             <div class="form-group row m-5 p-5">
-                                <button type="button" onclick="save()" class="btn btn-outline-danger">
+                                <button type="button" class="btn btn-outline-danger">
                                 <i class="fa fa-heart" aria-hidden="true"></i>
-                                    Thêm vào yêu thích
+                                    <a  href="/product/detail?id={{product.productID}}&sellerID={{product.sellerID}}">Thêm vào yêu thích</a>
                                 </button>
                             </div>
                             <div class="clearfix"></div>
@@ -132,9 +142,9 @@
                             <div class="info_data place_bid">     
                                 <span class="bidding_box_fancy" style="display: inline-flex;">  
                                     <span class="BidValue">
-                                        <div id="NewBidTxt" class="CustomSelect" basevalue="21.00">{{format product.bidPrice}}</div>
+                                        <div id="NewBidTxt" class="CustomSelect" basevalue="21.00"><input type="hidden" id="bidPrice" name="bidPrice" value="{{product.bidPrice}}"/>{{format product.bidPrice}}</div>
                                     </span>
-                                    <button class="btn btn-primary product-bidding">ĐẤU GIÁ</button>
+                                    <button class="btn btn-primary product-bidding" onclick="save()">ĐẤU GIÁ</button>
                                 </span>
                             </div>
                         </div>
@@ -165,7 +175,7 @@
                     </h4>
                     <div class="form-group">
                         <input type="hidden" name="sellerID" value="{{product.sellerID}}"/>
-                        {{product.sellerID}}
+                        {{product.seller}}
                     </div>
                     <h4 class="fs-18">
                         <i class="fa fa-star"></i> 
@@ -186,8 +196,8 @@
             </div>
 
             <ul id="myTab" class="nav nav-tabs nav-top-border mt-80" role="tablist">
-                <li class="nav-item"><a class="nav-link active" href="#description" data-toggle="tab">Description</a></li>
-                <li class="nav-item"><a class="nav-link" href="#specs" data-toggle="tab">Specifications</a></li>
+                <li class="nav-item"><a class="nav-link active" href="#description" data-toggle="tab">Mô tả</a></li>
+                <li class="nav-item"><a class="nav-link" href="#specs" data-toggle="tab">Lịch sử đấu giá</a></li>
                 <li class="nav-item"><a class="nav-link" href="#reviews" data-toggle="tab">Reviews (2)</a></li>
             </ul>
 
@@ -203,37 +213,19 @@
                 <div role="tabpanel" class="tab-pane fade" id="specs">
                     <div class="table-responsive">
                         <table class="table table-hover">
-                            <thead>
-                                <tr>
-                                    <th>Thông số kỹ thuật</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
                             <tbody>
-                                <tr>
-                                    <td>Màu</td>
-                                    <td>Space Gray</td>
+                                 <tr>
+                                    <td><strong>Người đấu giá</strong></td>
+                                    <td><strong>Giá tiền</strong></td>
+                                    <td><strong>Thời điểm</strong></td>
                                 </tr>
+                                {{#each history}}
                                 <tr>
-                                    <td>CPU</td>
-                                    <td>2.6GHz 6‑core Intel Core i7, Turbo Boost up to 4.5GHz, with 12MB shared L3 cache</td>
+                                    <td>{{fullName}}</td>
+                                    <td>{{offer}}</td>
+                                    <td>{{formatDate timeOffer}}</td>
                                 </tr>
-                                <tr>
-                                    <td>RAM</td>
-                                    <td>16GB of 2666MHz DDR4 onboard memory</td>
-                                </tr>
-                                <tr>
-                                    <td>Ổ cứng</td>
-                                    <td>512GB SSD PCIe</td>
-                                </tr>
-                                <tr>
-                                    <td>Màn hình</td>
-                                    <td>16‑inch (diagonal) LED‑backlit display with IPS technology</td>
-                                </tr>
-                                <tr>
-                                    <td>GPU</td>
-                                    <td>AMD Radeon Pro 5300M with 4GB of GDDR6 memory</td>
-                                </tr>
+                                {{/each}}
                             </tbody>
                         </table>
                     </div>

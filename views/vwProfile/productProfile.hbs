@@ -7,6 +7,7 @@
                   <li id="viewInfoLink"><a href="/profile">Thông tin tài khoản</a></li>
                   <li id="viewSettingLink"><a href="/profile/setting" >Đổi mật khẩu</a></li>
                   <li id="viewProductLink" style="font-weight: 700;"><a href="/profile/product-watch-list">Sản phẩm</a></li>
+                   <li id="Upgrade"><a href="/profile/upgrade">Nâng cấp tài khoản</a></li>
               </ul>
           </div>
           <div class="info-pane" style="margin-top: 30px;">
@@ -32,39 +33,8 @@
                       </button>
                     </a>
                   </div>
+                  
               </div>
-              <div class="container-fluid" style="margin-top: 30px;">
-                <div class="jumbotron jumbotron-fluid bg-light text-dark pt-0 pb-0 mb-0 mt-3">
-                    <div class="container-fluid h-25">
-                        <h4 class="display-6">Danh sách sản phẩm yêu thích</h4>
-                    </div>
-                </div>
-                <div class="card">
-                    <div class="card-body"> 
-                        <div class="row">
-                            {{#each this.products}}
-                                <div class="col-sm-4 mb-3">
-                                    <div class="card">
-                                        <a href="/detail">
-                                          <img src="images/macbook.jpeg" class="card-img-top" alt="...">
-                                        </a>
-                                        <div class="card-body">
-                                            <p class="card-text" style="overflow: hidden;">
-                                                <b>{{productName}}</b>
-                                                <br><small>Giá mua ngay: <br><b>{{format price}}đ</b>
-                                                <br>Giá hiện tại: <br><b>{{format priceCurent}}đ</b>
-                                                <br>Ra giá bởi: <br><b>{{bidderID}}</b>
-                                                <br>Ngày đăng: <br><b>{{formatDate timePost}}</b>
-                                                <br>Thời gian còn lại: <br><b>{{formatDate timeEnd}}</b>
-                                                <br>Số lượt ra giá hiện tại: <b>10</b></small>
-                                            </p>
-                                        </div>
-                                    </div>
-                                </div>
-                            {{/each}}
-                        </div>
-                    </div>
-                </div>
                 <div class="container-fluid" style="margin-top: 30px;">
                   <div class="jumbotron jumbotron-fluid bg-light text-dark pt-0 pb-0 mb-0 mt-3">
                       <div class="container-fluid h-25">
@@ -74,6 +44,11 @@
                   <div class="card">
                       <div class="card-body"> 
                           <div class="row">
+                              {{#if this.empty}}
+                                <div class="card-body">
+                                    <h2 class="card-text">Không có dữ liệu</h1>
+                                </div>
+                                {{else}}
                               {{#each this.products}}
                                   <div class="col-sm-4 mb-3">
                                        <div class="card" style="height: 35rem;">
@@ -92,6 +67,7 @@
                                     </div>
                                   </div>
                               {{/each}}
+                              {{/if}}
                           </div>
                       </div>
                   </div>

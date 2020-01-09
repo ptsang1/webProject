@@ -21,7 +21,8 @@
             </a>
         </div>
     </div>
-    <div class="container-fluid">
+
+    <div class="container-fluid" style="margin-top: 5px;">
         <div class="jumbotron jumbotron-fluid bg-light text-dark pt-0 pb-0 mb-0 mt-3">
             <div class="container-fluid h-25">
                 <h4 class="display-6">Top 5 sản phẩm gần kết thúc</h4>
@@ -30,10 +31,10 @@
         </div>
         <div class="row mt-2">
             {{#each this.topEnd}}
-                <div class="col mb-4 w-50 h-50">
-                    <div class="card" style="height: 35rem;">
+                <div class="col-mb-4 h-50 ml-1 mt-2">
+                    <div class="card" style="height: 37rem; width: 17rem">
                         <a href="/product/detail?id={{productID}}">
-                        <img style="height: 15rem;" src="{{imageLink}}" class="card-img-top" alt="..."></a>                    					
+                        <img style="height: 16rem;" src="{{imageLink}}" class="card-img-top" alt="..."></a>                    					
                         <div class="card-body">
                             <p class="card-text" style="overflow: hidden;">
                                 <b>{{productName}}</b>
@@ -51,7 +52,7 @@
         </div>
     </div>
 
-    <div class="container-fluid">
+    <div class="container-fluid" style="margin-top: 5px;">
         <div class="jumbotron jumbotron-fluid bg-light text-dark pt-0 pb-0 mb-0 mt-3">
             <div class="container-fluid h-25">
                 <h4 class="display-6">Top 5 sản phẩm nổi bật</h4>
@@ -60,10 +61,10 @@
         </div>
         <div class="row mt-2">
             {{#each this.topStar}}
-                <div class="col mb-4 w-50 h-50">
-                    <div class="card" style="height: 35rem;">
+                <div class="col-mb-4 h-50 ml-1 mt-2">
+                    <div class="card" style="height: 37rem; width: 17rem">
                         <a href="/product/detail?id={{productID}}">
-                        <img style="height: 15rem;" src="{{imageLink}}" class="card-img-top" alt="..."></a>                   					
+                        <img style="height: 16rem;" src="{{imageLink}}" class="card-img-top" alt="..."></a>                   					
                         <div class="card-body">
                             <p class="card-text" style="overflow: hidden;">
                                 <b>{{productName}}</b>
@@ -81,7 +82,7 @@
         </div>
     </div>
 
-    <div class="container-fluid">
+    <div class="container-fluid" style="margin-top: 5px;">
         <div class="jumbotron jumbotron-fluid bg-light text-dark pt-0 pb-0 mb-0 mt-3">
             <div class="container-fluid h-25">
                 <h4 class="display-6">Top 5 sản phẩm quý giá nhất</h4>
@@ -90,10 +91,10 @@
         </div>
         <div class="row mt-2">
             {{#each this.topVal}}
-                <div class="col mb-4 w-50 h-50">
-                    <div class="card" style="height: 35rem;">
+                <div class="col-mb-4 h-50 ml-1 mt-2">
+                    <div class="card" style="height: 37rem; width: 17rem">
                         <a href="/product/detail?id={{productID}}">
-                       <img style="height: 15rem;" src="{{imageLink}}" class="card-img-top" alt="..."></a>                   					
+                       <img style="height: 16rem;" src="{{imageLink}}" class="card-img-top" alt="..."></a>                   					
                         <div class="card-body">
                             <p class="card-text" style="overflow: hidden;">
                                 <b>{{productName}}</b>
