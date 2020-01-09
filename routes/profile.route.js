@@ -87,7 +87,6 @@ router.get('/review', async function(req, res) {
     });
 });
 
-<<<<<<< HEAD
 router.get('/add', restrict, async function(req, res) {
     const toID = req.query.id;
     const user = req.session.authUser;
@@ -120,8 +119,6 @@ router.post('/add', async function(req, res) {
 })
 
 
-=======
->>>>>>> d599d8fe263d57fbb6e12d833d5fefe1f68bbecc
 router.get('/product-watch-list', async function(req, res) {
     const user = req.session.authUser;
     let id = user.userID;
@@ -132,8 +129,7 @@ router.get('/product-watch-list', async function(req, res) {
         if (bidderName) {
             name = bidderName.fullName.split(' ');
             bidder = "******" + name[name.length - 1];
-        }
-        else {
+        } else {
             bidder = "N/A";
         }
         const item = {
@@ -165,8 +161,7 @@ router.get('/product-bidding-list', async function(req, res) {
         if (bidderName) {
             name = bidderName.fullName.split(' ');
             bidder = "******" + name[name.length - 1];
-        }
-        else {
+        } else {
             bidder = "N/A";
         }
         const item = {
@@ -198,8 +193,7 @@ router.get('/product-won-list', async function(req, res) {
         if (bidderName) {
             name = bidderName.fullName.split(' ');
             bidder = "******" + name[name.length - 1];
-        }
-        else {
+        } else {
             bidder = "N/A";
         }
         const item = {
