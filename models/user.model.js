@@ -3,7 +3,7 @@ const db = require("../utils/db");
 module.exports = {
     all: async _ => await db.load('select * from USERS'),
     add: async entity => await db.add(entity, 'USERS'),
-    changeUserID: async (oldUserID, newUserID) => 
+    changeUserID: async(oldUserID, newUserID) =>
         await db.load(`UPDATE USERS SET userID='${newUserID}' where userID='${oldUserID}'`),
     confirmAccount: async userID => await db.updateValue("USERS", { accepted: 1 }, { userID: userID }),
     isEmailExisted: async email => {
@@ -24,6 +24,7 @@ module.exports = {
         return null;
     },
     acceptedUserByUserID: async userID => await db.load(`UPDATE USERS SET accepted = 1 WHERE userID='${userID}'`),
+    upgradeUserByUserID: async userID => await db.load(`UPDATE USERS SET roleID = 2 WHERE userID='${userID}'`),
     acceptedUserByEmail: async email => await db.load(`UPDATE USERS SET accepted = 1 WHERE email= '${email}'`),
     singleByEmail: async email => {
         const rows = await db.load(`select * from USERS where email = '${email}'`);

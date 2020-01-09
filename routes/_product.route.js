@@ -262,10 +262,32 @@ router.get('/sell', restrict, async function(req, res) {
     if (sold === 'true') {
         rows = await productModel.allSoldProduct(user.userID);
     }
+    product = [];
+    for (i = 0; i < rows.length; i++) {
+        const bidderName = await userModel.singleByID(rows[i].bidderID);
+        if (bidderName) {
+            name = bidderName.fullName.split(' ');
+            bidder = "******" + name[name.length - 1];
+        }
+        else {
+            bidder = "N/A";
+        }
+        const item = {
+            productID: rows[i].productID,
+            imageLink: rows[i].imageLink,
+            productName: rows[i].productName,
+            price: rows[i].price,
+            priceCurent: rows[i].priceCurent,
+            bidderID: rows[i].bidderID,
+            bidder,
+            timeEnd: rows[i].timeEnd
+        }
+        product.push(item);
+    }
     console.log(time);
 
     res.render('vwProduct/sellProduct', {
-        product: rows,
+        product, 
         empty: rows.length === 0,
     });
 });

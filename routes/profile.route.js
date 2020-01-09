@@ -76,6 +76,70 @@ router.get('/review', async function(req, res) {
     });
 });
 
+router.get('/add', restrict, async function(req, res) {
+    const toID = req.query.id;
+    const user = req.session.authUser;
+    const name = await userModel.getUserByUserID(toID);
+
+    res.render('vwProfile/add', {
+        toName: name.fullName,
+        fromName: user.fullName,
+        toID,
+        fromID: user.userID,
+    });
+})
+
+router.post('/add', async function(req, res) {
+
+
+    const entity = {
+        fromID: req.body.fromID,
+        toID: req.body.toID,
+        comment: req.body.comment,
+        like: req.body.like,
+    };
+    const count = await commentModel.checkSaved(req.body.fromID, req.body.toID, req.body.like);
+    console.log(count);
+    if (Number(count) < 1) {
+        const rs = await commentModel.add(entity);
+        console.log(rs);
+    }
+    res.redirect(`/profile/review?id=${req.body.toID}`);
+})
+
+
+router.get('/add', restrict, async function(req, res) {
+    const toID = req.query.id;
+    const user = req.session.authUser;
+    const name = await userModel.getUserByUserID(toID);
+
+    res.render('vwProfile/add', {
+        toName: name.fullName,
+        fromName: user.fullName,
+        toID,
+        fromID: user.userID,
+    });
+})
+
+router.post('/add', async function(req, res) {
+
+
+    const entity = {
+        fromID: req.body.fromID,
+        toID: req.body.toID,
+        comment: req.body.comment,
+        like: req.body.like,
+    };
+    const count = await commentModel.checkSaved(req.body.fromID, req.body.toID, req.body.like);
+    console.log(count);
+    if (Number(count) < 1) {
+        const rs = await commentModel.add(entity);
+        console.log(rs);
+    }
+    res.redirect(`/profile/review?id=${req.body.toID}`);
+})
+
+
 router.get('/product-watch-list', async function(req, res) {
     const user = req.session.authUser;
     let id = user.userID;
@@ -86,8 +150,7 @@ router.get('/product-watch-list', async function(req, res) {
         if (bidderName) {
             name = bidderName.fullName.split(' ');
             bidder = "******" + name[name.length - 1];
-        }
-        else {
+        } else {
             bidder = "N/A";
         }
         const item = {
@@ -117,10 +180,14 @@ router.get('/product-bidding-list', async function(req, res) {
     for (i = 0; i < total.length; i++) {
         const bidderName = await userModel.singleByID(total[i].bidderID);
         if (bidderName) {
+            if (total[i].bidderID === id) {
+                bidder = "Chúc mừng, bạn đang giữ mức giá cao nhất !";
+            }
+            else {
             name = bidderName.fullName.split(' ');
             bidder = "******" + name[name.length - 1];
-        }
-        else {
+            }
+        } else {
             bidder = "N/A";
         }
         const item = {
@@ -152,8 +219,7 @@ router.get('/product-won-list', async function(req, res) {
         if (bidderName) {
             name = bidderName.fullName.split(' ');
             bidder = "******" + name[name.length - 1];
-        }
-        else {
+        } else {
             bidder = "N/A";
         }
         const item = {

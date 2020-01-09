@@ -21,16 +21,17 @@
                 <div class="container-fluid">
                     <div class="row">
                         {{#each this.product}}
-                        <div class="col-md-2 mt-2 mb-3" style="height: 18rem; width: 20rem;">
-                            <div class="card">
+                         <div class="col-mb-4 h-50 ml-1 mt-2">
+                            <div class="card" style="height: 37rem; width: 17rem">
                                 <a href="/product/detail?id={{productID}}">
-                                <img src="{{imageLink}}" class="card-img-top" alt="..."></a>                    					
+                            <img style="height: 16rem;" src="{{imageLink}}" class="card-img-top" alt="..."></a>                   					
                                 <div class="card-body">
                                     <p class="card-text" style="overflow: hidden;">
                                         <b>{{productName}}</b>
                                         <br><small>Giá mua ngay: <br><b>{{format price}}đ</b>
                                         <br>Giá hiện tại: <br><b>{{format priceCurent}}đ</b>
-                                        <br>Ra giá bởi: <br><b>{{bidderID}}</b>
+                                        <br>Ra giá bởi: <br><b>{{bidder}}</b>
+                                        <br>Ngày đăng: <br><b>{{formatDate timePost}}</b>
                                         <br>Thời gian còn lại: <br><b>{{formatTime timeEnd}}</b>
                                         <br>Số lượt ra giá hiện tại: <b>10</b></small>
                                     </p>
