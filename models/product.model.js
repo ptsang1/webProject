@@ -37,11 +37,11 @@ module.exports = {
     where catID = ${catId} GROUP BY p.productID ORDER BY timeEnd ASC limit ${config.pagination.limit} offset ${offset}`),
     pageByCatOrderTimeDESC: (catId, offset) => db.load(`select * from PRODUCTS p join PRODUCT_IMAGES pi on pi.productID = p.productID
     where catID = ${catId} GROUP BY p.productID ORDER BY timeEnd DESC limit ${config.pagination.limit} offset ${offset}`),
-    topFiveProductEnd: _ => db.load(`select * 
+    topFiveProductEnd: async _ => await db.load(`select * 
     from (select * from PRODUCTS c ORDER BY timeEnd ASC LIMIT 5) as ta RIGHT JOIN PRODUCT_IMAGES pi on pi.productID = ta.productID
 	GROUP BY pi.productID
     ORDER BY timeEnd DESC LIMIT 5;`),
-    topFiveProductStar: _ => db.load(`
+    topFiveProductStar: async _ => await db.load(`
           SELECT
           p.productID,
           p.productName,
@@ -56,18 +56,19 @@ module.exports = {
           LEFT OUTER JOIN PRODUCT_IMAGES pi ON pi.productID = p.productID
           GROUP BY (p.productID)
           ORDER BY amount DESC LIMIT 5; `),
-    topFiveProductValue: _ => db.load(`
+    topFiveProductValue: async _ => await db.load(`
     SELECT * 
     from PRODUCTS p join PRODUCT_IMAGES pi on pi.productID = p.productID
     GROUP BY p.productID
     ORDER BY p.priceCurent DESC 
     limit 5;
                 `),
-    singleByID: productID => db.load(`
-            select * 
-            from PRODUCTS
-            where productID = ${productID}
-                `),
+    singleByID: async productID => {
+        let row = await db.load(`select * from PRODUCTS where productID = ${productID}`)
+        if (row.length > 0)
+            return row[0];
+        return null;
+    },
     timeSingleByID: productID => db.load(`
                 SELECT(TIME_TO_SEC(timeEnd) - TIME_TO_SEC(timePost)) as time from PRODUCTS where productID = ${productID}
                 `),
@@ -75,5 +76,8 @@ module.exports = {
                 SELECT AUTO_INCREMENT as number FROM information_schema.TABLES WHERE TABLE_SCHEMA = "webproject"
                 AND TABLE_NAME = "PRODUCTS"
                 `),
+    updateState: async (bidderID, priceCurent, productID)=> {
+        await db.load('UPDATE PRODUCTS SET bidderID=?, priceCurent=? where productID=?',[bidderID, priceCurent, productID]);
+    }
 
 }

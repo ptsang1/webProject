@@ -35,27 +35,16 @@ router.post('/', async function(req, res) {
         address: req.body.address,
         email: req.body.email,
     };
-    console.log(req.session.sauthUser);
+
     req.session.authUser.fullName = req.body.name;
     req.session.authUser.genderID = genderID;
     req.session.authUser.birthDate = req.body.birthday;
     req.session.authUser.address = req.body.address;
     const user = req.session.authUser;
 
-    const rt = await userModel.changeInfoByEmail(entity, user.email);
+    await userModel.changeInfoByEmail(entity, user.email);
 
-
-
-    const gender = await userModel.getGender(user.genderID);
-    const othergender = await userModel.getOtherGender(user.genderID);
-    const dob = moment(user.birthDate, 'YYYY-MM-DD').format('YYYY-MM-DD');
-
-    res.render('vwProfile/infoProfile', {
-        user,
-        gender,
-        other: othergender,
-        dob
-    });
+    setTimeout(() => res.redirect(`/profile?user=${user.fullName}`), 1000);
 });
 
 router.get('/setting', restrict, function(req, res) {
@@ -73,7 +62,7 @@ router.post('/setting', async function(req, res) {
     } else {
         console.log(false);
     }
-    res.render('vwProfile/settingProfile');
+    res.redirect('/setting');
 })
 
 router.get('/review', async function(req, res) {
@@ -87,41 +76,6 @@ router.get('/review', async function(req, res) {
     });
 });
 
-<<<<<<< HEAD
-router.get('/add', restrict, async function(req, res) {
-    const toID = req.query.id;
-    const user = req.session.authUser;
-    const name = await userModel.getUserByUserID(toID);
-
-    res.render('vwProfile/add', {
-        toName: name.fullName,
-        fromName: user.fullName,
-        toID,
-        fromID: user.userID,
-    });
-})
-
-router.post('/add', async function(req, res) {
-
-
-    const entity = {
-        fromID: req.body.fromID,
-        toID: req.body.toID,
-        comment: req.body.comment,
-        like: req.body.like,
-    };
-    const count = await commentModel.checkSaved(req.body.fromID, req.body.toID, req.body.like);
-    console.log(count);
-    if (Number(count) < 1) {
-        const rs = await commentModel.add(entity);
-        console.log(rs);
-    }
-    res.redirect(`/profile/review?id=${req.body.toID}`);
-})
-
-
-=======
->>>>>>> d599d8fe263d57fbb6e12d833d5fefe1f68bbecc
 router.get('/product-watch-list', async function(req, res) {
     const user = req.session.authUser;
     let id = user.userID;

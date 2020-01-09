@@ -45,9 +45,7 @@ router.post('/categories/add', restrict, async function(req, res) {
         CatName: req.body.CatName
     }
     const rs = await categoryModel.add(entity);
-    res.render('vwAdmin/vwCategories/add', {
-        layout: 'admin.hbs'
-    });
+    res.redirect('/admin/categories/add');
 })
 router.get('/categories/edit/:catId', restrict, async function(req, res) {
     const user = req.session.authUser;

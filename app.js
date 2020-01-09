@@ -16,7 +16,7 @@ require('./middlewares/view.mdw')(app);
 require('./middlewares/locals.mdw')(app);
 require('./middlewares/routes.mdw')(app);
 require('./middlewares/error.mdw')(app);
-// require('./middlewares/passport.mdw')(app, passport);
+// require('./middlewares/passport.mdw')(app);
 
 const PORT = 3000;
 app.listen(PORT, function() {

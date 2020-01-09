@@ -89,6 +89,8 @@ router.get('/', async function(req, res) {
         topStarItems,
         topValItems,
         empty: topEnd.length === 0,
+        // lcAuthUser: req.session.passport.user,
+        // lcIsAuthenticated: req.session.passport!=null 
     });
 });
 

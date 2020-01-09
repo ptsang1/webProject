@@ -6,8 +6,12 @@ module.exports = function(app) {
             req.session.isAuthenticated = false;
         }
 
+        // req.session.isAuthenticated = req.session.passport.user != null;
+        // req.session.authUser = req.session.passport.user;
+
         res.locals.lcIsAuthenticated = req.session.isAuthenticated;
         res.locals.lcAuthUser = req.session.authUser;
+        // res.locals.lcAuthUser = req.session.passport.user;
         if (req.session.authUser) {
             res.locals.isSeller = req.session.authUser.roleID === 2;
             res.locals.isAdmin = req.session.authUser.roleID === 3;

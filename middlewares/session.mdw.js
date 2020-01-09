@@ -1,4 +1,4 @@
-const session = require('express-session')
+const session = require('express-session');
 const MySQLStore = require('express-mysql-session')(session);
 
 module.exports = function(app) {
@@ -8,7 +8,7 @@ module.exports = function(app) {
         resave: false,
         saveUninitialized: true,
         // cookie: { secure: true }
-
+        
         store: new MySQLStore({
             connectionLimit: 100,
             host: 'webprojectdb.cemjothahgv9.ap-southeast-1.rds.amazonaws.com',

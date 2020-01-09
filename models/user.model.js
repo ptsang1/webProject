@@ -18,7 +18,7 @@ module.exports = {
         return null;
     },
     getUserByUserID: async userID => {
-        const rows = await db.load(`select * from USERS where userID = '${userID}'`);
+        const rows = await db.load('select * from USERS where userID = ?', [userID]);
         if (rows.length > 0)
             return rows[0];
         return null;

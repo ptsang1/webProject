@@ -1,346 +1,434 @@
 {{#section 'css'}}
-    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600%7CRaleway:300,400,500,600,700%7CLato:300,400,400italic,600,700" rel="stylesheet" type="text/css" />
+<link
+    href="https://fonts.googleapis.com/css?family=Open+Sans:300,400,600%7CRaleway:300,400,500,600,700%7CLato:300,400,400italic,600,700"
+    rel="stylesheet" type="text/css" />
 
-  
-    <link href="css/essentials.css" rel="stylesheet" type="text/css" />
-    <link href="css/layout.css" rel="stylesheet" type="text/css" />
 
-    <!-- PAGE LEVEL SCRIPTS -->
-    <link href="css/header-1.css" rel="stylesheet" type="text/css" />
-    <link href="css/layout-shop.css" rel="stylesheet" type="text/css" />
-    <link href="css/view-product.css" rel="stylesheet" type="text/css" />
-    <link rel="stylesheet" type="text/css" href="css/clock.css">
-    <!-- <link href="assets/css/color_scheme/green.css" rel="stylesheet" type="text/css" id="color_scheme" /> -->
-    <script src="https://use.fontawesome.com/c1db1075c7.js"></script>
+<link href="css/essentials.css" rel="stylesheet" type="text/css" />
+<link href="css/layout.css" rel="stylesheet" type="text/css" />
+
+<!-- PAGE LEVEL SCRIPTS -->
+<link href="css/header-1.css" rel="stylesheet" type="text/css" />
+<link href="css/layout-shop.css" rel="stylesheet" type="text/css" />
+<link href="css/view-product.css" rel="stylesheet" type="text/css" />
+<link rel="stylesheet" type="text/css" href="css/clock.css">
+<!-- <link href="assets/css/color_scheme/green.css" rel="stylesheet" type="text/css" id="color_scheme" /> -->
 {{/section}}
 
 {{#section 'js'}}
-    <script>
-        function save() {
-            var r = confirm("Confirm bid");
-            if (r == true) {
-            $('form').submit();
-            } 
+<script>
+    function save() {
+        let r = confirm("Bạn muốn đấu giá ?");
+        let id = window.location.href.split('?')[1];
+        if (r == true) {
+            $.getJSON(`/product/detailCheckBidder?${id}`, function (data) {
+                if (data===true){
+                    alert("Bạn bị cấm đấu giá sản phẩm này");
+                    return false;
+                }
+                else{
+                    $('form').submit();
+                }
+            });
         }
-    </script> 
+    }
+    function ban(el) {
+        // myScript now contains our script object
+        let id = window.location.href.split('?')[1];
+        let r = confirm("Bạn muốn cấm người này đấu giá sản phẩm hiện tại?");
+        $.getJSON(`/product/detail_banBidder?bidder=${$(el).parents('tr').find('td.mail').html()}&${id}`, function (data) {
+            alert(data);
+        });
+        $(el).parents('tr').detach();
+    }
+</script>
 {{/section}}
-    <!-- -->
-    
-        <div class="container">
-            <form method="POST">
-            <div    >
-                <!-- không có thông tin-->
-                {{#if empty}}
-                    <div class="card-body">
-                         <h1 class="card-title">Không có dữ liệu</h1>
-                    </div>
-                {{else}}
-                <!-- IMAGE -->
-                <div class="col-lg-4 col-sm-4 product-image">
-                    <div>
-                         <div id="carouselExampleControls" class="carousel slide d-flex justify-content-center" data-ride="carousel">
-                                <div class="carousel-inner">
-                                    {{#if this.imgTitle}}
-                                     <div class="carousel-item active">
-                                        <div class="card">
-                                            <img class="card-img" src="{{imgTitle.imageLink}}" height="350rem" alt="...">
-                                        </div>
-                                    </div>
-                                    {{/if}}
-                                    {{#each images}}
-                                    <div class="carousel-item">
-                                        <div class="card">
-                                            <img class="card-img" src="{{imageLink}}" height="350rem" alt="...">
-                                        </div>
-                                    </div>
-                                     {{/each}}
+<!-- -->
+<div class="container">
+    <form method="POST">
+        <div class="row">
+            <!-- không có thông tin-->
+            {{#if empty}}
+            <div class="card-body">
+                <h1 class="card-title">Không có dữ liệu</h1>
+            </div>
+            {{else}}
+            <!-- IMAGE -->
+            <div class="col-lg-4 col-sm-4 product-image">
+                <div>
+                    <div id="carouselExampleControls" class="carousel slide d-flex justify-content-center"
+                        data-ride="carousel">
+                        <div class="carousel-inner">
+                            {{#if this.imgTitle}}
+                            <div class="carousel-item active">
+                                <div class="card">
+                                    <img class="card-img" src="{{imgTitle.imageLink}}" height="350rem" alt="...">
                                 </div>
-                                <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
-                                    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-                                    <span class="sr-only">Previous</span>
-                                </a>
-                                <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
-                                    <span class="carousel-control-next-icon" aria-hidden="true"></span>
-                                    <span class="sr-only">Next</span>
-                                </a>
+                            </div>
+                            {{/if}}
+                            {{#each images}}
+                            <div class="carousel-item">
+                                <div class="card">
+                                    <img class="card-img" src="{{imageLink}}" height="350rem" alt="...">
+                                </div>
+                            </div>
+                            {{/each}}
                         </div>
-                    </div>
-                    <div style="display: flex;">
-                        {{#each images}}
-                        <a class="thumbnail active" href="{{imageLink}}">
-                        	<img src="{{imageLink}}" width="110rem" height="110rem" alt="...">
+                        <a class="carousel-control-prev" href="#carouselExampleControls" role="button"
+                            data-slide="prev">
+                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Previous</span>
                         </a>
-                        {{/each}}
+                        <a class="carousel-control-next" href="#carouselExampleControls" role="button"
+                            data-slide="next">
+                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                            <span class="sr-only">Next</span>
+                        </a>
                     </div>
                 </div>
-                <!-- /IMAGE -->
+                <div style="display: flex;">
+                    {{#each images}}
+                    <a class="thumbnail active" href="{{imageLink}}">
+                        <img src="{{imageLink}}" width="110rem" height="110rem" alt="...">
+                    </a>
+                    {{/each}}
+                </div>
+            </div>
+            <!-- /IMAGE -->
 
-                <!-- ITEM DESC -->
-                {{#if this.product}}
-                <div class="col-lg-5 col-sm-8">
-                      <section class="productTitle pt-0" >
-                        <h2 class="text-primary ml-3">
-                            {{product.productName}}
-                        </h2>
-                        <span class="text-success check-product"><i class="fa fa-check"></i>{{#if outOfStock}} In Stock{{else}}Out of Stock{{/if}}</span>
-                        <div class="row ml-3" style="margin-top: 20px;">
-                            <i class="fa fa-clock-o" aria-hidden="true"></i>
-                           <h1>{{product.time}}</h1>
-                        </div>
+            <!-- ITEM DESC -->
+            {{#if this.product}}
+            <div class="col-lg-5 col-sm-8">
+                <section class="productTitle pt-0">
+                    <h2 class="text-primary ml-3">
+                        {{product.productName}}
+                    </h2>
+                    <span class="text-success check-product"><i class="fa fa-check"></i>{{#if outOfStock}} In
+                        Stock{{else}}Out of Stock{{/if}}</span>
+                    <div class="row ml-3" style="margin-top: 20px;">
+                        <i class="fa fa-clock-o" aria-hidden="true"></i>
+                        <h1>{{product.time}}</h1>
+                    </div>
 
-                        <div class="row" style="margin-top: 25px;">
-                             <div class="col-auto">
-                                <header class="smallUpperHeader"> 
-                                Giá hiện tại: 
-                                </header>
-                                    <main>
-                                        <div >
-                                            <span class="text-danger display-4">{{format product.priceCurent}}đ</span>
-                                        </div>
-                                    </main>
-                            </div>
-                        </div>
-                        
-                        <div class="row" id="bidInfo" style="margin-top: 50px; margin-bottom: 20px;">
-                            <div class="col-auto">
-                                <header class="smallUpperHeader titleSetForMobile">
-                                    Giá mua ngay:
-                                </header>
-                                    <main id="currentBidText" class="marginT10 customShadowBorder currentBidMobile bidAmount">
-                                        <span class="cBid">
-                                            {{format product.price}}
-                                        </span>
-                                    </main>
-                            </div>
-                            <div>
-                                <header class="smallUpperHeader"> 
-                                    NGƯỜI GIỮ GIÁ CAO NHẤT:
-                                </header>
-                                    <main>
-                                        <div class="form-group">
-                                            <span><input type="hidden" id="bidderID" name="bidderID" value="{{product.bidderID}}"/>
-                                            <a href="/profile/review?id={{product.bidderID}}">{{product.bidder}}</a>
-                                            </span>
-                                        </div>
-                                    </main>
-                            </div>
-                            <div class="form-group row m-5 p-5">
-                                <button type="button" class="btn btn-outline-danger">
-                                <i class="fa fa-heart" aria-hidden="true"></i>
-                                    <a  href="/product/detail?id={{product.productID}}&sellerID={{product.sellerID}}">Thêm vào yêu thích</a>
-                                </button>
-                            </div>
-                            <div class="clearfix"></div>
-                        </div>
-
-                    </section>
-
-                    <div class="bidDetailArea">
-                        <div class="right marginT15 noMarginMobile" style="margin-top: 15px;">
-                                <div style="margin-bottom: 5px;">
-                                    <span>Bước giá: {{format product.stepPrice}}</span>
+                    <div class="row" style="margin-top: 25px;">
+                        <div class="col-auto">
+                            <header class="smallUpperHeader">
+                                Giá hiện tại:
+                            </header>
+                            <main>
+                                <div>
+                                    <span class="text-danger display-4">{{format product.priceCurent}}đ</span>
                                 </div>
-                            <div class="info_data place_bid">     
-                                <span class="bidding_box_fancy" style="display: inline-flex;">  
-                                    <span class="BidValue">
-                                        <div id="NewBidTxt" class="CustomSelect" basevalue="21.00"><input type="hidden" id="bidPrice" name="bidPrice" value="{{product.bidPrice}}"/>{{format product.bidPrice}}</div>
+                            </main>
+                        </div>
+                    </div>
+
+                    <div class="row" id="bidInfo" style="margin-top: 50px; margin-bottom: 20px;">
+                        <div class="col-auto">
+                            <header class="smallUpperHeader titleSetForMobile">
+                                Giá mua ngay:
+                            </header>
+                            <main id="currentBidText" class="marginT10 customShadowBorder currentBidMobile bidAmount">
+                                <span class="cBid">
+                                    {{format product.price}}
+                                </span>
+                            </main>
+                        </div>
+                        <div>
+                            <header class="smallUpperHeader">
+                                NGƯỜI GIỮ GIÁ CAO NHẤT:
+                            </header>
+                            <main>
+                                <div class="form-group">
+                                    <span><input type="hidden" id="bidderID" name="bidderID"
+                                            value="{{product.bidderID}}" />
+                                        <a href="/profile/review?id={{product.bidderID}}">{{product.bidder}}</a>
                                     </span>
-                                    <button class="btn btn-primary product-bidding" onclick="save()">ĐẤU GIÁ</button>
+                                </div>
+                            </main>
+                        </div>
+                        <div class="form-group row m-5 p-5">
+                            <button type="button" class="btn btn-outline-danger">
+                                <i class="fa fa-heart" aria-hidden="true"></i>
+                                <a href="/product/detail?id={{product.productID}}&sellerID={{product.sellerID}}">Thêm
+                                    vào yêu thích</a>
+                            </button>
+                        </div>
+                        <div class="clearfix"></div>
+                    </div>
+
+                </section>
+
+                <div class="bidDetailArea">
+                    <div class="right marginT15 noMarginMobile" style="margin-top: 15px;">
+                        <div style="margin-bottom: 5px;">
+                            <span>Bước giá: {{format product.stepPrice}}</span>
+                        </div>
+                        <div class="info_data place_bid">
+                            <span class="bidding_box_fancy" style="display: inline-flex;">
+                                <span class="BidValue">
+                                    <div id="NewBidTxt" class="CustomSelect" basevalue="21.00"><input type="hidden"
+                                            id="bidPrice" name="bidPrice"
+                                            value="{{product.bidPrice}}" />{{format product.bidPrice}}</div>
                                 </span>
-                            </div>
+                                <button class="btn btn-primary product-bidding" onclick="save()">ĐẤU GIÁ</button>
+                            </span>
                         </div>
                     </div>
-
                 </div>
-                {{/if}}
-                <!-- /ITEM DESC -->
-                {{/if}}
-                <!-- INFO -->
-                <div class="col-sm-4 col-md-3">
-
-                    <h4 class="fs-18">
-                        <i class="fa fa-paper-plane-o"></i> 
-                       MIỄN PHÍ GIAO HÀNG
-                    </h4>
-                    <p>Miễn phí giao hàng khu vực nội thành TP. HCM.</br>Những khu vực khác phí vận chuyển từ 49.000đ.</p>
-
-                    <h4 class="fs-18">
-                        <i class="fa fa-clock-o"></i>
-                        THỜI ĐIỂM ĐĂNG
-                    </h4>
-                    <p>{{formatDate product.timePost}}</p>
-
-                    <h4 class="fs-18">
-                        <i class="fa fa-users"></i> 
-                        NHÀ CUNG CẤP
-                    </h4>
-                    <div class="form-group">
-                        <input type="hidden" name="sellerID" value="{{product.sellerID}}"/>
-                        <a href="/profile/review?id={{product.sellerID}}">{{product.seller}}</a>
-                    </div>
-                    <h4 class="fs-18">
-                        <i class="fa fa-star"></i> 
-                        ĐIỂM ĐÁNH GIÁ
-                    </h4>
-                    <div class="rating rating-5 fs-13 "></div>
-
-                    <hr>
-
-                    <p class="fs-15 ">
-                        Mọi chi tiết xin liên hệ qua đường dây nóng hỗ trợ
-                        <br>
-                        (84)-86-82-80-***
-                    </p>
-                </div>
-                <!-- /INFO -->
 
             </div>
+            {{/if}}
+            <!-- /ITEM DESC -->
+            {{/if}}
+            <!-- INFO -->
+            <div class="col-sm-4 col-md-3">
 
-            <ul id="myTab" class="nav nav-tabs nav-top-border mt-80" role="tablist">
-                <li class="nav-item"><a class="nav-link active" href="#description" data-toggle="tab">Mô tả</a></li>
-                <li class="nav-item"><a class="nav-link" href="#specs" data-toggle="tab">Lịch sử đấu giá</a></li>
+                <h4 class="fs-18">
+                    <i class="fa fa-paper-plane-o"></i>
+                    MIỄN PHÍ GIAO HÀNG
+                </h4>
+                <p>Miễn phí giao hàng khu vực nội thành TP. HCM.</br>Những khu vực khác phí vận chuyển từ 49.000đ.</p>
 
-                <li class="nav-item"><a class="nav-link" href="#reviews" data-toggle="tab">Reviews (2)</a></li>
-            </ul>
+                <h4 class="fs-18">
+                    <i class="fa fa-clock-o"></i>
+                    THỜI ĐIỂM ĐĂNG
+                </h4>
+                <p>{{formatDate product.timePost}}</p>
 
-
-            <div class="tab-content pt-20" style="padding-bottom: 200px;">
-
-                <!-- DESCRIPTION -->
-                <div role="tabpanel" class="tab-pane active" id="description">
-                    {{{describe.description}}}
+                <h4 class="fs-18">
+                    <i class="fa fa-users"></i>
+                    NHÀ CUNG CẤP
+                </h4>
+                <div class="form-group">
+                    <input type="hidden" name="sellerID" value="{{product.sellerID}}" />
+                    <a href="/profile/review?id={{product.sellerID}}">{{product.seller}}</a>
                 </div>
-                
-                <!-- SPECIFICATIONS -->
-                <div role="tabpanel" class="tab-pane fade" id="specs">
-                    <div class="table-responsive">
-                        <table class="table table-hover">
-                            <tbody>
-                                 <tr>
-                                    <td><strong>Người đấu giá</strong></td>
-                                    <td><strong>Giá tiền</strong></td>
-                                    <td><strong>Thời điểm</strong></td>
-                                </tr>
-                                {{#each history}}
-                                <tr>
-                                    <td>{{fullName}}</td>
-                                    <td>{{offer}}</td>
-                                    <td>{{formatDate timeOffer}}</td>
-                                </tr>
-                                {{/each}}
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                
-                <!-- REVIEWS -->
-                <div role="tabpanel" class="tab-pane fade" id="reviews">
-                    <!-- REVIEW ITEM -->
-                    <div class="block mb-60">
+                <h4 class="fs-18">
+                    <i class="fa fa-star"></i>
+                    ĐIỂM ĐÁNH GIÁ
+                </h4>
+                <div class="rating rating-5 fs-13 "></div>
 
-                        <span class="user-avatar"><!-- user-avatar -->
-                            <img class="float-left media-object" src="assets/images/_smarty/avatar2.jpg" width="64" height="64" alt="">
-                        </span>
+                <hr>
 
-                        <div class="media-body">
-                            <h4 class="media-heading fs-14">
-                                Hồ Tuấn Thanh &ndash; 
-                                <span class="text-muted">December 8, 2019 - 17:23</span> &ndash;
-                                <span class="fs-14 text-muted"><!-- stars -->
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                    <i class="fa fa-star"></i>
-                                </span>
-                            </h4>
-                            
-                            <p>
-                               Không có gì để chê. 
-                            </p>
-
-                        </div>
-
-                    </div>
-                    <!-- /REVIEW ITEM -->
-
-                    <!-- REVIEW ITEM -->
-                    <div class="block mb-60">
-
-                        <span class="user-avatar"><!-- user-avatar -->
-                            <img class="float-left media-object" src="assets/images/_smarty/avatar2.jpg" width="64" height="64" alt="">
-                        </span>
-
-                        <div class="media-body">
-                            <h4 class="media-heading fs-14">
-                                Ngô Ngọc Đăng Khoa &ndash; 
-                                <span class="text-muted">December 8, 2019 - 23:55</span> &ndash;
-                                <span class="fs-14 text-muted"><!-- stars -->
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                    <i class="fa fa-star-o"></i>
-                                </span>
-                            </h4>
-                            
-                            <p>
-                                Deadline tới đít còn mua với bán !
-                            </p>
-
-                        </div>
-
-                    </div>
-                    <!-- /REVIEW ITEM -->
-
-
-                    <!-- REVIEW FORM -->
-                    <h4 class="page-header mb-40">ADD A REVIEW</h4>
-                    <form method="post" action="#" id="form">
-                        
-                        <div class="row mb-10">
-                            
-                            <div class="col-md-6 mb-10">
-                                <!-- Name -->
-                                <input type="text" name="name" id="name" class="form-control" placeholder="Name *" maxlength="100" required="">
-                            </div>
-                            
-                            <div class="col-md-6">
-                                <!-- Email -->
-                                <input type="email" name="email" id="email" class="form-control" placeholder="Email *" maxlength="100" required="">
-                            </div>
-                            
-                        </div>
-                        
-                        <!-- Comment -->
-                        <div class="mb-30">
-                            <textarea name="text" id="text" class="form-control" rows="6" placeholder="Comment" maxlength="1000"></textarea>
-                        </div>
-
-                        <!-- Stars -->
-                        <div class="product-star-vote clearfix">
-                            <i class="far fa-thumbs-up"></i>
-                            {{!-- <label class="radio float-left">
-                                <input type="radio" name="product-review-vote" value="1" />
-                            </label> --}}
-                            <i class="far fa-thumbs-down"></i>
-                            {{!-- <label class="radio float-left">
-                                <input type="radio" name="product-review-vote" value="2" />
-                                
-                            </label> --}}
-                        </div>
-
-                        <!-- Send Button -->
-                        <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Send Review</button>
-                        
-                    </form>
-                    <!-- /REVIEW FORM -->
-
-                </div>
+                <p class="fs-15 ">
+                    Mọi chi tiết xin liên hệ qua đường dây nóng hỗ trợ
+                    <br>
+                    (84)-86-82-80-***
+                </p>
             </div>
+            <!-- /INFO -->
 
-
-        </form>
         </div>
-    
-            <!-- / -->
+
+        <ul id="myTab" class="nav nav-tabs nav-top-border mt-80" role="tablist">
+            <li class="nav-item"><a class="nav-link active" href="#description" data-toggle="tab">Mô tả</a></li>
+            <li class="nav-item"><a class="nav-link" href="#specs" data-toggle="tab">Lịch sử đấu giá</a></li>
+            <li class="nav-item"><a class="nav-link" href="#reviews" data-toggle="tab">Reviews (2)</a></li>
+            {{#if this.isSeller}}
+            <li class="nav-item"><a class="nav-link" href="#listBidder" data-toggle="tab">Danh sách người đấu giá</a>
+            </li>
+            {{/if}}
+        </ul>
+
+        <div class="tab-content pt-20" style="padding-bottom: 200px;">
+
+            <!-- DESCRIPTION -->
+            <div role="tabpanel" class="tab-pane active" id="description">
+                {{{describe.description}}}
+            </div>
+
+            <!-- SPECIFICATIONS -->
+            <div role="tabpanel" class="tab-pane fade" id="specs">
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <tbody>
+                            <tr>
+                                <td><strong>Người đấu giá</strong></td>
+                                <td><strong>Giá tiền</strong></td>
+                                <td><strong>Thời điểm</strong></td>
+                            </tr>
+                            {{#each history}}
+                            <tr>
+                                <td>{{fullName}}</td>
+                                <td>{{offer}}</td>
+                                <td>{{formatDate timeOffer}}</td>
+                            </tr>
+                            {{/each}}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <!-- REVIEWS -->
+            <div role="tabpanel" class="tab-pane fade" id="reviews">
+                <!-- REVIEW ITEM -->
+                <div class="block mb-60">
+
+                    <span class="user-avatar">
+                        <!-- user-avatar -->
+                        <img class="float-left media-object" src="assets/images/_smarty/avatar2.jpg" width="64"
+                            height="64" alt="">
+                    </span>
+
+                    <div class="media-body">
+                        <h4 class="media-heading fs-14">
+                            Hồ Tuấn Thanh &ndash;
+                            <span class="text-muted">December 8, 2019 - 17:23</span> &ndash;
+                            <span class="fs-14 text-muted">
+                                <!-- stars -->
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                                <i class="fa fa-star"></i>
+                            </span>
+                        </h4>
+
+                        <p>
+                            Không có gì để chê.
+                        </p>
+
+                    </div>
+
+                </div>
+                <!-- /REVIEW ITEM -->
+
+                <!-- REVIEW ITEM -->
+                <div class="block mb-60">
+
+                    <span class="user-avatar">
+                        <!-- user-avatar -->
+                        <img class="float-left media-object" src="assets/images/_smarty/avatar2.jpg" width="64"
+                            height="64" alt="">
+                    </span>
+
+                    <div class="media-body">
+                        <h4 class="media-heading fs-14">
+                            Ngô Ngọc Đăng Khoa &ndash;
+                            <span class="text-muted">December 8, 2019 - 23:55</span> &ndash;
+                            <span class="fs-14 text-muted">
+                                <!-- stars -->
+                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i>
+                                <i class="fa fa-star-o"></i>
+                            </span>
+                        </h4>
+
+                        <p>
+                            Deadline tới đít còn mua với bán !
+                        </p>
+
+                    </div>
+
+                </div>
+                <!-- /REVIEW ITEM -->
+
+
+                <!-- REVIEW FORM -->
+                <h4 class="page-header mb-40">ADD A REVIEW</h4>
+                <form method="post" action="#" id="form">
+
+                    <div class="row mb-10">
+
+                        <div class="col-md-6 mb-10">
+                            <!-- Name -->
+                            <input type="text" name="name" id="name" class="form-control" placeholder="Name *"
+                                maxlength="100" required="">
+                        </div>
+
+                        <div class="col-md-6">
+                            <!-- Email -->
+                            <input type="email" name="email" id="email" class="form-control" placeholder="Email *"
+                                maxlength="100" required="">
+                        </div>
+
+                    </div>
+
+                    <!-- Comment -->
+                    <div class="mb-30">
+                        <textarea name="text" id="text" class="form-control" rows="6" placeholder="Comment"
+                            maxlength="1000"></textarea>
+                    </div>
+
+                    <!-- Stars -->
+                    <div class="product-star-vote clearfix">
+
+                        <label class="radio float-left">
+                            <input type="radio" name="product-review-vote" value="1" />
+                            <i></i> 1 Star
+                        </label>
+
+                        <label class="radio float-left">
+                            <input type="radio" name="product-review-vote" value="2" />
+                            <i></i> 2 Stars
+                        </label>
+
+                        <label class="radio float-left">
+                            <input type="radio" name="product-review-vote" value="3" />
+                            <i></i> 3 Stars
+                        </label>
+
+                        <label class="radio float-left">
+                            <input type="radio" name="product-review-vote" value="4" />
+                            <i></i> 4 Stars
+                        </label>
+
+                        <label class="radio float-left">
+                            <input type="radio" name="product-review-vote" value="5" />
+                            <i></i> 5 Stars
+                        </label>
+
+                    </div>
+
+                    <!-- Send Button -->
+                    <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> Send Review</button>
+
+                </form>
+                <!-- /REVIEW FORM -->
+            </div>
+
+            {{#if isSeller}}
+            <div role="tabpanel" class="tab-pane fade" id="listBidder">
+                <!-- Editable table -->
+                <div class="card">
+                    {{!-- <h3 class="card-header text-center font-weight-bold text-uppercase py-4"></h3> --}}
+                    <div class="card-body">
+                        <div id="table" class="table-editable">
+                            <table class="table table-bordered table-responsive-md table-striped text-center">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center">#</th>
+                                        <th class="text-center">Tên người mua</th>
+                                        <th class="text-center">Email</th>
+                                        <th class="text-center">Xóa</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    {{#each bidders}}
+                                    <tr>
+                                        <td class="pt-3-half" contenteditable="false">{{@key}}</td>
+                                        <td class="pt-3-half" contenteditable="false">{{fullName}}</td>
+                                        <td class="pt-3-half mail" contenteditable="false">{{email}}</td>
+                                        <td>
+                                            <span class="table-remove"><button type="button" onclick="ban(this)"
+                                                    class="btn btn-danger btn-rounded btn-sm my-0">Xóa</button></span>
+                                        </td>
+                                    </tr>
+                                    {{/each}}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <!-- Editable table -->
+            </div>
+            {{/if}}
+        </div>
+    </form>
+</div>
+
+<!-- / -->

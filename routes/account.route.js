@@ -3,23 +3,14 @@ const express = require('express'),
     bcrypt = require('bcryptjs'),
     db = require("../utils/db"),
     config = require("../config/default.json"),
-    nodemailer = require("nodemailer"),
-    USERS = require("../models/user.model"),
-    path = require('path'),
-    handlebars = require('handlebars');
+    USERS = require("../models/user.model");
+    // passport = require('passport');
 
 const router = express.Router();
 
-router.use(express.static('public'));
+// router.use(passport.initialize());
 
-const smtpTransport = nodemailer.createTransport({
-    host: 'smtp.gmail.com',
-    port: 465,
-    auth: {
-        user: 'phasamique@gmail.com',
-        pass: '695930599'
-    }
-});
+router.use(express.static('public'));
 
 router.get('/signup', async function(req, res) {
     _gender = await db.load('select * from GENDERS');
@@ -46,11 +37,10 @@ router.post('/signup', async function(req, res) {
         avatar: "",
     }
     USERS.add(newUser);
-    res.redirect(`/account/send?fullname=${newUser.fullName}&to=${newUser.email}&id=${newUser.userID}`);
+    res.redirect(`/sendEmail/confirmEmail/send?fullname=${newUser.fullName}&to=${newUser.email}&id=${newUser.userID}`);
 });
 
 router.get('/is-available', async function(req, res) {
-    // const email = CryptoJS.AES.decrypt(, 'ptSang').toString(CryptoJS.enc.Utf8);
     const check = await USERS.isEmailExisted(req.query.email);
     if (check) {
         return res.json("Email này đã được đăng ký rồi nè!");
@@ -59,18 +49,27 @@ router.get('/is-available', async function(req, res) {
 });
 
 router.get('/login', function(req, res) {
+    if (req.session.isAuthenticated)
+        return res.redirect('/');
     res.render('vwAccount/login', {
         layout: 'signin_signup.hbs',
         template: 'signup',
     });
 });
 
+
 router.post('/logout', function(req, res) {
+    // req.logOut();
     req.session.isAuthenticated = false;
     req.session.authUser = null;
-
     res.redirect('/');
 });
+
+// router.post('/login', passport.authenticate('login', {
+//     successRedirect: '/',
+//     failureRedirect: '/login',
+//     failureFlash : true 
+// }));
 
 router.post('/login', async function(req, res) {
     user = await USERS.getUserByEmail(req.body.email);
@@ -115,60 +114,6 @@ router.get('/forgottenPassword', function(req, res) {
         layout: 'signin_signup.hbs',
         template: 'signup',
     });
-});
-
-const fs = require('fs');
-
-function render(filename, data) {
-    var source = fs.readFileSync(filename, 'utf8').toString();
-    var template = handlebars.compile(source);
-    var output = template(data);
-    return output;
-}
-
-router.get('/send', function(req, res) {
-    const link = "http://" + req.get('host') + `/account/verify?id=${req.query.id}`;
-    replacements = {
-        fullname: req.query.fullname,
-        email: req.query.to,
-        confirm_url: link
-    };
-    let reqPath = path.join(__dirname, '../');
-    const mailOptions = {
-        from: 'phasamique@gmail.com',
-        to: req.query.to,
-        subject: "Xác nhận email từ Phasamique",
-        html: render(reqPath + '\\views\\email\\email.html', replacements)
-    }
-    console.log(mailOptions);
-    smtpTransport.sendMail(mailOptions, function(error, response) {
-        if (error) {
-            console.log(error);
-            res.end("error");
-        } else {
-            console.log("Message sent: " + response.message);
-            res.end("sent");
-        }
-    });
-    res.redirect('/');
-});
-
-router.get('/verify', async function(req, res) {
-    console.log(req.protocol + ":/" + req.get('host'));
-    if ((req.protocol + "://" + req.get('host')) == ("http://" + req.get('host'))) {
-        console.log("Domain is matched. Information is from Authentic email");
-        user = await USERS.getUserByUserID(req.query.id)
-        if (user) {
-            console.log("email is verified");
-            await USERS.acceptedUserByUserID(user.userID);
-            await USERS.changeUserID(user.userID, uuidv1());
-
-        } else {
-            console.log("something is wrong");
-            return res.redirect('/1234567890');
-        }
-    }
-    res.redirect('/');
 });
 
 module.exports = router;

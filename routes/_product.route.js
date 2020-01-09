@@ -8,8 +8,9 @@ const historyModel = require('../models/history.model');
 const multer = require('multer');
 const moment = require('moment');
 const mkdirp = require('mkdirp');
+const ban_bidders = require('../models/ban_bidders.model');
 const fs = require('fs');
-const config = require('../config/default.json');
+// const config = require('../config/default.json');
 const router = express.Router();
 
 
@@ -21,7 +22,7 @@ router.get('/add', restrict, async function(req, res) {
     res.render('vwProduct/add', {
         categories: result
     });
-})
+});
 
 router.post('/add', async function(req, res) {
     const row = await productModel.getNextID();
@@ -90,14 +91,13 @@ router.post('/add', async function(req, res) {
     //upload thong tin va anh va mo ta
     //render lại view
     result = await categoryModel.all();
-    res.render('vwProduct/add', {
-        categories: result
-    });
-})
+    res.redirect('/product/add');
+});
 
 router.get('/detail', async function(req, res) {
     if (req.query.sellerID) {
-        if (!req.session.authUser) res.redirect('/account/login');
+        if (!req.session.authUser) 
+            res.redirect('/account/login');
         const user = req.session.authUser;
         const entity = {
             userID: user.userID || '',
@@ -112,37 +112,52 @@ router.get('/detail', async function(req, res) {
     const item = await productModel.singleByID(req.query.id);
     const images = await imageModel.allByProductID(req.query.id);
     const describe = await describeModel.single(req.query.id);
-    const sellerName = await userModel.singleByID(item[0].sellerID);
-    const bidderName = await userModel.singleByID(item[0].bidderID);
+    const sellerName = await userModel.singleByID(item.sellerID);
+    const bidderName = await userModel.singleByID(item.bidderID);
     let history = await historyModel.allByProductID(req.query.id);
     for (let h of history) {
         let part = h.fullName.split(' ');
         h.fullName = "******" + part[part.length - 1] || "******";
     }
-    let name = sellerName.fullName.split(' ');
-    const seller = "******" + name[name.length - 1];
+    // let name = sellerName.fullName.split(' ');
+    // const seller = "******" + name[name.length - 1];
+    const seller = sellerName.fullName;
     let bidder = '';
     if (bidderName) {
         name = bidderName.fullName.split(' ');
         bidder = "******" + name[name.length - 1];
     }
     let empty = false;
-    const time = moment(item[0].timeEnd).fromNow();
+    const time = moment(item.timeEnd).fromNow();
     const product = {
-        productID: item[0].productID,
-        priceCurent: item[0].priceCurent,
-        stepPrice: item[0].stepPrice,
-        bidPrice: item[0].stepPrice + item[0].priceCurent,
-        price: item[0].price,
-        productName: item[0].productName,
-        bidderID: item[0].bidderID,
-        sellerID: item[0].sellerID,
+        productID: item.productID,
+        priceCurent: item.priceCurent,
+        stepPrice: item.stepPrice,
+        bidPrice: item.stepPrice + item.priceCurent,
+        price: item.price,
+        productName: item.productName,
+        bidderID: item.bidderID,
+        sellerID: item.sellerID,
         bidder,
         seller,
-        timePost: item[0].timePost,
+        timePost: item.timePost,
         time: time,
     };
     if (!item) empty = true;
+    if (req.session.authUser != null &&
+        req.session.authUser.userID === item.sellerID){
+        return res.render('vwProduct/detail', {
+            product,
+            outOfStock: item.sold === 0,
+            images,
+            imgTitle: images[0],
+            describe,
+            history,
+            empty,
+            isSeller: true,
+            bidders: await historyModel.listBidder(product.productID)
+        });
+    }
     res.render('vwProduct/detail', {
         product,
         outOfStock: item.sold === 0,
@@ -154,6 +169,33 @@ router.get('/detail', async function(req, res) {
     });
 });
 
+router.get('/detail_banBidder', async function(req, res){
+    let bidder = await userModel.getUserByEmail(req.query.bidder);
+    let product = await productModel.singleByID(req.query.id);
+    let row = {
+        sellerID: product.sellerID,
+        productID: product.productID,
+        bidderID: bidder.userID,        
+    }
+    await ban_bidders.add(row);
+    await historyModel.removeHistoryAuction(bidder.userID, product.productID);
+    if (product.bidderID === bidder.userID){
+        const newBidder = await historyModel.getHighest(product.productID);
+        console.log(newBidder);
+        if (newBidder != null){
+            await productModel.updateState(newBidder.bidderID, newBidder.offer, product.productID);
+        }
+        else{
+            await productModel.updateState(product.sellerID, product.priceStart, product.productID);
+        }
+    }
+    res.json("Cấm thành công");
+});
+
+router.get('/detailCheckBidder', async function(req, res){
+    res.json(await ban_bidders.check(req.session.authUser.userID, req.query.id));
+});
+
 router.post('/detail', restrict, async function(req, res) {
     const user = req.session.authUser;
 
@@ -163,7 +205,6 @@ router.post('/detail', restrict, async function(req, res) {
         productID: req.query.id,
         bidderID: user.userID,
         offer: req.body.bidPrice,
-        productID: req.query.id,
         timeOffer
     };
     await productModel.bidded(entity);
@@ -172,8 +213,8 @@ router.post('/detail', restrict, async function(req, res) {
     const item = await productModel.singleByID(req.query.id);
     const images = await imageModel.allByProductID(req.query.id);
     const describe = await describeModel.single(req.query.id);
-    const sellerName = await userModel.singleByID(item[0].sellerID);
-    const bidderName = await userModel.singleByID(item[0].bidderID);
+    const sellerName = await userModel.singleByID(item.sellerID);
+    const bidderName = await userModel.singleByID(item.bidderID);
     let history = await historyModel.allByProductID(req.query.id);
 
     for (let h of history) {
@@ -181,42 +222,33 @@ router.post('/detail', restrict, async function(req, res) {
         h.fullName = "******" + part[part.length - 1] || "******";
     }
     let name = sellerName.fullName.split(' ');
-    const seller = "******" + name[name.length - 1];
-    let bidder = '';
+    // const seller = "******" + name[name.length - 1];
+    // let bidder = '';
     if (bidderName) {
         name = bidderName.fullName.split(' ');
         bidder = "******" + name[name.length - 1];
     }
-    let empty = false;
-    const time = moment(item[0].timeEnd).fromNow();
-    const product = {
-        productID: item[0].productID,
-        priceCurent: item[0].priceCurent,
-        stepPrice: item[0].stepPrice,
-        bidPrice: item[0].stepPrice + item[0].priceCurent,
-        price: item[0].price,
-        productName: item[0].productName,
-        bidderID: item[0].bidderID,
-        sellerID: item[0].sellerID,
-        bidder,
-        seller,
-        timePost: item[0].timePost,
-        time: time,
-    };
-    if (!item) empty = true;
-    res.render('vwProduct/detail', {
-        product,
-        outOfStock: item.sold === 0,
-        images,
-        imgTitle: images[0],
-        describe,
-        history,
-        empty,
-    });
-})
+    // let empty = false;
+    // const time = moment(item.timeEnd).fromNow();
+    // const product = {
+    //     productID: item.productID,
+    //     priceCurent: item.priceCurent,
+    //     stepPrice: item.stepPrice,
+    //     bidPrice: item.stepPrice + item.priceCurent,
+    //     price: item.price,
+    //     productName: item.productName,
+    //     bidderID: item.bidderID,
+    //     sellerID: item.sellerID,
+    //     bidder,
+    //     seller,
+    //     timePost: item.timePost,
+    //     time: time,
+    // };
+    // if (!item) empty = true;
+    // res.redirect(`/product/detail?id=${req.query.id}`);
+    setTimeout(() => res.redirect(`/sendEmail/announceProductPriceUpdating?to=${user.userID}&product=${entity.productID}`), 1000);
 
-
-
+});
 
 router.get('/sell', restrict, async function(req, res) {
     const user = req.session.authUser;
