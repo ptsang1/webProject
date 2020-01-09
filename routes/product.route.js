@@ -1,5 +1,6 @@
 const express = require('express');
 const product = require("../models/product.model");
+const userModel = require('../models/user.model');
 const HandlebarsIntl = require('handlebars-intl');
 const stringCompare = require('string-similarity');
 const config = require('../config/default.json');
@@ -12,12 +13,81 @@ HandlebarsIntl.registerWith(Handlebars);
 
 router.get('/', async function(req, res) {
     const topEnd = await product.topFiveProductEnd();
+    topEndItems = [];
+    for (i = 0; i < topEnd.length; i++) {
+        const bidderName = await userModel.singleByID(topEnd[i].bidderID);
+        if (bidderName) {
+            name = bidderName.fullName.split(' ');
+            bidder = "******" + name[name.length - 1];
+        }
+        else {
+            bidder = "N/A";
+        }
+        const item = {
+            productID: topEnd[i].productID,
+            imageLink: topEnd[i].imageLink,
+            productName: topEnd[i].productName,
+            price: topEnd[i].price,
+            priceCurent: topEnd[i].priceCurent,
+            bidderID: topEnd[i].bidderID,
+            bidder,
+            timePost: topEnd[i].timePost,
+            timeEnd: topEnd[i].timeEnd
+        }
+        topEndItems.push(item);
+    }
     const topStar = await product.topFiveProductStar();
+    topStarItems = [];
+    for (i = 0; i < topStar.length; i++) {
+        const bidderName = await userModel.singleByID(topStar[i].bidderID);
+        if (bidderName) {
+            name = bidderName.fullName.split(' ');
+            bidder = "******" + name[name.length - 1];
+        }
+        else {
+            bidder = "N/A";
+        }
+        const item = {
+            productID: topStar[i].productID,
+            imageLink: topStar[i].imageLink,
+            productName: topStar[i].productName,
+            price: topStar[i].price,
+            priceCurent: topStar[i].priceCurent,
+            bidderID: topStar[i].bidderID,
+            bidder,
+            timePost: topStar[i].timePost,
+            timeEnd: topStar[i].timeEnd
+        }
+        topStarItems.push(item);
+    }
     const topVal = await product.topFiveProductValue();
+    topValItems = [];
+    for (i = 0; i < topStar.length; i++) {
+        const bidderName = await userModel.singleByID(topVal[i].bidderID);
+        if (bidderName) {
+            name = bidderName.fullName.split(' ');
+            bidder = "******" + name[name.length - 1];
+        }
+        else {
+            bidder = "N/A";
+        }
+        const item = {
+            productID: topVal[i].productID,
+            imageLink: topVal[i].imageLink,
+            productName: topVal[i].productName,
+            price: topVal[i].price,
+            priceCurent: topVal[i].priceCurent,
+            bidderID: topVal[i].bidderID,
+            bidder,
+            timePost: topVal[i].timePost,
+            timeEnd: topVal[i].timeEnd
+        }
+        topValItems.push(item);
+    }
     res.render('vwProduct/home', {
-        topEnd,
-        topStar,
-        topVal,
+        topEndItems,
+        topStarItems,
+        topValItems,
         empty: topEnd.length === 0,
     });
 });
@@ -77,7 +147,7 @@ router.get('/byCat', async function(req, res) {
     }
 
     const nPages = Math.ceil(total / config.pagination.limit);
-
+    
     page_items = [];
     for (i = 1; i <= nPages; i++) {
         const item = {
@@ -88,8 +158,30 @@ router.get('/byCat', async function(req, res) {
         }
         page_items.push(item);
     }
+    products = [];
+    for (i = 0; i < rows.length; i++) {
+        const bidderName = await userModel.singleByID(rows[i].bidderID);
+        if (bidderName) {
+            name = bidderName.fullName.split(' ');
+            bidder = "******" + name[name.length - 1];
+        }
+        else {
+            bidder = "N/A";
+        }
+        const item = {
+            productID: rows[i].productID,
+            imageLink: rows[i].imageLink,
+            productName: rows[i].productName,
+            price: rows[i].price,
+            priceCurent: rows[i].priceCurent,
+            bidderID: rows[i].bidderID,
+            bidder,
+            timeEnd: rows[i].timeEnd
+        }
+        products.push(item);
+    }
     res.render('vwProduct/byCat', {
-        product: rows,
+        products,
         empty: rows.length === 0,
         page_items,
         can_go_prev: page > 1,

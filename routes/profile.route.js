@@ -87,6 +87,7 @@ router.get('/review', async function(req, res) {
     });
 });
 
+<<<<<<< HEAD
 router.get('/add', restrict, async function(req, res) {
     const toID = req.query.id;
     const user = req.session.authUser;
@@ -119,12 +120,37 @@ router.post('/add', async function(req, res) {
 })
 
 
+=======
+>>>>>>> d599d8fe263d57fbb6e12d833d5fefe1f68bbecc
 router.get('/product-watch-list', async function(req, res) {
     const user = req.session.authUser;
     let id = user.userID;
     const total = await product.allWatchList(id);
+    products = [];
+    for (i = 0; i < total.length; i++) {
+        const bidderName = await userModel.singleByID(total[i].bidderID);
+        if (bidderName) {
+            name = bidderName.fullName.split(' ');
+            bidder = "******" + name[name.length - 1];
+        }
+        else {
+            bidder = "N/A";
+        }
+        const item = {
+            productID: total[i].productID,
+            imageLink: total[i].imageLink,
+            productName: total[i].productName,
+            price: total[i].price,
+            priceCurent: total[i].priceCurent,
+            bidderID: total[i].bidderID,
+            bidder,
+            timePost: total[i].timePost,
+            timeEnd: total[i].timeEnd
+        }
+        products.push(item);
+    }
     res.render('vwProfile/productProfile', {
-        products: total,
+        products,
         empty: total.length === 0,
     })
 })
@@ -133,29 +159,68 @@ router.get('/product-bidding-list', async function(req, res) {
     const user = req.session.authUser;
     let id = user.userID;
     const total = await product.allBiddingList(id);
+    products = [];
+    for (i = 0; i < total.length; i++) {
+        const bidderName = await userModel.singleByID(total[i].bidderID);
+        if (bidderName) {
+            name = bidderName.fullName.split(' ');
+            bidder = "******" + name[name.length - 1];
+        }
+        else {
+            bidder = "N/A";
+        }
+        const item = {
+            productID: total[i].productID,
+            imageLink: total[i].imageLink,
+            productName: total[i].productName,
+            price: total[i].price,
+            priceCurent: total[i].priceCurent,
+            bidderID: total[i].bidderID,
+            bidder,
+            timePost: total[i].timePost,
+            timeEnd: total[i].timeEnd
+        }
+        products.push(item);
+    }
     res.render('vwProfile/productProfile2', {
-        products: total,
+        products,
         empty: total.length === 0,
     })
 });
-
-// router.get('/product-won-list', async function(req, res) {
-//     result = await product.all();
-//     res.render('vwProfile/productProfile3', {
-//         products: result,
-//         empty: result.length === 0,
-//     });
-// });
 
 router.get('/product-won-list', async function(req, res) {
     const user = req.session.authUser;
     let id = user.userID;
     const total = await product.allWonList(id);
+    products = [];
+    for (i = 0; i < total.length; i++) {
+        const bidderName = await userModel.singleByID(total[i].bidderID);
+        if (bidderName) {
+            name = bidderName.fullName.split(' ');
+            bidder = "******" + name[name.length - 1];
+        }
+        else {
+            bidder = "N/A";
+        }
+        const item = {
+            productID: total[i].productID,
+            imageLink: total[i].imageLink,
+            productName: total[i].productName,
+            price: total[i].price,
+            priceCurent: total[i].priceCurent,
+            bidderID: total[i].bidderID,
+            bidder,
+            timePost: total[i].timePost,
+            timeEnd: total[i].timeEnd
+        }
+        products.push(item);
+    }
     res.render('vwProfile/productProfile3', {
-        products: total,
+        products,
         empty: total.length === 0,
     })
 });
+
 router.get('/upgrade', restrict, async function(req, res) {
     const user = req.session.authUser;
     const entity = {
