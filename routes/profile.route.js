@@ -162,8 +162,13 @@ router.get('/product-bidding-list', async function(req, res) {
     for (i = 0; i < total.length; i++) {
         const bidderName = await userModel.singleByID(total[i].bidderID);
         if (bidderName) {
+            if (total[i].bidderID === id) {
+                bidder = "Chúc mừng, bạn đang giữ mức giá cao nhất !";
+            }
+            else {
             name = bidderName.fullName.split(' ');
             bidder = "******" + name[name.length - 1];
+            }
         } else {
             bidder = "N/A";
         }
