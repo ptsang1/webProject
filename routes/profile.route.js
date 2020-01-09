@@ -45,17 +45,20 @@ router.post('/', async function(req, res) {
     const rt = await userModel.changeInfoByEmail(entity, user.email);
 
 
-
+    const Strname = user.fullName.split(' ');
+    const name = Strname[Strname.length - 1];
     const gender = await userModel.getGender(user.genderID);
     const othergender = await userModel.getOtherGender(user.genderID);
     const dob = moment(user.birthDate, 'YYYY-MM-DD').format('YYYY-MM-DD');
-
     res.render('vwProfile/infoProfile', {
         user,
+        name,
         gender,
         other: othergender,
         dob
     });
+
+
 });
 
 router.get('/setting', restrict, function(req, res) {

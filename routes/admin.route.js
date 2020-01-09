@@ -89,7 +89,7 @@ router.get('/accepts/:bidderID', restrict, async function(req, res) {
     const rt = req.query.res;
     console.log(req.params.bidderID);
     if (rt === '1') {
-        const rs = await userModel.acceptedUserByUserID(req.params.bidderID);
+        const rs = await userModel.upgradeUserByUserID(req.params.bidderID);
     }
     const ra = await acceptModel.del(req.params.bidderID);
     res.redirect('/admin/accepts');
