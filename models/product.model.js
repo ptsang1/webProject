@@ -39,7 +39,7 @@ module.exports = {
     where catID = ${catId} GROUP BY p.productID ORDER BY timeEnd DESC limit ${config.pagination.limit} offset ${offset}`),
     topFiveProductEnd: _ => db.load(`select * 
     from (select * from PRODUCTS c ORDER BY timeEnd ASC LIMIT 5) as ta RIGHT JOIN PRODUCT_IMAGES pi on pi.productID = ta.productID
-		GROUP BY pi.productID
+	GROUP BY pi.productID
     ORDER BY timeEnd DESC LIMIT 5;`),
     topFiveProductStar: _ => db.load(`
           SELECT
