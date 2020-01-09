@@ -11,7 +11,7 @@ module.exports = {
         return rows[0];
     },
     checkRequest: async userID => {
-        const rows = await db.load(`select count(*) as total  from REQUESTS_UPGRADE_ACCOUNT where userID = '${userID}'`);
+        const rows = await db.load(`select count(*) as total from REQUESTS_UPGRADE_ACCOUNT where bidderID = '${userID}'`);
         return rows[0].total;
     },
     add: entity => db.add(entity, 'REQUESTS_UPGRADE_ACCOUNT'),

@@ -11,6 +11,7 @@
     <link href="css/view-product.css" rel="stylesheet" type="text/css" />
     <link rel="stylesheet" type="text/css" href="css/clock.css">
     <!-- <link href="assets/css/color_scheme/green.css" rel="stylesheet" type="text/css" id="color_scheme" /> -->
+    <script src="https://use.fontawesome.com/c1db1075c7.js"></script>
 {{/section}}
 
 {{#section 'js'}}
@@ -21,7 +22,7 @@
             $('form').submit();
             } 
         }
-    </script>
+    </script> 
 {{/section}}
     <!-- -->
     
@@ -198,6 +199,7 @@
             <ul id="myTab" class="nav nav-tabs nav-top-border mt-80" role="tablist">
                 <li class="nav-item"><a class="nav-link active" href="#description" data-toggle="tab">Mô tả</a></li>
                 <li class="nav-item"><a class="nav-link" href="#specs" data-toggle="tab">Lịch sử đấu giá</a></li>
+
                 <li class="nav-item"><a class="nav-link" href="#reviews" data-toggle="tab">Reviews (2)</a></li>
             </ul>
 
@@ -317,32 +319,15 @@
 
                         <!-- Stars -->
                         <div class="product-star-vote clearfix">
-
-                            <label class="radio float-left">
+                            <i class="far fa-thumbs-up"></i>
+                            {{!-- <label class="radio float-left">
                                 <input type="radio" name="product-review-vote" value="1" />
-                                <i></i> 1 Star
-                            </label>
-
-                            <label class="radio float-left">
+                            </label> --}}
+                            <i class="far fa-thumbs-down"></i>
+                            {{!-- <label class="radio float-left">
                                 <input type="radio" name="product-review-vote" value="2" />
-                                <i></i> 2 Stars
-                            </label>
-
-                            <label class="radio float-left">
-                                <input type="radio" name="product-review-vote" value="3" />
-                                <i></i> 3 Stars
-                            </label>
-
-                            <label class="radio float-left">
-                                <input type="radio" name="product-review-vote" value="4" />
-                                <i></i> 4 Stars
-                            </label>
-
-                            <label class="radio float-left">
-                                <input type="radio" name="product-review-vote" value="5" />
-                                <i></i> 5 Stars
-                            </label>
-
+                                
+                            </label> --}}
                         </div>
 
                         <!-- Send Button -->
@@ -359,5 +344,3 @@
         </div>
     
             <!-- / -->
-
-    
