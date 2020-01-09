@@ -1,4 +1,5 @@
     <div class="container-fluid">
+        <div class="row">
             <div class="dropdown" style="margin-left: 18px;">
                 <button class="btn btn-dark dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                     Hiển thị
@@ -8,6 +9,8 @@
                     <a class="dropdown-item" href="/product/sell?sold=false">Còn hạn</a>
                 </div>
             </div>
+            <a class="btn btn-dark ml-4" href="/product/add" role="button">Thêm sản phẩm</a>
+        </div>
         <div class="row" style="margin-top: 5px">
              {{#if this.empty}}
                 <div class="card-body">

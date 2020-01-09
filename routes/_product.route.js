@@ -156,8 +156,8 @@ router.get('/detail', async function(req, res) {
 
 router.post('/detail', restrict, async function(req, res) {
     const user = req.session.authUser;
+
     const timeOffer = new Date();
-    console.log(req.body);
     const entity = {
         sellerID: req.body.sellerID,
         productID: req.query.id,
@@ -175,6 +175,7 @@ router.post('/detail', restrict, async function(req, res) {
     const sellerName = await userModel.singleByID(item[0].sellerID);
     const bidderName = await userModel.singleByID(item[0].bidderID);
     let history = await historyModel.allByProductID(req.query.id);
+
     for (let h of history) {
         let part = h.fullName.split(' ');
         h.fullName = "******" + part[part.length - 1] || "******";

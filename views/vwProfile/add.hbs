@@ -1,0 +1,50 @@
+{{#section 'js'}}
+<script src="https://cdn.tiny.cloud/1/8diax854jgwl4q64zdvah1ikycuzxz0kbs2wuccu25yx1eo8/tinymce/5/tinymce.min.js"></script>
+<script>tinymce.init({selector:'textarea'});</script>
+{{/section}}
+
+<div class="card">
+    <div class="card-header">
+        Đánh giá mới
+    </div>
+
+    <div class="card-body">
+        <form  method="post">
+        <div class="form-group">
+          <label for="txtfromName">Từ: </label>
+          <input type="text" class="form-control" name="fromName" id="txtfromName" value="{{fromName}}" readonly>
+          <input type="hidden" class="form-control" name="fromID" id="txtfromID" value="{{fromID}}" readonly>
+        </div>
+          <div class="form-group">
+          <label for="txttoName">Đến: </label>
+          <input type="text" class="form-control" name="toName" id="txttoName" value="{{toName}}" readonly>
+          <input type="hidden" class="form-control" name="toID" id="txttoID" value="{{toID}}" readonly>          
+        </div>
+         <div class="form-group">
+                    <label for="comment">Bình luận</label>
+                    <textarea name="comment" id="comment" cols="30" rows="10" required>
+                        
+                    </textarea>
+                </div>       
+        <div class="form-group">
+            <label for="like">Điểm đánh giá</label>
+            <select class="form-control" id="like" name="like">
+              <option>1</option>
+              <option>2</option>
+              <option>3</option>
+              <option>4</option>
+              <option>5</option>
+              </select>
+            </div>
+        <a class="btn btn-outline-primary" href="/profile/review?id={{toID}}" role="button">
+            <i class="fa fa-backward" aria-hidden="true"></i>
+            Xem đánh giá
+        </a>
+        <button type="submit" class="btn btn-outline-success">
+           <i class="fa fa-check" aria-hidden="true"></i>
+            Gửi
+        </button>
+        </form>
+    </div>
+   
+</div>

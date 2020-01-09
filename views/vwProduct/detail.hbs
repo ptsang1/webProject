@@ -118,7 +118,7 @@
                                     <main>
                                         <div class="form-group">
                                             <span><input type="hidden" id="bidderID" name="bidderID" value="{{product.bidderID}}"/>
-                                            {{product.bidder}}
+                                            <a href="/profile/review?id={{product.bidderID}}">{{product.bidder}}</a>
                                             </span>
                                         </div>
                                     </main>
@@ -175,7 +175,7 @@
                     </h4>
                     <div class="form-group">
                         <input type="hidden" name="sellerID" value="{{product.sellerID}}"/>
-                        {{product.seller}}
+                        <a href="/profile/review?id={{product.sellerID}}">{{product.seller}}</a>
                     </div>
                     <h4 class="fs-18">
                         <i class="fa fa-star"></i> 

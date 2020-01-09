@@ -47,7 +47,10 @@ module.exports = {
           p.productName,
           COUNT(a.bidderID) AS amount,
           a.bidderID,
-          pi.imageLink
+          pi.imageLink,
+          p.priceCurent,
+          p.price,
+          p.stepPrice
           FROM PRODUCTS p
           LEFT OUTER JOIN AUCTION_HISTORIES a ON a.productID = p.productID
           LEFT OUTER JOIN PRODUCT_IMAGES pi ON pi.productID = p.productID

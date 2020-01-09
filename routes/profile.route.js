@@ -1,6 +1,7 @@
 const express = require('express');
 const userModel = require('../models/user.model');
 const requestModel = require('../models/request.model');
+const commentModel = require('../models/comment.model');
 const moment = require('moment');
 const bcrypt = require('bcryptjs');
 const config = require('../config/default.json');
@@ -75,9 +76,47 @@ router.post('/setting', async function(req, res) {
     res.render('vwProfile/settingProfile');
 })
 
-router.get('/review', restrict, function(req, res) {
-    res.render('vwProfile/review');
+router.get('/review', async function(req, res) {
+    const user = req.query.id;
+    const rows = await commentModel.allByUserID(user);
+
+    res.render('vwProfile/review', {
+        comments: rows,
+        toID: user,
+        empty: rows.length === 0,
+    });
 });
+
+router.get('/add', restrict, async function(req, res) {
+    const toID = req.query.id;
+    const user = req.session.authUser;
+    const name = await userModel.getUserByUserID(toID);
+
+    res.render('vwProfile/add', {
+        toName: name.fullName,
+        fromName: user.fullName,
+        toID,
+        fromID: user.userID,
+    });
+})
+
+router.post('/add', async function(req, res) {
+
+
+    const entity = {
+        fromID: req.body.fromID,
+        toID: req.body.toID,
+        comment: req.body.comment,
+        like: req.body.like,
+    };
+    const count = await commentModel.checkSaved(req.body.fromID, req.body.toID, req.body.like);
+    console.log(count);
+    if (Number(count) < 1) {
+        const rs = await commentModel.add(entity);
+        console.log(rs);
+    }
+    res.redirect(`/profile/review?id=${req.body.toID}`);
+})
 
 
 router.get('/product-watch-list', async function(req, res) {
