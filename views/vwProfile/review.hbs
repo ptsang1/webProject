@@ -1,0 +1,19 @@
+<div class="container-fluid">
+    <a class="btn btn-dark ml-1 mb-3" href="/profile/add?id={{toID}}" role="button">
+    <i class="fa fa-plus" aria-hidden="true"></i>
+    Thêm đánh giá</a>
+    <div class="row">
+        {{#each this.comments}}
+        <div class="col-md-3 m-1">
+           <div class="card">
+                <div class="card-header bg-secondary">From: {{fromName}}</div>
+                <div class="card-header bg-primary">To: {{toName}}</div>
+                <div class="card-body">Message: {{{comment}}}</div>
+                <div class="card-footer">Like: {{like}}</div>
+            </div>
+        </div>
+        {{/each}}
+    </div>
+
+</div>  
+<div style="height: 100px;"></div>

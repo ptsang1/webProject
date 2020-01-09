@@ -49,7 +49,7 @@
                         </div>
                         <div class="container-fluid" style="margin-top: 10px;">
                             <div class="row">
-                                {{#each this.product}}
+                                {{#each this.products}}
                                <div class="col-sm-4 mb-3">
                                        <div class="card" style="height: 35rem;">
                                         <a href="/product/detail?id={{productID}}">
@@ -59,7 +59,7 @@
                                                 <b>{{productName}}</b>
                                                 <br><small>Giá mua ngay: <br><b>{{format price}}đ</b>
                                                 <br>Giá hiện tại: <br><b>{{format priceCurent}}đ</b>
-                                                <br>Ra giá bởi: <br><b>{{bidderID}}</b>
+                                                <br>Ra giá bởi: <br><b>{{bidder}}</b>
                                                 <br>Thời gian còn lại: <br><b>{{formatTime timeEnd}}</b>
                                                 <br>Số lượt ra giá hiện tại: <b>10</b></small>
                                             </p>
