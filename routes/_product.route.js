@@ -62,7 +62,8 @@ router.post('/add', async function(req, res) {
                 price: req.body.price,
                 sold: 0,
                 timePost: timePost,
-                timeEnd: timeEnd
+                timeEnd: timeEnd,
+                priceStart: req.body.priceCurrent
             };
             const rs = await productModel.add(entity);
             const des = req.body.describeProduct;

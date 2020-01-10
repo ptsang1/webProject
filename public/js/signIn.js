@@ -5,7 +5,7 @@
         let check = validateEmail();
         if(check === 1){
             return input.setCustomValidity('Bạn hãy nhập EMAIL đã đăng ký vào đây nhé!');
-        }else if(check == 0){
+        }else if(check === 0){
             return input.setCustomValidity('Bạn chưa nhập thông tin nè!');
         }else{
             return input.setCustomValidity('');

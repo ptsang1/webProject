@@ -134,6 +134,7 @@
                 input.setCustomValidity(data);
                 input.reportValidity();
             }else{
+                alert('Bạn đã đăng ký thành công. Vui kiểm tra mail và xác nhận tài khoản');
                 $('#register-form').off('submit').submit();
             }
         })

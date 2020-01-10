@@ -116,4 +116,21 @@ router.get('/forgottenPassword', function(req, res) {
     });
 });
 
+router.get('/retrievePassword', function(req, res) {
+    res.render('vwAccount/returnPassword', {
+        layout: 'signin_signup.hbs',
+        template: 'signup',
+    });
+});
+
+router.post('/retrievePassword', async function(req, res) {
+    const oldID = req.query.id;
+    await USERS.changePasswordByID(oldID,  bcrypt.hashSync(req.body.password, config.authentication.salt));
+    res.redirect('/');
+});
+
+router.post('/forgottenPassword', function(req, res) {
+    res.redirect(`/sendEmail/changePassword?email=${req.body.email}`);
+});
+
 module.exports = router;

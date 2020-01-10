@@ -76,4 +76,5 @@ module.exports = {
             return false;
         return true;
     },
+    changePasswordByID: async (id, password) => await db.load(`UPDATE USERS SET password = '${password}' WHERE userID= '${id}'`),
 }

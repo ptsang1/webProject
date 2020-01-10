@@ -102,6 +102,49 @@ router.get('/verifyConfirmEmail', async function(req, res) {
     res.redirect('/');
 });
 
+router.get('/changePassword', async function(req, res) {
+    const user = await USERS.getUserByEmail(req.query.email)
+    const link = "http://" + req.get('host') + `/sendEmail/confirmChangePassword?id=${user.userID}`;
+    replacements = {
+        fullname: req.query.fullname,
+        confirm_url: link
+    };
+    let reqPath = path.join(__dirname, '../');
+    const mailOptions = {
+        from: 'phasamique@gmail.com',
+        to: user.email,
+        subject: "Xác nhận đổi mật khẩu từ Phasamique",
+        html: render(reqPath + '\\views\\email\\forgottenPassword.html', replacements)
+    }
+    console.log(mailOptions);
+    smtpTransport.sendMail(mailOptions, function(error, response) {
+        if (error) {
+            console.log(error);
+            res.end("error");
+        } else {
+            console.log("Message sent: " + response.message);
+            res.end("sent");
+        }
+    });
+    res.redirect('/');
+});
+
+router.get('/confirmChangePassword', async function(req, res) {
+    console.log(req.protocol + ":/" + req.get('host'));
+    if ((req.protocol + "://" + req.get('host')) == ("http://" + req.get('host'))) {
+        console.log("Domain is matched. Information is from Authentic email");
+        user = await USERS.getUserByUserID(req.query.id)
+        if (user) {
+            res.redirect(`/account/retrievePassword?id=${req.query.id}`);
+
+        } else {
+            console.log("something is wrong");
+            return res.redirect('/1234567890');
+        }
+    }
+    res.redirect('/change');
+});
+
 function render(filename, data) {
     var source = fs.readFileSync(filename, 'utf8').toString();
     var template = handlebars.compile(source);
